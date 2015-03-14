@@ -12,69 +12,80 @@ defmodule ExTwilio.Api do
   @doc """
   Provide a `use` macro for use extending.
   """
-  defmacro __using__(_options) do
-    quote do
+  defmacro __using__(options) do
+    import_functions  = options[:import] || []
+    quote bind_quoted: [import_functions: import_functions] do
       use ExTwilio.Parser
       import ExTwilio.Api
       import Mix.Utils, only: [underscore: 1]
 
       module = String.replace(to_string(__MODULE__), ~r/Elixir\./, "")
 
-      @doc """
-      Retrieve a list of %#{module}{} from the API. 
+      if Enum.member? import_functions, :list do
+        @doc """
+        Retrieve a list of %#{module}{} from the API. 
 
-      ## Examples
+        ## Examples
 
-          {:ok, list} = #{module}.list
-          {:error, msg, http_code} = #{module}.list
-      """
-      def list do
-        parse_list get(resource_name), underscore(resource_name)
+            {:ok, list} = #{module}.list
+            {:error, msg, http_code} = #{module}.list
+        """
+        def list do
+          parse_list get(resource_name), underscore(resource_name)
+        end
       end
 
-      @doc """
-      Find an %#{module}{} by its Twilio SID.
+      if Enum.member? import_functions, :find do
+        @doc """
+        Find an %#{module}{} by its Twilio SID.
 
-      ## Examples
+        ## Examples
 
-          {:ok, item} = #{module}.find("...")
-          {:error, msg, http_status} = #{module}.find("...")
-      """
-      def find(sid) do
-        parse get("#{resource_name}/#{sid}")
+            {:ok, item} = #{module}.find("...")
+            {:error, msg, http_status} = #{module}.find("...")
+        """
+        def find(sid) do
+          parse get("#{resource_name}/#{sid}")
+        end
       end
 
-      @doc """
-      Create a new %#{module}{} in the Twilio API. Any option supported by this
-      Resource can be passed in the 'data' keyword list. See Twilio's 
-      documentation for this resource for more details.
-      """
-      def create(data) do
-        parse post(resource_name, body: data)
+      if Enum.member? import_functions, :create do
+        @doc """
+        Create a new %#{module}{} in the Twilio API. Any option supported by this
+        Resource can be passed in the 'data' keyword list. See Twilio's 
+        documentation for this resource for more details.
+        """
+        def create(data) do
+          parse post(resource_name, body: data)
+        end
       end
 
-      @doc """
-      Update an %#{module}{} in the Twilio API. You can pass it a binary SID as
-      the identifier, or a whole %#{module}{}.
+      if Enum.member? import_functions, :update do
+        @doc """
+        Update an %#{module}{} in the Twilio API. You can pass it a binary SID as
+        the identifier, or a whole %#{module}{}.
 
-      ## Examples
+        ## Examples
 
-          {:ok, item} = #{module}.update(%#{module}{...}, field: "new_value")
-          {:ok, item} = #{module}.update("<SID HERE>", field: "new_value")
-      """
-      def update(sid, data) when is_binary(sid), do: do_update(sid, data)
-      def update(%{sid: sid}, data),             do: do_update(sid, data)
-      defp do_update(sid, data) do
-        parse post("#{resource_name}/#{sid}", body: data)
+            {:ok, item} = #{module}.update(%#{module}{...}, field: "new_value")
+            {:ok, item} = #{module}.update("<SID HERE>", field: "new_value")
+        """
+        def update(sid, data) when is_binary(sid), do: do_update(sid, data)
+        def update(%{sid: sid}, data),             do: do_update(sid, data)
+        defp do_update(sid, data) do
+          parse post("#{resource_name}/#{sid}", body: data)
+        end
       end
 
-      @doc """
-      Delete a %#{module}{} from your Twilio account.
-      """
-      def destroy(sid) when is_binary(sid), do: do_destroy(sid)
-      def destroy(%{sid: sid}),             do: do_destroy(sid)
-      defp do_destroy(sid) do
-        parse delete("#{resource_name}/#{sid}")
+      if Enum.member? import_functions, :destroy do
+        @doc """
+        Delete a %#{module}{} from your Twilio account.
+        """
+        def destroy(sid) when is_binary(sid), do: do_destroy(sid)
+        def destroy(%{sid: sid}),             do: do_destroy(sid)
+        defp do_destroy(sid) do
+          parse delete("#{resource_name}/#{sid}")
+        end
       end
 
       defp resource_name do
@@ -95,7 +106,6 @@ defmodule ExTwilio.Api do
   `Config.base_url`.
   """
   def process_url(url) do
-    #"http://requestb.in/14s8y8z1"
     Config.base_url <> url <> ".json"
   end
 

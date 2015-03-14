@@ -27,7 +27,7 @@ defmodule ExTwilio.Mixfile do
   defp deps do
     [
       {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.1"},
-      {:httpotion, github: "danielberkompas/httpotion", branch: "add-hook-for-options-processing"},
+      {:httpotion, github: "myfreeweb/httpotion"},
       {:mock, "~> 0.1.0"},
       {:poison, "~> 1.3.1"}
     ]
