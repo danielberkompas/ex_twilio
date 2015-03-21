@@ -30,8 +30,36 @@ defmodule ExTwilio.Api do
             {:ok, list} = #{module}.list
             {:error, msg, http_code} = #{module}.list
         """
-        def list do
-          parse_list get(resource_name), underscore(resource_name)
+        def list(options \\ []) do
+          url = resource_url_with_options(options)
+          do_list(url)
+        end
+        defp do_list(url), do: parse_list(get(url), underscore(resource_name))
+
+        def next_page(metadata) do
+          fetch_page(metadata["next_page_uri"])
+        end
+
+        def previous_page(metadata) do
+          fetch_page(metadata["previous_page_uri"])
+        end
+
+        def first_page(metadata) do
+          fetch_page(metadata["first_page_uri"])
+        end
+
+        def last_page(metadata) do
+          fetch_page(metadata["last_page_uri"])
+        end
+
+        def fetch_page(nil), do: {:error, "That page does not exist."}
+        def fetch_page(path) do
+          uri = Config.base_url <> path |> String.to_char_list
+
+          case :http_uri.parse(uri) do
+            {:ok, {_, _, _, _, _, query}} -> do_list(resource_name <> ".json" <> String.Chars.to_string(query))
+            {:error, reason} -> {:error, "Next page URI was not properly formatted."}
+          end
         end
       end
 
@@ -95,6 +123,11 @@ defmodule ExTwilio.Api do
         |> pluralize
       end
 
+      defp resource_url_with_options(options) when length(options) > 0 do
+        resource_name <> ".json?" <> process_request_body(options)
+      end
+      defp resource_url_with_options([]), do: resource_name
+
       defp pluralize(string) do
         string <> "s"
       end
@@ -106,7 +139,13 @@ defmodule ExTwilio.Api do
   `Config.base_url`.
   """
   def process_url(url) do
-    Config.base_url <> url <> ".json"
+    base = Config.base_url <> url
+
+    unless url =~ ~r/\.json/ do
+      base = base <> ".json"
+    end
+
+    base
   end
 
   @doc """
