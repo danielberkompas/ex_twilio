@@ -1,5 +1,4 @@
 defmodule ExTwilio.Api do
-  import Mix.Utils, only: [camelize: 1]
   use HTTPotion.Base
 
   alias ExTwilio.Config
@@ -27,11 +26,11 @@ defmodule ExTwilio.Api do
 
         ## Examples
 
-            {:ok, list} = #{module}.list
+            {:ok, list, metadata} = #{module}.list
             {:error, msg, http_code} = #{module}.list
         """
         def list(options \\ []) do
-          url = resource_url_with_options(options)
+          url = ExTwilio.Methods.resource_url_with_options(__MODULE__, options)
           do_list(url)
         end
         defp do_list(url), do: parse_list(get(url), underscore(resource_name))
@@ -116,21 +115,7 @@ defmodule ExTwilio.Api do
         end
       end
 
-      defp resource_name do
-        __MODULE__
-        |> to_string
-        |> String.replace(~r/Elixir\.ExTwilio\./, "")
-        |> pluralize
-      end
-
-      defp resource_url_with_options(options) when length(options) > 0 do
-        resource_name <> ".json?" <> process_request_body(options)
-      end
-      defp resource_url_with_options([]), do: resource_name
-
-      defp pluralize(string) do
-        string <> "s"
-      end
+      defp resource_name, do: ExTwilio.Methods.resource_name(__MODULE__)
     end
   end
 
@@ -157,8 +142,6 @@ defmodule ExTwilio.Api do
 
   @doc """
   Automatically add the Content-Type application/x-www-form-urlencoded.
-
-  TODO: make this only apply to POST requests
   """
   def process_request_headers(headers) do
     Dict.put(headers, :"Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
@@ -168,19 +151,7 @@ defmodule ExTwilio.Api do
   Correctly format the request body.
   """
   def process_request_body(body) when is_list(body) do
-    body |> camelize_keys |> URI.encode_query
+    ExTwilio.Methods.to_querystring(body)
   end
   def process_request_body(body), do: body
-
-  @doc """
-  Convert all the keys in a map to CamelCase.
-  """
-  defp camelize_keys(list) do
-    list = Enum.map list, fn({key, val}) ->
-      key = key |> to_string |> camelize |> String.to_atom
-      { key, val }
-    end
-
-    Enum.into list, %{}
-  end
 end
