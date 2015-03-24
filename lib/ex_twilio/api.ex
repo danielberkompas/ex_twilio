@@ -20,6 +20,20 @@ defmodule ExTwilio.Api do
 
       module = String.replace(to_string(__MODULE__), ~r/Elixir\./, "")
 
+      if Enum.member? import_functions, :all do
+        def all do
+          {:ok, items, meta} = __MODULE__.list
+          do_all(items, meta)
+        end
+
+        defp do_all(items, meta) do
+          case __MODULE__.next_page(meta) do
+            {:ok, new_items, meta} -> do_all(items ++ new_items, meta)
+            {:error, _msg}         -> {:ok, items}
+          end
+        end
+      end
+
       if Enum.member? import_functions, :list do
         @doc """
         Retrieve a list of %#{module}{} from the API. 
