@@ -45,17 +45,6 @@ defmodule ExTwilio.Methods do
     list |> camelize_keys |> URI.encode_query
   end
 
-  @doc """
-  Convert all the keys in a map or keyword list to CamelCase.
-
-  ## Examples
-
-      iex> ExTwilio.Methods.camelize_keys(%{ page: 1, page_size: 2 })
-      %{ Page: 1, PageSize: 2 }
-
-      iex> ExTwilio.Methods.camelize_keys([page: 1, page_size: 2])
-      %{ Page: 1, PageSize: 2 }
-  """
   defp camelize_keys(list) do
     list = Enum.map list, fn({key, val}) ->
       key = key |> to_string |> camelize |> String.to_atom
@@ -64,10 +53,6 @@ defmodule ExTwilio.Methods do
 
     Enum.into list, %{}
   end
-  #def resource_url_with_options(options) when length(options) > 0 do
-    #resource_name(__MODULE__) <> ".json?" <> process_request_body(options)
-  #end
-  #defp resource_url_with_options([]), do: resource_name
 
   defp pluralize(string) do
     string <> "s"

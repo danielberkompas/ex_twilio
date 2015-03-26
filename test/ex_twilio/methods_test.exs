@@ -3,5 +3,4 @@ defmodule ExTwilio.MethodsTest do
   import ExTwilio.Methods
 
   doctest ExTwilio.Methods
-
 end
