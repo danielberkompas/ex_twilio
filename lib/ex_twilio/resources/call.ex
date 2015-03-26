@@ -19,7 +19,7 @@ defmodule ExTwilio.Call do
             caller_name: nil,
             uri: nil
 
-  use ExTwilio.Resource, import: [:all, :list, :find, :create, :update, :destroy]
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
 
   def cancel(sid) when is_binary(sid), do: do_cancel(sid)
   def cancel(%{sid: sid}),             do: do_cancel(sid)

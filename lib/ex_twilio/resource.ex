@@ -9,6 +9,10 @@ defmodule ExTwilio.Resource do
 
       module = String.replace(to_string(__MODULE__), ~r/Elixir\./, "")
 
+      if Enum.member? import_functions, :stream do
+        def stream(options \\ []), do: Api.stream(__MODULE__, options)
+      end
+
       if Enum.member? import_functions, :all do
         @doc """
         Retrieve _all_ of the #{module} records from the Twilio API, paging

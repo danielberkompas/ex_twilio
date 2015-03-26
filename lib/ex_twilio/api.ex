@@ -10,6 +10,51 @@ defmodule ExTwilio.Api do
   API, by wrapping `HTTPotion`.
   """
 
+  def stream(module, options \\ []) do
+    # Start an agent process to store the current page of results from the API.
+    # Hydrates the agent with the first page to begin with.
+    start = fn ->
+      {:ok, items, meta} = list(module, options)
+      {:ok, pid} = Agent.start_link(fn -> {items, meta["next_page_uri"]} end)
+      pid
+    end
+
+    # Pops the first item off the list currently stored in the agent, and
+    # returns head in the format required by Stream.resource for the next_item.
+    update_agent = fn agent, list, next ->
+      [head|tail] = list
+      Agent.update(agent, fn _ -> {tail, next} end)
+      {[head], agent}
+    end
+
+    # Hydrate the agent with the next page of results from the API. Used when
+    # the agent's list runs dry. If there are no remaining pages, it will halt
+    # the stream iteration.
+    fetch_next_page = fn agent, module, next_page ->
+      case fetch_page(module, next_page) do
+        {:ok, items, meta} -> update_agent.(agent, items, meta["next_page_uri"])
+        {:error, _msg}     -> {:halt, agent}
+      end
+    end
+
+    # Fetch the next item for the stream. Halt if there are no more items and no
+    # more pages remaining.
+    next_item = fn agent ->
+      case Agent.get(agent, fn(state) -> state end) do
+        {[], nil}     -> {:halt, agent}
+        {[], next}    -> fetch_next_page.(agent, module, next)
+        {items, next} -> update_agent.(agent, items, next)
+      end
+    end
+
+    # Kill the agent when we are done with it.
+    stop = fn agent ->
+      Agent.stop(agent)
+    end
+
+    Stream.resource(start, next_item, stop)
+  end
+
   def list(module, options \\ []) do
     url = Methods.resource_url_with_options(module, options)
     do_list(module, url)
@@ -21,15 +66,7 @@ defmodule ExTwilio.Api do
   end
 
   def all(module) do
-    {:ok, items, meta} = module.list
-    do_all(module, items, meta)
-  end
-
-  defp do_all(module, items, meta) do
-    case fetch_page(module, meta["next_page_uri"]) do
-      {:ok, new_items, meta} -> do_all(module, items ++ new_items, meta)
-      {:error, _msg}         -> {:ok, items}
-    end
+    Enum.into stream(module), []
   end
 
   def find(module, sid) do

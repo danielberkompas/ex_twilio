@@ -11,5 +11,5 @@ defmodule ExTwilio.Transcription do
             price_unit: nil,
             uri: nil
 
-  use ExTwilio.Resource, import: [:list, :find, :destroy]
+  use ExTwilio.Resource, import: [:all, :list, :find, :destroy]
 end
