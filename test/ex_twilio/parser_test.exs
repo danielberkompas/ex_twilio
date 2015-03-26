@@ -6,6 +6,8 @@ defmodule ExTwilio.ParserTest do
     defstruct sid: nil
   end
 
+  doctest ExTwilio.Parser
+
   test ".parse should decode a successful response into a named struct" do
     response = %{body: "{ \"sid\": \"unique_id\" }", status_code: 200}
     assert {:ok, %Resource{sid: "unique_id"}} == parse(Resource, response)
