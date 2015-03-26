@@ -9,5 +9,5 @@ defmodule ExTwilio.OutgoingCallerId do
             call_sid: nil,
             uri: nil
 
-  use ExTwilio.Api, import: [:list, :create, :update, :destroy]
+  use ExTwilio.Resource, import: [:list, :create, :update, :destroy]
 end

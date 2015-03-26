@@ -8,5 +8,5 @@ defmodule ExTwilio.Recording do
             api_version: nil,
             uri: nil
 
-  use ExTwilio.Api, import: [:find, :destroy]
+  use ExTwilio.Resource, import: [:find, :destroy]
 end

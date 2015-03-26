@@ -7,5 +7,5 @@ defmodule ExTwilio.Conference do
             account_sid: nil,
             uri: nil
 
-  use ExTwilio.Api, import: [:list, :find]
+  use ExTwilio.Resource, import: [:list, :find]
 end
