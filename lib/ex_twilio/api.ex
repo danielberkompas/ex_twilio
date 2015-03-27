@@ -35,8 +35,12 @@ defmodule ExTwilio.Api do
     # Start an agent process to store the current page of results from the API.
     # Hydrates the agent with the first page to begin with.
     start = fn ->
-      {:ok, items, meta} = list(module, options)
-      {:ok, pid} = Agent.start_link(fn -> {items, meta["next_page_uri"], options} end)
+      state = case list(module, options) do
+        {:ok, items, meta} -> {items, meta["next_page_uri"], options}
+        _                  -> {[], nil, []}
+      end
+
+      {:ok, pid} = Agent.start_link(fn -> state end)
       pid
     end
 
@@ -112,8 +116,19 @@ defmodule ExTwilio.Api do
   end
 
   defp do_list(module, url) do
-    resource = module |> resource_name |> Mix.Utils.underscore
-    Parser.parse_list(module, Api.get(url), resource)
+    Parser.parse_list(module, Api.get(url), module.resource_collection_name)
+  end
+
+  @doc """
+  Infer a lowercase and underscore collection name for a module.
+
+  ## Examples
+
+      iex> ExTwilio.Api.resource_collection_name(Resource)
+      "resources"
+  """
+  def resource_collection_name(module) do
+    module |> resource_name |> Mix.Utils.underscore
   end
 
   @doc """
@@ -133,7 +148,7 @@ defmodule ExTwilio.Api do
 
     case :http_uri.parse(uri) do
       {:ok, {_, _, _, _, _, query}} -> 
-        url = account_url_segment(options[:account]) <> resource_name(module) <> ".json" <> String.Chars.to_string(query)
+        url = resource_url(module, options) <> ".json" <> String.Chars.to_string(query)
         do_list(module, url)
       {:error, _reason} -> 
         {:error, "Next page URI '#{uri}' was not properly formatted."}
@@ -227,10 +242,46 @@ defmodule ExTwilio.Api do
 
       iex> ExTwilio.Api.resource_url(Resource, account: %{sid: "sid"})
       "Accounts/sid/Resources"
+
+      iex> ExTwilio.Api.resource_url(Resource, account: "sid", address: "sid")
+      "Accounts/sid/Addresses/sid/Resources"
   """
   @spec resource_url(atom, list) :: String.t
   def resource_url(module, options \\ []) do
-    account_url_segment(options[:account]) <> resource_name(module)
+    parents = [:account, :address, :conference, :queue, :message, :call, :recording]
+
+    parent_segments = Enum.reduce parents, "", fn(parent, acc) ->
+      acc <> url_segment(parent, options[parent])
+    end
+
+    appendages = Enum.reduce [:iso_country_code], "", fn(appendage, acc) ->
+      if options[appendage] do
+        acc <> "/#{options[appendage]}/#{options[:type] || "Local"}"
+      else
+        acc
+      end
+    end
+
+    parent_segments <> module.resource_name <> appendages
+  end
+
+  @doc """
+  Create a url segment out of a key/value pair.
+
+  ## Examples
+
+      iex> ExTwilio.Api.url_segment(:address, "sid")
+      "Addresses/sid/"
+
+      iex> ExTwilio.Api.url_segment(:address, %{sid: "sid"})
+      "Addresses/sid/"
+  """
+  def url_segment(nil, _),    do: ""
+  def url_segment(_key, nil), do: ""
+  def url_segment(key, %{sid: value}), do: url_segment(key, value)
+  def url_segment(key, value) do
+    key = key |> to_string |> String.capitalize
+    resource_name(key) <> "/" <> value <> "/"
   end
 
   @doc """
@@ -275,24 +326,6 @@ defmodule ExTwilio.Api do
   def to_querystring(list) do
     list |> reject_protected |> camelize_keys |> URI.encode_query
   end
-
-  @doc """
-  Generate a url segment for an account based on an SID.
-
-  ## Examples
-
-      iex> ExTwilio.Api.account_url_segment(nil)
-      ""
-
-      iex> ExTwilio.Api.account_url_segment("sid")
-      "Accounts/sid/"
-
-      iex> ExTwilio.Api.account_url_segment(%{sid: "sid"})
-      "Accounts/sid/"
-  """
-  def account_url_segment(nil), do: ""
-  def account_url_segment(%{sid: sid}), do: account_url_segment(sid)
-  def account_url_segment(sid), do: "Accounts/#{sid}/"
 
   defp camelize_keys(list) do
     list = Enum.map list, fn({key, val}) ->

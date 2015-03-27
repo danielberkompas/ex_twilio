@@ -1,4 +1,6 @@
 defmodule ExTwilio.Transcription do
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
+
   defstruct sid: nil,
             date_created: nil,
             date_updated: nil,
@@ -10,6 +12,4 @@ defmodule ExTwilio.Transcription do
             price: nil,
             price_unit: nil,
             uri: nil
-
-  use ExTwilio.Resource, import: [:all, :list, :find, :destroy]
 end

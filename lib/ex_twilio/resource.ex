@@ -127,6 +127,14 @@ defmodule ExTwilio.Resource do
         """
         def destroy(sid, options \\ []), do: Api.destroy(__MODULE__, sid, options)
       end
+
+      unless Module.defines?(__MODULE__, {:resource_collection_name, 0}) do
+        def resource_collection_name, do: Api.resource_collection_name(__MODULE__)
+      end
+
+      unless Module.defines?(__MODULE__, {:resource_name, 0}) do
+        def resource_name, do: Api.resource_name(__MODULE__)
+      end
     end
   end
 end

@@ -1,4 +1,6 @@
 defmodule ExTwilio.Call do
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
+
   defstruct sid: nil,
             parent_call_sid: nil,
             date_created: nil,
@@ -19,13 +21,9 @@ defmodule ExTwilio.Call do
             caller_name: nil,
             uri: nil
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
+  def cancel(%{sid: sid}), do: cancel(sid)
+  def cancel(sid),         do: update(sid, status: "canceled")
 
-  def cancel(sid) when is_binary(sid), do: do_cancel(sid)
-  def cancel(%{sid: sid}),             do: do_cancel(sid)
-  defp do_cancel(sid), do: update(sid, status: "canceled")
-
-  def complete(sid) when is_binary(sid), do: do_complete(sid)
-  def complete(%{sid: sid}),             do: do_complete(sid)
-  defp do_complete(sid), do: update(sid, status: "completed")
+  def complete(%{sid: sid}), do: complete(sid)
+  def complete(sid),         do: update(sid, status: "completed")
 end
