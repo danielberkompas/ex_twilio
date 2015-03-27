@@ -1,6 +1,7 @@
 defmodule ExTwilio.ApiTest do
   use ExUnit.Case, async: false
   alias ExTwilio.Api
+  alias ExTwilio.Config
   import Mock
 
   defmodule Resource do
@@ -116,6 +117,47 @@ defmodule ExTwilio.ApiTest do
     end
   end
 
+  ###
+  # HTTPotion API
+  ###
+
+  test ".process_url produces a formatted URL" do
+    expected = Config.base_url <> "Accounts/#{Config.account_sid}/Calls.json"
+    assert expected == Api.process_url("Calls")
+  end
+
+  test ".process_url doesn't append .json when it's already there" do
+    expected = Config.base_url <> "Accounts/#{Config.account_sid}/Calls.json"
+    assert expected == Api.process_url("Calls.json")
+  end
+
+  test ".process_url doesn't nest under 'Accounts' when the url contains 'Accounts'" do
+    expected = Config.base_url <> "Accounts.json"
+    assert expected == Api.process_url("Accounts")
+  end
+
+  test ".process_options adds in the basic HTTP auth" do
+    expected = [basic_auth: { Config.account_sid, Config.auth_token }]
+    assert expected == Api.process_options([])
+  end
+
+  test ".process_request_headers adds the correct 'Content-Type' header" do
+    expected = %{:"Content-Type" => "application/x-www-form-urlencoded; charset=UTF-8"}
+    assert expected == Api.process_request_headers(%{})
+  end
+
+  test ".process_request_body converts body to a query string when passed a list" do 
+    assert "FieldName=value" == Api.process_request_body([field_name: "value"])
+  end
+
+  test ".process_request_body does not modify the body when passed a not-list" do
+    assert "unmodified" == Api.process_request_body("unmodified")
+  end
+
+  ###
+  # Helpers
+  ###
+
   def with_list_fixture(fun) do
     data = %{
       "api_test/resources" => [
@@ -135,7 +177,6 @@ defmodule ExTwilio.ApiTest do
       fun.(expected)
     end
   end
-
 
   def with_fixture(:get, response, fun),    do: with_fixture({:get,    fn(_url) -> response end}, fun)
   def with_fixture(:post, response, fun),   do: with_fixture({:post,   fn(_url, _options) -> response end}, fun)
