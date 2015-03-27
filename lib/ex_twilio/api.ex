@@ -274,7 +274,10 @@ defmodule ExTwilio.Api do
   `Config.base_url`.
   """
   def process_url(url) do
-    base = Config.base_url <> url
+    base = case url =~ ~r/Accounts/ do
+      true  -> Config.base_url <> url
+      false -> Config.base_url <> "Accounts/#{Config.account_sid}/" <> url
+    end
 
     unless url =~ ~r/\.json/ do
       base = base <> ".json"
