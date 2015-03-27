@@ -129,10 +129,24 @@ defmodule ExTwilio.Resource do
       end
 
       unless Module.defines?(__MODULE__, {:resource_collection_name, 0}) do
+        @doc """
+        Underscored and lowercased collection name for a given resource.
+        Delegates the real work to `Api.resource_collection_name/1` by default.
+
+        Override in your module before `use ExTwilio.Resource` if you need
+        something different.
+        """
         def resource_collection_name, do: Api.resource_collection_name(__MODULE__)
       end
 
       unless Module.defines?(__MODULE__, {:resource_name, 0}) do
+        @doc """
+        CamelCase resource name as it would be used in Twilio's API. Delegates
+        the real work to `Api.resource_name/1` by default.
+
+        Override in your module before `use ExTwilio.Resource` if you need
+        something different.
+        """
         def resource_name, do: Api.resource_name(__MODULE__)
       end
     end
