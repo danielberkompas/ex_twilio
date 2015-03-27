@@ -36,24 +36,24 @@ defmodule ExTwilio.Api do
     # Hydrates the agent with the first page to begin with.
     start = fn ->
       {:ok, items, meta} = list(module, options)
-      {:ok, pid} = Agent.start_link(fn -> {items, meta["next_page_uri"]} end)
+      {:ok, pid} = Agent.start_link(fn -> {items, meta["next_page_uri"], options} end)
       pid
     end
 
     # Pops the first item off the list currently stored in the agent, and
     # returns head in the format required by Stream.resource for the next_item.
-    update_agent = fn agent, list, next ->
+    update_agent = fn agent, list, next, options ->
       [head|tail] = list
-      Agent.update(agent, fn _ -> {tail, next} end)
+      Agent.update(agent, fn _ -> {tail, next, options} end)
       {[head], agent}
     end
 
     # Hydrate the agent with the next page of results from the API. Used when
     # the agent's list runs dry. If there are no remaining pages, it will halt
     # the stream iteration.
-    fetch_next_page = fn agent, module, next_page ->
-      case fetch_page(module, next_page) do
-        {:ok, items, meta} -> update_agent.(agent, items, meta["next_page_uri"])
+    fetch_next_page = fn agent, module, next_page, options ->
+      case fetch_page(module, next_page, options) do
+        {:ok, items, meta} -> update_agent.(agent, items, meta["next_page_uri"], options)
         {:error, _msg}     -> {:halt, agent}
       end
     end
@@ -62,9 +62,9 @@ defmodule ExTwilio.Api do
     # more pages remaining.
     next_item = fn agent ->
       case Agent.get(agent, fn(state) -> state end) do
-        {[], nil}     -> {:halt, agent}
-        {[], next}    -> fetch_next_page.(agent, module, next)
-        {items, next} -> update_agent.(agent, items, next)
+        {[], nil, _}        -> {:halt, agent}
+        {[], next, opts}    -> fetch_next_page.(agent, module, next, opts)
+        {items, next, opts} -> update_agent.(agent, items, next, opts)
       end
     end
 
@@ -89,8 +89,8 @@ defmodule ExTwilio.Api do
       [%Call{ ... }, %Call{ ... }, ...]
   """
   @spec all(atom) :: list
-  def all(module) do
-    Enum.into stream(module), []
+  def all(module, options \\ []) do
+    Enum.into stream(module, options), []
   end
 
   @doc """
@@ -125,14 +125,15 @@ defmodule ExTwilio.Api do
       {:ok, list, meta} = ExTwilio.Api.list(ExTwilio.Call)
       {:ok, next_page, meta} = ExTwilio.Api.next_page(ExTwilio.Call, meta["next_page_uri"])
   """
-  @spec fetch_page(atom, (String.t | nil)) :: Parser.success_list | Parser.error
-  def fetch_page(_module, nil), do: {:error, "That page does not exist."}
-  def fetch_page(module, path) do
+  @spec fetch_page(atom, (String.t | nil), list) :: Parser.success_list | Parser.error
+  def fetch_page(module, path, options \\ [])
+  def fetch_page(_module, nil, _options), do: {:error, "That page does not exist."}
+  def fetch_page(module, path, options) do
     uri = Config.base_url <> path |> String.to_char_list
 
     case :http_uri.parse(uri) do
       {:ok, {_, _, _, _, _, query}} -> 
-        url = resource_name(module) <> ".json" <> String.Chars.to_string(query)
+        url = account_url_segment(options[:account]) <> resource_name(module) <> ".json" <> String.Chars.to_string(query)
         do_list(module, url)
       {:error, _reason} -> 
         {:error, "Next page URI '#{uri}' was not properly formatted."}
@@ -150,9 +151,9 @@ defmodule ExTwilio.Api do
       ExTwilio.Api.find(ExTwilio.Call, "nonexistent sid")
       {:error, "The requested resource couldn't be found...", 404}
   """
-  @spec find(atom, String.t) :: Parser.success | Parser.error
-  def find(module, sid) do
-    Parser.parse module, Api.get("#{resource_name(module)}/#{sid}")
+  @spec find(atom, String.t, list) :: Parser.success | Parser.error
+  def find(module, sid, options \\ []) do
+    Parser.parse module, Api.get("#{resource_url(module, options)}/#{sid}")
   end
 
   @doc """
@@ -166,9 +167,9 @@ defmodule ExTwilio.Api do
       ExTwilio.Api.create(ExTwilio.Call, [])
       {:error, "No 'To' number is specified", 400}
   """
-  @spec create(atom, list) :: Parser.success | Parser.error
-  def create(module, data) do
-    Parser.parse module, Api.post(resource_name(module), body: data)
+  @spec create(atom, list, list) :: Parser.success | Parser.error
+  def create(module, data, options \\ []) do
+    Parser.parse module, Api.post(resource_url(module, options), body: data)
   end
 
   @doc """
@@ -182,11 +183,12 @@ defmodule ExTwilio.Api do
       ExTwilio.Api.update(ExTwilio.Call, "nonexistent", [status: "complete"])
       {:error, "The requested resource ... was not found", 404}
   """
-  @spec update(atom, String.t, list) :: Parser.success | Parser.error
-  def update(module, sid, data) when is_binary(sid), do: do_update(module, sid, data)
-  def update(module, %{sid: sid}, data),             do: do_update(module, sid, data)
-  defp do_update(module, sid, data) do
-    Parser.parse module, Api.post("#{resource_name(module)}/#{sid}", body: data)
+  @spec update(atom, String.t, list, list) :: Parser.success | Parser.error
+  def update(module, sid, data, options \\ [])
+  def update(module, sid, data, options) when is_binary(sid), do: do_update(module, sid, data, options)
+  def update(module, %{sid: sid}, data, options),             do: do_update(module, sid, data, options)
+  defp do_update(module, sid, data, options) do
+    Parser.parse module, Api.post("#{resource_url(module, options)}/#{sid}", body: data)
   end
 
   @doc """
@@ -201,15 +203,35 @@ defmodule ExTwilio.Api do
       {:error, "The requested resource ... was not found", 404}
   """
   @spec destroy(atom, String.t) :: Parser.success_delete | Parser.error
-  def destroy(module, sid) when is_binary(sid), do: do_destroy(module, sid)
-  def destroy(module, %{sid: sid}),             do: do_destroy(module, sid)
-  defp do_destroy(module, sid) do
-    Parser.parse module, Api.delete("#{resource_name(module)}/#{sid}")
+  def destroy(module, sid, options \\ [])
+  def destroy(module, sid, options) when is_binary(sid), do: do_destroy(module, sid, options)
+  def destroy(module, %{sid: sid}, options),             do: do_destroy(module, sid, options)
+  defp do_destroy(module, sid, options) do
+    Parser.parse module, Api.delete("#{resource_url(module, options)}/#{sid}")
   end
 
   ###
   # Utilities
   ###
+
+  @doc """
+  Takes a module name and options and converts it into a URL segment.
+
+  ## Examples
+
+      iex> ExTwilio.Api.resource_url(Resource)
+      "ApiTest.Resources"
+
+      iex> ExTwilio.Api.resource_url(Resource, account: "sid")
+      "Accounts/sid/ApiTest.Resources"
+
+      iex> ExTwilio.Api.resource_url(Resource, account: %{sid: "sid"})
+      "Accounts/sid/ApiTest.Resources"
+  """
+  @spec resource_url(atom, list) :: String.t
+  def resource_url(module, options \\ []) do
+    account_url_segment(options[:account]) <> resource_name(module)
+  end
 
   @doc """
   Converts a module name into a pluralized Twilio-compatible resource name.
@@ -235,7 +257,7 @@ defmodule ExTwilio.Api do
       "Calls.json?Page=1"
   """
   def resource_url_with_options(module, options) when length(options) > 0 do
-    resource_name(module) <> ".json?" <> to_querystring(options)
+     resource_url(module, options) <> ".json?" <> to_querystring(options)
   end
   def resource_url_with_options(module, []), do: resource_name(module)
 
@@ -248,8 +270,12 @@ defmodule ExTwilio.Api do
       "Page=1&PageSize=2"
   """
   def to_querystring(list) do
-    list |> camelize_keys |> URI.encode_query
+    list |> reject_protected |> camelize_keys |> URI.encode_query
   end
+
+  def account_url_segment(nil), do: ""
+  def account_url_segment(%{sid: sid}), do: account_url_segment(sid)
+  def account_url_segment(sid), do: "Accounts/#{sid}/"
 
   defp camelize_keys(list) do
     list = Enum.map list, fn({key, val}) ->
@@ -258,6 +284,12 @@ defmodule ExTwilio.Api do
     end
 
     Enum.into list, %{}
+  end
+
+  defp reject_protected(list) do
+    list
+    |> List.delete(:account)
+    |> List.delete(:account_sid)
   end
 
   defp camelize(string) do

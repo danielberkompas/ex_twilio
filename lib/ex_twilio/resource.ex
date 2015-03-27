@@ -23,7 +23,7 @@ defmodule ExTwilio.Resource do
             {:ok, list} = #{module}.all
             {:error, msg, http_code} = #{module}.all
         """
-        def all, do: Api.all(__MODULE__)
+        def all(options \\ []), do: Api.all(__MODULE__, options)
       end
 
       if Enum.member? import_functions, :list do
@@ -96,7 +96,7 @@ defmodule ExTwilio.Resource do
             {:ok, item} = #{module}.find("...")
             {:error, msg, http_status} = #{module}.find("...")
         """
-        def find(sid), do: Api.find(__MODULE__, sid)
+        def find(sid, options \\ []), do: Api.find(__MODULE__, sid, options)
       end
 
       if Enum.member? import_functions, :create do
@@ -105,7 +105,7 @@ defmodule ExTwilio.Resource do
         Resource can be passed in the 'data' keyword list. See Twilio's 
         documentation for this resource for more details.
         """
-        def create(data), do: Api.create(__MODULE__, data)
+        def create(data, options \\ []), do: Api.create(__MODULE__, data, options)
       end
 
       if Enum.member? import_functions, :update do
@@ -118,14 +118,14 @@ defmodule ExTwilio.Resource do
             {:ok, item} = #{module}.update(%#{module}{...}, field: "new_value")
             {:ok, item} = #{module}.update("<SID HERE>", field: "new_value")
         """
-        def update(sid, data), do: Api.update(__MODULE__, sid, data)
+        def update(sid, data, options \\ []), do: Api.update(__MODULE__, sid, data, options)
       end
 
       if Enum.member? import_functions, :destroy do
         @doc """
         Delete a %#{module}{} from your Twilio account.
         """
-        def destroy(sid), do: Api.destroy(__MODULE__, sid)
+        def destroy(sid, options \\ []), do: Api.destroy(__MODULE__, sid, options)
       end
     end
   end

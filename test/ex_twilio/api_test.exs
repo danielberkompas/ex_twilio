@@ -55,6 +55,9 @@ defmodule ExTwilio.ApiTest do
     with_fixture :get, json, fn ->
       assert {:ok, %Resource{sid: "id"}} == Api.find(Resource, "id")
       assert called Api.get("ApiTest.Resources/id")
+
+      assert {:ok, %Resource{sid: "id"}} == Api.find(Resource, "id", account: "sid")
+      assert called Api.get("Accounts/sid/ApiTest.Resources/id")
     end
   end
 
@@ -72,6 +75,9 @@ defmodule ExTwilio.ApiTest do
     with_fixture :post, json, fn ->
       assert {:ok, %Resource{sid: "id"}} == Api.create(Resource, [field: "value"])
       assert called Api.post("ApiTest.Resources", body: [field: "value"])
+
+      assert {:ok, %Resource{sid: "id"}} == Api.create(Resource, [field: "value"], account: "sid")
+      assert called Api.post("Accounts/sid/ApiTest.Resources", body: [field: "value"])
     end
   end
 
@@ -87,9 +93,15 @@ defmodule ExTwilio.ApiTest do
     json = json_response(%{sid: "id", name: "Hello, World!"}, 200)
 
     with_fixture :post, json, fn ->
-      expected = {:ok, %Resource{sid: "id", name: "Hello, World!"}}
-      assert expected == Api.update(Resource, "id", name: "Hello, World!")
-      assert called Api.post("ApiTest.Resources/id", body: [name: "Hello, World!"])
+      name = "Hello, World!"
+      expected = {:ok, %Resource{sid: "id", name: name}}
+      data = [name: name]
+
+      assert expected == Api.update(Resource, "id", data)
+      assert called Api.post("ApiTest.Resources/id", body: data)
+
+      assert expected == Api.update(Resource, "id", data, account: "sid")
+      assert called Api.post("Accounts/sid/ApiTest.Resources/id", body: data)
     end
   end
 
@@ -106,6 +118,9 @@ defmodule ExTwilio.ApiTest do
     with_fixture :delete, %{body: "", status_code: 204}, fn ->
       assert :ok == Api.destroy(Resource, "id")
       assert called Api.delete("ApiTest.Resources/id")
+
+      assert :ok == Api.destroy(Resource, "id", account: "sid")
+      assert called Api.delete("Accounts/sid/ApiTest.Resources/id")
     end
   end
 
@@ -115,6 +130,16 @@ defmodule ExTwilio.ApiTest do
     with_fixture :delete, json, fn ->
       assert {:error, "not found", 404} == Api.destroy(Resource, "id")
     end
+  end
+
+  ###
+  # Internal Helpers
+  ###
+
+  test ".account_url_segment returns a formatted Account segment" do
+    assert Api.account_url_segment("sid") == "Accounts/sid/"
+    assert Api.account_url_segment(%{sid: "sid"}) == "Accounts/sid/"
+    assert Api.account_url_segment(nil) == ""
   end
 
   ###

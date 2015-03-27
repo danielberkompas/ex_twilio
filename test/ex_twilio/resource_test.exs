@@ -27,9 +27,9 @@ defmodule ExTwilio.ResourceTest do
   end
 
   test ".all should delegate to Api.all" do
-    with_mock Api, [all: fn(_) -> nil end] do
+    with_mock Api, [all: fn(_, _) -> nil end] do
       TestResource.all
-      assert called Api.all(TestResource)
+      assert called Api.all(TestResource, [])
     end
   end
 
@@ -41,30 +41,30 @@ defmodule ExTwilio.ResourceTest do
   end
 
   test ".find should delegate to Api.find" do
-    with_mock Api, [find: fn(_, _) -> nil end] do
+    with_mock Api, [find: fn(_, _, _) -> nil end] do
       TestResource.find("id")
-      assert called Api.find(TestResource, "id")
+      assert called Api.find(TestResource, "id", [])
     end
   end
 
   test ".create should delegate to Api.create" do
-    with_mock Api, [create: fn(_, _) -> nil end] do
+    with_mock Api, [create: fn(_, _, _) -> nil end] do
       TestResource.create(field: "value")
-      assert called Api.create(TestResource, [field: "value"])
+      assert called Api.create(TestResource, [field: "value"], [])
     end
   end
 
   test ".update should delegate to Api.update" do
-    with_mock Api, [update: fn(_, _, _) -> nil end] do
+    with_mock Api, [update: fn(_, _, _, _) -> nil end] do
       TestResource.update("id", field: "value")
-      assert called Api.update(TestResource, "id", [field: "value"])
+      assert called Api.update(TestResource, "id", [field: "value"], [])
     end
   end
 
   test ".destroy should delegate to Api.destroy" do
-    with_mock Api, [destroy: fn(_, _) -> nil end] do
+    with_mock Api, [destroy: fn(_, _, _) -> nil end] do
       TestResource.destroy("id")
-      assert called Api.destroy(TestResource, "id")
+      assert called Api.destroy(TestResource, "id", [])
     end
   end
 
