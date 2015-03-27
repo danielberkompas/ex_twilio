@@ -1,0 +1,12 @@
+language: elixir
+otp_release:
+  - 17.4
+before_script:
+  - export PATH=`pwd`/elixir/bin:$PATH
+  - export TWILIO_TEST_ACCOUNT_SID=account_sid
+  - export TWILIO_TEST_AUTH_TOKEN=auth_token
+  - mix local.hex --force
+  - mix deps.get --only test
+after_script:
+  - MIX_ENV=docs mix deps.get
+  - MIX_ENV=docs mix inch.report
