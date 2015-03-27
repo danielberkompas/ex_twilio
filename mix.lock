@@ -4,6 +4,7 @@
   "httpotion": {:git, "git://github.com/myfreeweb/httpotion.git", "25ead2bc77a6a80b5911d4e2c316b1b914391976", []},
   "ibrowse": {:git, "git://github.com/cmullaparthi/ibrowse.git", "d2e369ff42666c3574b8b7ec26f69027895c4d94", [tag: "v4.1.1"]},
   "idna": {:hex, :idna, "1.0.2"},
+  "inch_ex": {:hex, :inch_ex, "0.2.4"},
   "inflex": {:hex, :inflex, "1.0.0"},
   "meck": {:hex, :meck, "0.8.2"},
   "mock": {:hex, :mock, "0.1.0"},

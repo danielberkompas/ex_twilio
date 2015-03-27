@@ -30,7 +30,8 @@ defmodule ExTwilio.Mixfile do
       {:httpotion, github: "myfreeweb/httpotion"},
       {:mock, "~> 0.1.0"},
       {:poison, "~> 1.3.1"},
-      {:inflex, "~> 1.0.0"}
+      {:inflex, "~> 1.0.0"},
+      {:inch_ex, only: :docs}
     ]
   end
 end
