@@ -220,13 +220,13 @@ defmodule ExTwilio.Api do
   ## Examples
 
       iex> ExTwilio.Api.resource_url(Resource)
-      "ApiTest.Resources"
+      "Resources"
 
       iex> ExTwilio.Api.resource_url(Resource, account: "sid")
-      "Accounts/sid/ApiTest.Resources"
+      "Accounts/sid/Resources"
 
       iex> ExTwilio.Api.resource_url(Resource, account: %{sid: "sid"})
-      "Accounts/sid/ApiTest.Resources"
+      "Accounts/sid/Resources"
   """
   @spec resource_url(atom, list) :: String.t
   def resource_url(module, options \\ []) do
@@ -240,12 +240,15 @@ defmodule ExTwilio.Api do
 
       iex> ExTwilio.Api.resource_name(:"Elixir.ExTwilio.Call")
       "Calls"
+
+      # Uses only the last segment of the module name
+      iex> ExTwilio.Api.resource_name(:"ExTwilio.Resources.Call")
+      "Calls"
   """
   def resource_name(module) do
-    module
-    |> to_string
-    |> String.replace(~r/Elixir\.ExTwilio\./, "")
-    |> Inflex.pluralize
+    name = to_string(module)
+    [[name]] = Regex.scan(~r/[a-z]+$/i, name)
+    Inflex.pluralize(name)
   end
 
   @doc """

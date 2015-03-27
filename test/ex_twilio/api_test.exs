@@ -12,20 +12,20 @@ defmodule ExTwilio.ApiTest do
 
   test ".stream should automatically page through resources, yielding each resource" do
     page1 = %{
-      "api_test/resources" => [
+      "resources" => [
         %{sid: "1", name: "first"}, 
       ],
       next_page_uri: "?page=2"
     }
 
     page2 = %{
-      "api_test/resources" => [
+      "resources" => [
         %{sid: "2", name: "second"}, 
       ],
       next_page_uri: nil
     }
 
-    with_fixture {:get, fn "ApiTest.Resources.json?page=2" -> json_response(page2, 200)
+    with_fixture {:get, fn "Resources.json?page=2" -> json_response(page2, 200)
                            _url -> json_response(page1, 200)
                         end}, fn ->
       expected = [%Resource{sid: "1", name: "first"}, %Resource{sid: "2", name: "second"}]
@@ -54,10 +54,10 @@ defmodule ExTwilio.ApiTest do
 
     with_fixture :get, json, fn ->
       assert {:ok, %Resource{sid: "id"}} == Api.find(Resource, "id")
-      assert called Api.get("ApiTest.Resources/id")
+      assert called Api.get("Resources/id")
 
       assert {:ok, %Resource{sid: "id"}} == Api.find(Resource, "id", account: "sid")
-      assert called Api.get("Accounts/sid/ApiTest.Resources/id")
+      assert called Api.get("Accounts/sid/Resources/id")
     end
   end
 
@@ -74,10 +74,10 @@ defmodule ExTwilio.ApiTest do
 
     with_fixture :post, json, fn ->
       assert {:ok, %Resource{sid: "id"}} == Api.create(Resource, [field: "value"])
-      assert called Api.post("ApiTest.Resources", body: [field: "value"])
+      assert called Api.post("Resources", body: [field: "value"])
 
       assert {:ok, %Resource{sid: "id"}} == Api.create(Resource, [field: "value"], account: "sid")
-      assert called Api.post("Accounts/sid/ApiTest.Resources", body: [field: "value"])
+      assert called Api.post("Accounts/sid/Resources", body: [field: "value"])
     end
   end
 
@@ -98,10 +98,10 @@ defmodule ExTwilio.ApiTest do
       data = [name: name]
 
       assert expected == Api.update(Resource, "id", data)
-      assert called Api.post("ApiTest.Resources/id", body: data)
+      assert called Api.post("Resources/id", body: data)
 
       assert expected == Api.update(Resource, "id", data, account: "sid")
-      assert called Api.post("Accounts/sid/ApiTest.Resources/id", body: data)
+      assert called Api.post("Accounts/sid/Resources/id", body: data)
     end
   end
 
@@ -117,10 +117,10 @@ defmodule ExTwilio.ApiTest do
   test ".destroy should return :ok if successful" do
     with_fixture :delete, %{body: "", status_code: 204}, fn ->
       assert :ok == Api.destroy(Resource, "id")
-      assert called Api.delete("ApiTest.Resources/id")
+      assert called Api.delete("Resources/id")
 
       assert :ok == Api.destroy(Resource, "id", account: "sid")
-      assert called Api.delete("Accounts/sid/ApiTest.Resources/id")
+      assert called Api.delete("Accounts/sid/Resources/id")
     end
   end
 
@@ -185,7 +185,7 @@ defmodule ExTwilio.ApiTest do
 
   def with_list_fixture(fun) do
     data = %{
-      "api_test/resources" => [
+      "resources" => [
         %{sid: "1", name: "first"}, 
         %{sid: "2", name: "second"}
       ],
