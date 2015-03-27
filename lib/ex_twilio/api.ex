@@ -2,7 +2,6 @@ defmodule ExTwilio.Api do
   use HTTPotion.Base
 
   alias ExTwilio.Config
-  alias ExTwilio.Methods
   alias ExTwilio.Parser
   alias __MODULE__ # Necessary for testing/mocking
 
@@ -224,7 +223,7 @@ defmodule ExTwilio.Api do
     module
     |> to_string
     |> String.replace(~r/Elixir\.ExTwilio\./, "")
-    |> pluralize
+    |> Inflex.pluralize
   end
 
   @doc """
@@ -254,15 +253,15 @@ defmodule ExTwilio.Api do
 
   defp camelize_keys(list) do
     list = Enum.map list, fn({key, val}) ->
-      key = key |> to_string |> Mix.Utils.camelize |> String.to_atom
+      key = key |> to_string |> camelize |> String.to_atom
       { key, val }
     end
 
     Enum.into list, %{}
   end
 
-  defp pluralize(string) do
-    string <> "s"
+  defp camelize(string) do
+    String.capitalize(string) |> Inflex.camelize
   end
 
   ###
