@@ -276,6 +276,20 @@ defmodule ExTwilio.Api do
     list |> reject_protected |> camelize_keys |> URI.encode_query
   end
 
+  @doc """
+  Generate a url segment for an account based on an SID.
+
+  ## Examples
+
+      iex> ExTwilio.Api.account_url_segment(nil)
+      ""
+
+      iex> ExTwilio.Api.account_url_segment("sid")
+      "Accounts/sid/"
+
+      iex> ExTwilio.Api.account_url_segment(%{sid: "sid"})
+      "Accounts/sid/"
+  """
   def account_url_segment(nil), do: ""
   def account_url_segment(%{sid: sid}), do: account_url_segment(sid)
   def account_url_segment(sid), do: "Accounts/#{sid}/"

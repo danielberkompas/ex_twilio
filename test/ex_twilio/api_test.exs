@@ -133,16 +133,6 @@ defmodule ExTwilio.ApiTest do
   end
 
   ###
-  # Internal Helpers
-  ###
-
-  test ".account_url_segment returns a formatted Account segment" do
-    assert Api.account_url_segment("sid") == "Accounts/sid/"
-    assert Api.account_url_segment(%{sid: "sid"}) == "Accounts/sid/"
-    assert Api.account_url_segment(nil) == ""
-  end
-
-  ###
   # HTTPotion API
   ###
 
