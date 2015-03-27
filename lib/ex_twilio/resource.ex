@@ -10,6 +10,11 @@ defmodule ExTwilio.Resource do
       module = String.replace(to_string(__MODULE__), ~r/Elixir\./, "")
 
       if Enum.member? import_functions, :stream do
+        @doc """
+        Create a stream of all #{module} records from the Twilio API.
+
+        Delegates to `Api.stream/2`. See its documentation for more details.
+        """
         def stream(options \\ []), do: Api.stream(__MODULE__, options)
       end
 
