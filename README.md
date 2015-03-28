@@ -129,6 +129,10 @@ ExTwilio.Call.destroy(call)
 
 For more in-depth documentation, see the generated docs for each module.
 
+## Contributing
+
+See the [CONTRIBUTING.md](CONTRIBUTING.md) file for contribution guidelines.
+
 ## License
 ExTwilio is licensed under the MIT license. For more details, see the `LICENSE` file at the root of the repository. It depends on Elixir, which is under the Apache 2 license.
 
