@@ -32,50 +32,31 @@ defmodule ExTwilio.Api do
   """
   @spec stream(module, list) :: Stream.t
   def stream(module, options \\ []) do
-    # Start an agent process to store the current page of results from the API.
-    # Hydrates the agent with the first page to begin with.
     start = fn ->
-      state = case list(module, options) do
+      case list(module, options) do
         {:ok, items, meta} -> {items, meta["next_page_uri"], options}
         _                  -> {[], nil, []}
       end
-
-      {:ok, pid} = Agent.start_link(fn -> state end)
-      pid
     end
 
-    # Pops the first item off the list currently stored in the agent, and
-    # returns head in the format required by Stream.resource for the next_item.
-    update_agent = fn agent, list, next, options ->
-      [head|tail] = list
-      Agent.update(agent, fn _ -> {tail, next, options} end)
-      {[head], agent}
+    pop_item = fn {[head|tail], next, options} ->
+      new_state = {tail, next, options}
+      {[head], new_state}
     end
 
-    # Hydrate the agent with the next page of results from the API. Used when
-    # the agent's list runs dry. If there are no remaining pages, it will halt
-    # the stream iteration.
-    fetch_next_page = fn agent, module, next_page, options ->
+    fetch_next_page = fn module, state = {[], next_page, options} ->
       case fetch_page(module, next_page, options) do
-        {:ok, items, meta} -> update_agent.(agent, items, meta["next_page_uri"], options)
-        {:error, _msg}     -> {:halt, agent}
+        {:ok, items, meta} -> pop_item.({items, meta["next_page_uri"], options})
+        {:error, _msg}     -> {:halt, state}
       end
     end
 
-    # Fetch the next item for the stream. Halt if there are no more items and no
-    # more pages remaining.
-    next_item = fn agent ->
-      case Agent.get(agent, fn(state) -> state end) do
-        {[], nil, _}        -> {:halt, agent}
-        {[], next, opts}    -> fetch_next_page.(agent, module, next, opts)
-        {items, next, opts} -> update_agent.(agent, items, next, opts)
-      end
+    next_item = fn state = {[], nil, _}     -> {:halt, state}
+                   state = {[], next, opts} -> fetch_next_page.(module, state)
+                   state                    -> pop_item.(state)
     end
 
-    # Kill the agent when we are done with it.
-    stop = fn agent ->
-      Agent.stop(agent)
-    end
+    stop = fn (_) -> end
 
     Stream.resource(start, next_item, stop)
   end
