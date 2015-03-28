@@ -81,7 +81,7 @@ stream = ExTwilio.Call.stream
 # Lazily filter calls by duration, then map to get only their SIDs
 stream
 |> Stream.filter(fn(call) -> call.duration > 120 end)
-|> Stream.map(fn(call) -> call.sid)
+|> Stream.map(fn(call) -> call.sid end)
 |> Enum.into([]) # Only here does any work happen.
 # => ["CAc14d7...", "CA649ea861..."]
  
