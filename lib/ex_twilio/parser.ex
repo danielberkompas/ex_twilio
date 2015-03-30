@@ -28,7 +28,7 @@ defmodule ExTwilio.Parser do
 
   You can parse JSON into that module's struct like so:
 
-      ...> response = %{body: "{ \\"sid\\": \\"AD34123\\" }", status_code: 200}
+      iex> response = %{body: "{ \\"sid\\": \\"AD34123\\" }", status_code: 200}
       ...> ExTwilio.Parser.parse(Resource, response)
       {:ok, %Resource{sid: "AD34123"}}
 
