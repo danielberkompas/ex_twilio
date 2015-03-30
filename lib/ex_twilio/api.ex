@@ -3,11 +3,23 @@ defmodule ExTwilio.Api do
 
   alias ExTwilio.Config
   alias ExTwilio.Parser
-  alias __MODULE__ # Necessary for testing/mocking
+  alias __MODULE__ # Necessary for mocks in tests
 
   @moduledoc """
   Provides a basic HTTP interface to allow easy communication with the Twilio
   API, by wrapping `HTTPotion`.
+
+  ## Examples
+
+  Requests are made to the Twilio API by passing in a resource module into one
+  of this `Api` module's many functions. The correct URL to the resource is
+  inferred from the module name.
+
+      ExTwilio.Api.all(Resource)
+      [%Resource{ ... }, %Resource{ ... }]
+
+  Items are returned as instances of the given module's struct. For more
+  details, see the documentation for each function.
   """
 
   @doc """
@@ -29,6 +41,12 @@ defmodule ExTwilio.Api do
       # pages have been fetched from Twilio.
       Enum.into stream, []
       [%Call{ ... }, %Call{ ... }, ...]
+
+      # Progressively build filters with the Pipe operator.
+      ExTwilio.Api.stream(ExTwilio.Call)
+      |> Stream.filter fn(call) -> call.duration > 120 end
+      |> Stream.map    fn(call) -> call.sid end
+      |> Enum.into [] # Only here is the stream actually executed
   """
   @spec stream(module, list) :: Stream.t
   def stream(module, options \\ []) do
@@ -51,9 +69,9 @@ defmodule ExTwilio.Api do
       end
     end
 
-    next_item = fn state = {[], nil, _}     -> {:halt, state}
-                   state = {[], next, opts} -> fetch_next_page.(module, state)
-                   state                    -> pop_item.(state)
+    next_item = fn state = {[], nil, _}       -> {:halt, state}
+                   state = {[], _next, _opts} -> fetch_next_page.(module, state)
+                   state                      -> pop_item.(state)
     end
 
     stop = fn (_) -> end
@@ -72,8 +90,13 @@ defmodule ExTwilio.Api do
 
       ExTwilio.Api.all(ExTwilio.Call)
       [%Call{ ... }, %Call{ ... }, ...]
+
+  If you want the function to take less time, you can increase the size of the
+  pages returned by Twilio. This will reduce the number of requests.
+
+      ExTwilio.Api.all(ExTwilio.Call, page_size: 100)
   """
-  @spec all(atom) :: list
+  @spec all(atom, list) :: [map]
   def all(module, options \\ []) do
     Enum.into stream(module, options), []
   end
@@ -81,7 +104,7 @@ defmodule ExTwilio.Api do
   @doc """
   Get the first page of results for a given resource. Page size is configurable
   with the `page_size` option. For paging through multiple pages, see one of
-  these methods:
+  these functions:
 
   - `fetch_page/2`
   - `all/0`
@@ -91,11 +114,13 @@ defmodule ExTwilio.Api do
 
       {:ok, list, meta} = ExTwilio.Api.list(ExTwilio.Call, page_size: 1)
   """
+  @spec list(atom, list) :: Parser.success_list | Parser.error
   def list(module, options \\ []) do
     url = resource_url_with_options(module, options)
     do_list(module, url)
   end
 
+  @spec do_list(module, String.t) :: Parser.success_list | Parser.error
   defp do_list(module, url) do
     Parser.parse_list(module, Api.get(url), module.resource_collection_name)
   end
@@ -108,13 +133,14 @@ defmodule ExTwilio.Api do
       iex> ExTwilio.Api.resource_collection_name(Resource)
       "resources"
   """
+  @spec resource_collection_name(atom) :: String.t
   def resource_collection_name(module) do
     module |> resource_name |> Mix.Utils.underscore
   end
 
   @doc """
   Fetch a particular page of results from the API, using a page URL provided by
-  Twilio in its page metadata.
+  Twilio in its pagination metadata.
 
   ## Example
 
@@ -257,6 +283,7 @@ defmodule ExTwilio.Api do
       iex> ExTwilio.Api.url_segment(:address, %{sid: "sid"})
       "Addresses/sid/"
   """
+  @spec url_segment(atom | nil, String.t | map) :: String.t
   def url_segment(nil, _),    do: ""
   def url_segment(_key, nil), do: ""
   def url_segment(key, %{sid: value}), do: url_segment(key, value)
@@ -277,6 +304,7 @@ defmodule ExTwilio.Api do
       iex> ExTwilio.Api.resource_name(:"ExTwilio.Resources.Call")
       "Calls"
   """
+  @spec resource_name(atom | String.t) :: String.t
   def resource_name(module) do
     name = to_string(module)
     [[name]] = Regex.scan(~r/[a-z]+$/i, name)
@@ -291,6 +319,7 @@ defmodule ExTwilio.Api do
       iex> ExTwilio.Api.resource_url_with_options(:"Elixir.ExTwilio.Call", [page: 1])
       "Calls.json?Page=1"
   """
+  @spec resource_url_with_options(atom, list) :: String.t
   def resource_url_with_options(module, options) when length(options) > 0 do
      resource_url(module, options) <> ".json?" <> to_querystring(options)
   end
@@ -304,10 +333,12 @@ defmodule ExTwilio.Api do
       iex> ExTwilio.Api.to_querystring([page: 1, page_size: 2])
       "Page=1&PageSize=2"
   """
+  @spec to_querystring(list) :: String.t
   def to_querystring(list) do
     list |> reject_protected |> camelize_keys |> URI.encode_query
   end
 
+  @spec camelize_keys(list) :: map
   defp camelize_keys(list) do
     list = Enum.map list, fn({key, val}) ->
       key = key |> to_string |> camelize |> String.to_atom
@@ -317,12 +348,14 @@ defmodule ExTwilio.Api do
     Enum.into list, %{}
   end
 
+  @spec reject_protected(list) :: list
   defp reject_protected(list) do
     list
     |> List.delete(:account)
     |> List.delete(:account_sid)
   end
 
+  @spec camelize(String.t) :: String.t
   defp camelize(string) do
     String.capitalize(string) |> Inflex.camelize
   end
@@ -332,9 +365,18 @@ defmodule ExTwilio.Api do
   ###
 
   @doc """
-  Prepends whatever URL is passed into one of the http methods with the
+  Prepends whatever URL is passed into one of the http functions with the
   `Config.base_url`.
+
+  # Examples
+
+      iex> ExTwilio.Api.process_url("Accounts/sid")
+      "#{Config.base_url}Accounts/sid.json"
+
+      iex> ExTwilio.Api.process_url("Calls/sid")
+      "#{Config.base_url}Accounts/#{Config.account_sid}/Calls/sid.json"
   """
+  @spec process_url(String.t) :: String.t
   def process_url(url) do
     base = case url =~ ~r/Accounts/ do
       true  -> Config.base_url <> url
@@ -350,23 +392,48 @@ defmodule ExTwilio.Api do
 
   @doc """
   Adds the Account SID and Auth Token to every request through HTTP basic auth.
+
+  ## Example
+
+      iex> ExTwilio.Api.process_options([])
+      [basic_auth: { #{inspect Config.account_sid}, #{inspect Config.auth_token} }]
   """
+  @spec process_url(list) :: list
   def process_options(options) do
     Dict.put(options, :basic_auth, { Config.account_sid, Config.auth_token })
   end
 
   @doc """
-  Automatically add the Content-Type application/x-www-form-urlencoded.
+  Automatically add the Content-Type application/x-www-form-urlencoded. This 
+  allows POST request data to be processed properly. It seems to have no
+  negative effect on GET calls, so it is added to all requests.
+
+  ## Example
+
+      iex> ExTwilio.Api.process_request_headers([])
+      [{:"Content-Type", "application/x-www-form-urlencoded; charset=UTF-8"}]
   """
+  @spec process_request_headers(list) :: list
   def process_request_headers(headers) do
     Dict.put(headers, :"Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
   end
 
   @doc """
-  Correctly format the request body.
+  If the request body is a list, then convert the list to a query string. 
+  Otherwise, pass it through unmodified.
+
+  ## Examples
+
+      iex> ExTwilio.Api.process_request_body([hello: "world"])
+      "Hello=world"
+
+      iex> ExTwilio.Api.process_request_body("Hello, world!")
+      "Hello, world!"
   """
+  @spec process_request_body(list) :: String.t
   def process_request_body(body) when is_list(body) do
     to_querystring(body)
   end
+  @spec process_request_body(any) :: any
   def process_request_body(body), do: body
 end
