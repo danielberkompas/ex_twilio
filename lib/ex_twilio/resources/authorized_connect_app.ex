@@ -1,4 +1,10 @@
 defmodule ExTwilio.AuthorizedConnectApp do
+  @moduledoc """
+  Represents an AuthorizedConnectApp resource in the Twilio API.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/rest/authorized-connect-apps)
+  """
+
   use ExTwilio.Resource, import: [:stream, :all, :list, :find]
 
   defstruct date_created: nil,

@@ -5,6 +5,8 @@ defmodule ExTwilio.Mixfile do
     [app: :ex_twilio,
      version: "0.0.1",
      elixir: "~> 1.0",
+     name: "ExTwilio",
+     source_url: "https://github.com/danielberkompas/ex_twilio",
      deps: deps]
   end
 
@@ -26,6 +28,7 @@ defmodule ExTwilio.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
+      {:ex_doc, "~> 0.7"},
       {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.1"},
       {:httpotion, github: "myfreeweb/httpotion"},
       {:mock, "~> 0.1.0"},

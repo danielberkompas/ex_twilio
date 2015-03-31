@@ -1,4 +1,9 @@
 defmodule ExTwilio.Address do
+  @moduledoc """
+  Represents an Address resource in the Twilio API.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/rest/addresses)
+  """
   use ExTwilio.Resource, import: [:stream, :all, :list, :create, :find, :update]
 
   defstruct sid: nil,

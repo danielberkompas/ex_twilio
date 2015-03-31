@@ -1,4 +1,10 @@
 defmodule ExTwilio.Media do
+  @moduledoc """
+  Represents an Media resource in the Twilio API.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/rest/media)
+  """
+
   def resource_name, do: "Media"
   def resource_collection_name, do: "media_list"
 

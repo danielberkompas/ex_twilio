@@ -1,4 +1,10 @@
 defmodule ExTwilio.Queue do
+  @moduledoc """
+  Represents an Queue resource in the Twilio API.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/rest/queues)
+  """
+
   use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
 
   defstruct sid: nil,

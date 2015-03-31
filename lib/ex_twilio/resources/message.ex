@@ -1,4 +1,10 @@
 defmodule ExTwilio.Message do
+  @moduledoc """
+  Represents an Message resource in the Twilio API.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/rest/messages)
+  """
+
   use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
 
   defstruct sid: nil,

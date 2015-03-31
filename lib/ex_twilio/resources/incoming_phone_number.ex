@@ -1,4 +1,10 @@
 defmodule ExTwilio.IncomingPhoneNumber do
+  @moduledoc """
+  Represents an IncomingPhoneNumber resource in the Twilio API.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/rest/incoming-phone-number)
+  """
+
   use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
 
   defstruct sid: nil,

@@ -13,6 +13,9 @@ defmodule ExTwilio.Parser do
   @type success_delete   :: :ok
   @type error            :: {:error, String.t, http_status_code}
 
+  @type parsed_response :: success | error
+  @type parsed_list_response :: success_list | error
+
   @doc """
   Parse a response expected to contain a single resource. If you pass in a
   module as the first argument, the JSON will be parsed into that module's
@@ -28,7 +31,7 @@ defmodule ExTwilio.Parser do
 
   You can parse JSON into that module's struct like so:
 
-      ...> response = %{body: "{ \\"sid\\": \\"AD34123\\" }", status_code: 200}
+      iex> response = %{body: "{ \\"sid\\": \\"AD34123\\" }", status_code: 200}
       ...> ExTwilio.Parser.parse(Resource, response)
       {:ok, %Resource{sid: "AD34123"}}
 

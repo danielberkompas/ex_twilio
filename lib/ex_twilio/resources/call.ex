@@ -1,4 +1,10 @@
 defmodule ExTwilio.Call do
+  @moduledoc """
+  Represents an Call resource in the Twilio API.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/rest/calls)
+  """
+
   use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
 
   defstruct sid: nil,

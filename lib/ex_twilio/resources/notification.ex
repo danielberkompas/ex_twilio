@@ -1,4 +1,10 @@
 defmodule ExTwilio.Notification do
+  @moduledoc """
+  Represents an Notification resource in the Twilio API.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/rest/notifications)
+  """
+
   use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
 
   defstruct sid: nil,
