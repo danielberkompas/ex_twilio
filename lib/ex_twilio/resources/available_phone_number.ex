@@ -1,4 +1,10 @@
 defmodule ExTwilio.AvailablePhoneNumber do
+  @moduledoc """
+  Represents an AvailablePhoneNumber resource in the Twilio API.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/rest/available-phone-numbers)
+  """
+
   use ExTwilio.Resource, import: [:stream, :all, :list]
 
   defstruct friendly_name: nil,

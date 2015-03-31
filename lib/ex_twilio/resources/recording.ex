@@ -1,4 +1,10 @@
 defmodule ExTwilio.Recording do
+  @moduledoc """
+  Represents an Recording resource in the Twilio API.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/rest/recordings)
+  """
+
   use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
 
   defstruct sid: nil,

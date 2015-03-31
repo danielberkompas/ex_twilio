@@ -1,4 +1,10 @@
 defmodule ExTwilio.ConnectApp do
+  @moduledoc """
+  Represents an ConnectApp resource in the Twilio API.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/rest/connect-apps)
+  """
+
   use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update]
 
   defstruct sid: nil,

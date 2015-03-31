@@ -1,4 +1,10 @@
 defmodule ExTwilio.Transcription do
+  @moduledoc """
+  Represents an Transcription resource in the Twilio API.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/rest/transcriptions)
+  """
+
   use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
 
   defstruct sid: nil,
