@@ -1,6 +1,6 @@
 ExTwilio
 ========
-[![Build Status](https://travis-ci.org/danielberkompas/ex_twilio.svg)](https://travis-ci.org/danielberkompas/ex_twilio)
+[![Build Status](https://travis-ci.org/danielberkompas/ex_twilio.svg?branch=master)](https://travis-ci.org/danielberkompas/ex_twilio)
 [![Inline docs](http://inch-ci.org/github/danielberkompas/ex_twilio.svg?branch=master)](http://inch-ci.org/github/danielberkompas/ex_twilio)
 
 ## Installation
