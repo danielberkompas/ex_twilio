@@ -3,6 +3,7 @@ defmodule ExTwilio.Api do
 
   alias ExTwilio.Config
   alias ExTwilio.Parser
+  alias ExTwilio.UrlGenerator, as: Url
   alias __MODULE__ # Necessary for mocks in tests
 
   @moduledoc """
@@ -116,26 +117,13 @@ defmodule ExTwilio.Api do
   """
   @spec list(atom, list) :: Parser.success_list | Parser.error
   def list(module, options \\ []) do
-    url = resource_url_with_options(module, options)
+    url = Url.build_url(module, nil, options)
     do_list(module, url)
   end
 
   @spec do_list(module, String.t) :: Parser.success_list | Parser.error
   defp do_list(module, url) do
     Parser.parse_list(module, Api.get(url), module.resource_collection_name)
-  end
-
-  @doc """
-  Infer a lowercase and underscore collection name for a module.
-
-  ## Examples
-
-      iex> ExTwilio.Api.resource_collection_name(Resource)
-      "resources"
-  """
-  @spec resource_collection_name(atom) :: String.t
-  def resource_collection_name(module) do
-    module |> resource_name |> Mix.Utils.underscore
   end
 
   @doc """
@@ -155,7 +143,7 @@ defmodule ExTwilio.Api do
 
     case :http_uri.parse(uri) do
       {:ok, {_, _, _, _, _, query}} -> 
-        url = resource_url(module, options) <> ".json" <> String.Chars.to_string(query)
+        url = Url.build_url(module, nil, Dict.put(options, :query, String.Chars.to_string(query)))
         do_list(module, url)
       {:error, _reason} -> 
         {:error, "Next page URI '#{uri}' was not properly formatted."}
@@ -175,7 +163,7 @@ defmodule ExTwilio.Api do
   """
   @spec find(atom, String.t, list) :: Parser.success | Parser.error
   def find(module, sid, options \\ []) do
-    Parser.parse module, Api.get("#{resource_url(module, options)}/#{sid}")
+    Parser.parse module, Api.get(Url.build_url(module, sid, options))
   end
 
   @doc """
@@ -191,7 +179,7 @@ defmodule ExTwilio.Api do
   """
   @spec create(atom, list, list) :: Parser.success | Parser.error
   def create(module, data, options \\ []) do
-    Parser.parse module, Api.post(resource_url(module, options), body: data)
+    Parser.parse module, Api.post(Url.build_url(module, nil, options), body: data)
   end
 
   @doc """
@@ -210,7 +198,7 @@ defmodule ExTwilio.Api do
   def update(module, sid, data, options) when is_binary(sid), do: do_update(module, sid, data, options)
   def update(module, %{sid: sid}, data, options),             do: do_update(module, sid, data, options)
   defp do_update(module, sid, data, options) do
-    Parser.parse module, Api.post("#{resource_url(module, options)}/#{sid}", body: data)
+    Parser.parse module, Api.post(Url.build_url(module, sid, options), body: data)
   end
 
   @doc """
@@ -229,166 +217,12 @@ defmodule ExTwilio.Api do
   def destroy(module, sid, options) when is_binary(sid), do: do_destroy(module, sid, options)
   def destroy(module, %{sid: sid}, options),             do: do_destroy(module, sid, options)
   defp do_destroy(module, sid, options) do
-    Parser.parse module, Api.delete("#{resource_url(module, options)}/#{sid}")
-  end
-
-  ###
-  # Utilities
-  ###
-
-  @doc """
-  Takes a module name and options and converts it into a URL segment.
-
-  ## Examples
-
-      iex> ExTwilio.Api.resource_url(Resource)
-      "Resources"
-
-      iex> ExTwilio.Api.resource_url(Resource, account: "sid")
-      "Accounts/sid/Resources"
-
-      iex> ExTwilio.Api.resource_url(Resource, account: %{sid: "sid"})
-      "Accounts/sid/Resources"
-
-      iex> ExTwilio.Api.resource_url(Resource, account: "sid", address: "sid")
-      "Accounts/sid/Addresses/sid/Resources"
-  """
-  @spec resource_url(atom, list) :: String.t
-  def resource_url(module, options \\ []) do
-    parents = [:account, :address, :conference, :queue, :message, :call, :recording]
-
-    parent_segments = Enum.reduce parents, "", fn(parent, acc) ->
-      acc <> url_segment(parent, options[parent])
-    end
-
-    appendages = Enum.reduce [:iso_country_code], "", fn(appendage, acc) ->
-      if options[appendage] do
-        acc <> "/#{options[appendage]}/#{options[:type] || "Local"}"
-      else
-        acc
-      end
-    end
-
-    parent_segments <> module.resource_name <> appendages
-  end
-
-  @doc """
-  Create a url segment out of a key/value pair.
-
-  ## Examples
-
-      iex> ExTwilio.Api.url_segment(:address, "sid")
-      "Addresses/sid/"
-
-      iex> ExTwilio.Api.url_segment(:address, %{sid: "sid"})
-      "Addresses/sid/"
-  """
-  @spec url_segment(atom | nil, String.t | map) :: String.t
-  def url_segment(nil, _),    do: ""
-  def url_segment(_key, nil), do: ""
-  def url_segment(key, %{sid: value}), do: url_segment(key, value)
-  def url_segment(key, value) do
-    key = key |> to_string |> String.capitalize
-    resource_name(key) <> "/" <> value <> "/"
-  end
-
-  @doc """
-  Converts a module name into a pluralized Twilio-compatible resource name.
-
-  ## Examples
-
-      iex> ExTwilio.Api.resource_name(:"Elixir.ExTwilio.Call")
-      "Calls"
-
-      # Uses only the last segment of the module name
-      iex> ExTwilio.Api.resource_name(:"ExTwilio.Resources.Call")
-      "Calls"
-  """
-  @spec resource_name(atom | String.t) :: String.t
-  def resource_name(module) do
-    name = to_string(module)
-    [[name]] = Regex.scan(~r/[a-z]+$/i, name)
-    Inflex.pluralize(name)
-  end
-
-  @doc """
-  Generate a URL path to a resource from given options.
-
-  ## Examples
-
-      iex> ExTwilio.Api.resource_url_with_options(:"Elixir.ExTwilio.Call", [page: 1])
-      "Calls.json?Page=1"
-  """
-  @spec resource_url_with_options(atom, list) :: String.t
-  def resource_url_with_options(module, options) when length(options) > 0 do
-     resource_url(module, options) <> ".json?" <> to_querystring(options)
-  end
-  def resource_url_with_options(module, []), do: resource_name(module)
-
-  @doc """
-  Convert a keyword list or map into a query string with CamelCase parameters.
-
-  ## Examples
-
-      iex> ExTwilio.Api.to_querystring([page: 1, page_size: 2])
-      "Page=1&PageSize=2"
-  """
-  @spec to_querystring(list) :: String.t
-  def to_querystring(list) do
-    list |> reject_protected |> camelize_keys |> URI.encode_query
-  end
-
-  @spec camelize_keys(list) :: map
-  defp camelize_keys(list) do
-    list = Enum.map list, fn({key, val}) ->
-      key = key |> to_string |> camelize |> String.to_atom
-      { key, val }
-    end
-
-    Enum.into list, %{}
-  end
-
-  @spec reject_protected(list) :: list
-  defp reject_protected(list) do
-    list
-    |> List.delete(:account)
-    |> List.delete(:account_sid)
-  end
-
-  @spec camelize(String.t) :: String.t
-  defp camelize(string) do
-    String.capitalize(string) |> Inflex.camelize
+    Parser.parse module, Api.delete(Url.build_url(module, sid, options))
   end
 
   ###
   # HTTPotion API
   ###
-
-  @doc """
-  Prepends whatever URL is passed into one of the http functions with the
-  `Config.base_url`.
-
-  # Examples
-
-      iex> ExTwilio.Api.process_url("Accounts/sid")
-      "#{Config.base_url}Accounts/sid.json"
-
-      iex> ExTwilio.Api.process_url("Calls/sid")
-      "#{Config.base_url}Accounts/#{Config.account_sid}/Calls/sid.json"
-  """
-  @spec process_url(String.t) :: String.t
-  def process_url(url) do
-    base = case url =~ ~r/Accounts/ do
-      true  -> Config.base_url <> url
-      false -> Config.base_url <> "Accounts/#{Config.account_sid}/" <> url
-    end
-
-    unless url =~ ~r/\.json/ do
-      base = base <> ".json"
-    end
-
-    base
-  end
 
   @doc """
   Adds the Account SID and Auth Token to every request through HTTP basic auth.
@@ -398,7 +232,7 @@ defmodule ExTwilio.Api do
       iex> ExTwilio.Api.process_options([])
       [basic_auth: { #{inspect Config.account_sid}, #{inspect Config.auth_token} }]
   """
-  @spec process_url(list) :: list
+  @spec process_options(list) :: list
   def process_options(options) do
     Dict.put(options, :basic_auth, { Config.account_sid, Config.auth_token })
   end
@@ -431,7 +265,7 @@ defmodule ExTwilio.Api do
       "Hello, world!"
   """
   def process_request_body(body) when is_list(body) do
-    to_querystring(body)
+    Url.to_query_string(body)
   end
   def process_request_body(body), do: body
 end
