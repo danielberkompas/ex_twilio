@@ -5,9 +5,6 @@ defmodule ExTwilio.Media do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/media)
   """
 
-  def resource_name, do: "Media"
-  def resource_collection_name, do: "media_list"
-
   use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
 
   defstruct sid: nil,
@@ -17,4 +14,7 @@ defmodule ExTwilio.Media do
             parent_sid: nil,
             content_type: nil,
             uri: nil
+
+  def resource_name, do: "Media"
+  def resource_collection_name, do: "media_list"
 end

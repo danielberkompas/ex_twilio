@@ -55,7 +55,7 @@ defmodule ExTwilio.Resource do
 
         Delegates to `ExTwilio.Api.stream/2`.
         """
-        @spec stream(list) :: Stream.t
+        @spec stream(list) :: Enumerable.t
         def stream(options \\ []), do: Api.stream(__MODULE__, options)
       end
 
@@ -208,30 +208,30 @@ defmodule ExTwilio.Resource do
         def destroy(sid, options \\ []), do: Api.destroy(__MODULE__, sid, options)
       end
 
-      unless Module.defines?(__MODULE__, {:resource_collection_name, 0}) do
-        @doc """
-        Underscored and lowercased collection name for a given resource.
-        Delegates the real work to `ExTwilio.Api.resource_collection_name/1` by
-        default.
+      @doc """
+      Underscored and lowercased collection name for a given resource.
+      Delegates the real work to `ExTwilio.Api.resource_collection_name/1` by
+      default.
 
-        Override in your module before `use ExTwilio.Resource` if you need
-        something different.
-        """
-        @spec resource_collection_name :: String.t
-        def resource_collection_name, do: Api.resource_collection_name(__MODULE__)
+      Override in your module before `use ExTwilio.Resource` if you need
+      something different.
+      """
+      def resource_collection_name do
+        ExTwilio.Api.resource_collection_name(__MODULE__)
       end
 
-      unless Module.defines?(__MODULE__, {:resource_name, 0}) do
-        @doc """
-        CamelCase resource name as it would be used in Twilio's API. Delegates
-        the real work to `ExTwilio.Api.resource_name/1` by default.
+      @doc """
+      CamelCase resource name as it would be used in Twilio's API. Delegates
+      the real work to `ExTwilio.Api.resource_name/1` by default.
 
-        Override in your module before `use ExTwilio.Resource` if you need
-        something different.
-        """
-        @spec resource_collection_name :: String.t
-        def resource_name, do: Api.resource_name(__MODULE__)
+      Override in your module before `use ExTwilio.Resource` if you need
+      something different.
+      """
+      def resource_name do
+        ExTwilio.Api.resource_name(__MODULE__)
       end
+
+      defoverridable Module.definitions_in(__MODULE__)
     end
   end
 end

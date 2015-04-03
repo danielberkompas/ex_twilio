@@ -7,6 +7,10 @@ defmodule ExTwilio.Mixfile do
      elixir: "~> 1.0",
      name: "ExTwilio",
      source_url: "https://github.com/danielberkompas/ex_twilio",
+     dialyzer: [
+       plt_file: "#{System.get_env("HOME")}/#{plt_filename}",
+       flags: ["--no_native", "-Wno_match"]
+     ],
      deps: deps]
   end
 
@@ -36,5 +40,16 @@ defmodule ExTwilio.Mixfile do
       {:inflex, "~> 1.0.0"},
       {:inch_ex, only: :docs}
     ]
+  end
+
+  defp plt_filename do
+    "elixir-#{System.version}_#{otp_release}.plt"
+  end
+
+  defp otp_release do
+    case System.get_env("TRAVIS_OTP_RELEASE") do
+      nil     -> :erlang.system_info(:otp_release)
+      release -> release
+    end
   end
 end
