@@ -9,7 +9,7 @@ defmodule ExTwilio.Mixfile do
      source_url: "https://github.com/danielberkompas/ex_twilio",
      dialyzer: [
        plt_file: "#{System.get_env("HOME")}/#{plt_filename}",
-       flags: ["--no_native"]
+       flags: ["--no_native", "-Wno_match"]
      ],
      deps: deps]
   end
