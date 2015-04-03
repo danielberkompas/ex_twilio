@@ -2,7 +2,7 @@
   "ex_doc": {:hex, :ex_doc, "0.7.2"},
   "hackney": {:hex, :hackney, "1.0.6"},
   "httpoison": {:hex, :httpoison, "0.6.2"},
-  "httpotion": {:git, "git://github.com/myfreeweb/httpotion.git", "25ead2bc77a6a80b5911d4e2c316b1b914391976", []},
+  "httpotion": {:git, "git://github.com/myfreeweb/httpotion.git", "2b5ebd10d1fd02e10d6da4e6f4a00a4cce8962cc", []},
   "ibrowse": {:git, "git://github.com/cmullaparthi/ibrowse.git", "d2e369ff42666c3574b8b7ec26f69027895c4d94", [tag: "v4.1.1"]},
   "idna": {:hex, :idna, "1.0.2"},
   "inch_ex": {:hex, :inch_ex, "0.2.4"},

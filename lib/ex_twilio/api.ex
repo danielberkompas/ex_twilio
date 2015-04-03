@@ -48,7 +48,7 @@ defmodule ExTwilio.Api do
       |> Stream.map    fn(call) -> call.sid end
       |> Enum.into [] # Only here is the stream actually executed
   """
-  @spec stream(module, list) :: Stream.t
+  @spec stream(module, list) :: Enumerable.t
   def stream(module, options \\ []) do
     start = fn ->
       case list(module, options) do
@@ -65,7 +65,7 @@ defmodule ExTwilio.Api do
     fetch_next_page = fn module, state = {[], next_page, options} ->
       case fetch_page(module, next_page, options) do
         {:ok, items, meta} -> pop_item.({items, meta["next_page_uri"], options})
-        {:error, _msg}     -> {:halt, state}
+        _error             -> {:halt, state}
       end
     end
 
@@ -122,7 +122,7 @@ defmodule ExTwilio.Api do
 
   @spec do_list(module, String.t) :: Parser.success_list | Parser.error
   defp do_list(module, url) do
-    Parser.parse_list(module, Api.get(url), module.resource_collection_name)
+    Parser.parse_list(module, Api.get(url), resource_collection_name(module))
   end
 
   @doc """
@@ -430,10 +430,8 @@ defmodule ExTwilio.Api do
       iex> ExTwilio.Api.process_request_body("Hello, world!")
       "Hello, world!"
   """
-  @spec process_request_body(list) :: String.t
   def process_request_body(body) when is_list(body) do
     to_querystring(body)
   end
-  @spec process_request_body(any) :: any
   def process_request_body(body), do: body
 end
