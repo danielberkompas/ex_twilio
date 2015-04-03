@@ -122,7 +122,7 @@ defmodule ExTwilio.Api do
 
   @spec do_list(module, String.t) :: Parser.success_list | Parser.error
   defp do_list(module, url) do
-    Parser.parse_list(module, Api.get(url), resource_collection_name(module))
+    Parser.parse_list(module, Api.get(url), module.resource_collection_name)
   end
 
   @doc """

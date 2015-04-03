@@ -216,7 +216,9 @@ defmodule ExTwilio.Resource do
       Override in your module before `use ExTwilio.Resource` if you need
       something different.
       """
-      def resource_collection_name, do: Api.resource_collection_name(__MODULE__)
+      def resource_collection_name do
+        ExTwilio.Api.resource_collection_name(__MODULE__)
+      end
 
       @doc """
       CamelCase resource name as it would be used in Twilio's API. Delegates
@@ -225,7 +227,11 @@ defmodule ExTwilio.Resource do
       Override in your module before `use ExTwilio.Resource` if you need
       something different.
       """
-      def resource_name, do: Api.resource_name(__MODULE__)
+      def resource_name do
+        ExTwilio.Api.resource_name(__MODULE__)
+      end
+
+      defoverridable Module.definitions_in(__MODULE__)
     end
   end
 end
