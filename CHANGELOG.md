@@ -10,6 +10,8 @@
 
 **Merged pull requests:**
 
+- Reduce reliance on Enum [\#8](https://github.com/danielberkompas/ex_twilio/pull/8) ([danielberkompas](https://github.com/danielberkompas))
+
 - \[\#4\] Rework URL generation [\#7](https://github.com/danielberkompas/ex_twilio/pull/7) ([danielberkompas](https://github.com/danielberkompas))
 
 - Run Dialyzer on Travis CI [\#6](https://github.com/danielberkompas/ex_twilio/pull/6) ([danielberkompas](https://github.com/danielberkompas))
