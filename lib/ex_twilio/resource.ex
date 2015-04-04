@@ -43,6 +43,7 @@ defmodule ExTwilio.Resource do
     quote bind_quoted: [import_functions: import_functions] do
       alias ExTwilio.Api
       alias ExTwilio.Parser
+      alias ExTwilio.UrlGenerator, as: Url
 
       module   = String.replace(to_string(__MODULE__), ~r/Elixir\./, "")
       resource = String.replace(module, ~r/ExTwilio\./, "")
@@ -55,7 +56,7 @@ defmodule ExTwilio.Resource do
 
         Delegates to `ExTwilio.Api.stream/2`.
         """
-        @spec stream(list) :: Enumerable.t
+        #@spec stream(list) :: Enumerable.t
         def stream(options \\ []), do: Api.stream(__MODULE__, options)
       end
 
@@ -216,9 +217,7 @@ defmodule ExTwilio.Resource do
       Override in your module before `use ExTwilio.Resource` if you need
       something different.
       """
-      def resource_collection_name do
-        ExTwilio.Api.resource_collection_name(__MODULE__)
-      end
+      def resource_collection_name, do: Url.resource_collection_name(__MODULE__)
 
       @doc """
       CamelCase resource name as it would be used in Twilio's API. Delegates
@@ -227,9 +226,7 @@ defmodule ExTwilio.Resource do
       Override in your module before `use ExTwilio.Resource` if you need
       something different.
       """
-      def resource_name do
-        ExTwilio.Api.resource_name(__MODULE__)
-      end
+      def resource_name, do: Url.resource_name(__MODULE__)
 
       defoverridable Module.definitions_in(__MODULE__)
     end

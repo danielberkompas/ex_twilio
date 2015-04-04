@@ -17,7 +17,7 @@ defmodule ExTwilio.ApiTest do
       "resources" => [
         %{sid: "1", name: "first"}, 
       ],
-      next_page_uri: "?page=2"
+      next_page_uri: "?Page=2"
     }
 
     page2 = %{
@@ -27,8 +27,12 @@ defmodule ExTwilio.ApiTest do
       next_page_uri: nil
     }
 
-    with_fixture {:get, fn "Resources.json?page=2" -> json_response(page2, 200)
-                           _url -> json_response(page1, 200)
+    with_fixture {:get, fn url ->
+                            if String.match?(url, ~r/\?Page=2/) do
+                              json_response(page2, 200)
+                            else
+                              json_response(page1, 200)
+                            end
                         end}, fn ->
       expected = [%Resource{sid: "1", name: "first"}, %Resource{sid: "2", name: "second"}]
       assert expected == Enum.into Api.stream(Resource), []
@@ -56,10 +60,7 @@ defmodule ExTwilio.ApiTest do
 
     with_fixture :get, json, fn ->
       assert {:ok, %Resource{sid: "id"}} == Api.find(Resource, "id")
-      assert called Api.get("Resources/id")
-
       assert {:ok, %Resource{sid: "id"}} == Api.find(Resource, "id", account: "sid")
-      assert called Api.get("Accounts/sid/Resources/id")
     end
   end
 
@@ -76,10 +77,7 @@ defmodule ExTwilio.ApiTest do
 
     with_fixture :post, json, fn ->
       assert {:ok, %Resource{sid: "id"}} == Api.create(Resource, [field: "value"])
-      assert called Api.post("Resources", body: [field: "value"])
-
       assert {:ok, %Resource{sid: "id"}} == Api.create(Resource, [field: "value"], account: "sid")
-      assert called Api.post("Accounts/sid/Resources", body: [field: "value"])
     end
   end
 
@@ -100,10 +98,7 @@ defmodule ExTwilio.ApiTest do
       data = [name: name]
 
       assert expected == Api.update(Resource, "id", data)
-      assert called Api.post("Resources/id", body: data)
-
       assert expected == Api.update(Resource, "id", data, account: "sid")
-      assert called Api.post("Accounts/sid/Resources/id", body: data)
     end
   end
 
@@ -119,10 +114,7 @@ defmodule ExTwilio.ApiTest do
   test ".destroy should return :ok if successful" do
     with_fixture :delete, %{body: "", status_code: 204}, fn ->
       assert :ok == Api.destroy(Resource, "id")
-      assert called Api.delete("Resources/id")
-
       assert :ok == Api.destroy(Resource, "id", account: "sid")
-      assert called Api.delete("Accounts/sid/Resources/id")
     end
   end
 
@@ -137,21 +129,6 @@ defmodule ExTwilio.ApiTest do
   ###
   # HTTPotion API
   ###
-
-  test ".process_url produces a formatted URL" do
-    expected = Config.base_url <> "Accounts/#{Config.account_sid}/Calls.json"
-    assert expected == Api.process_url("Calls")
-  end
-
-  test ".process_url doesn't append .json when it's already there" do
-    expected = Config.base_url <> "Accounts/#{Config.account_sid}/Calls.json"
-    assert expected == Api.process_url("Calls.json")
-  end
-
-  test ".process_url doesn't nest under 'Accounts' when the url contains 'Accounts'" do
-    expected = Config.base_url <> "Accounts.json"
-    assert expected == Api.process_url("Accounts")
-  end
 
   test ".process_options adds in the basic HTTP auth" do
     expected = [basic_auth: { Config.account_sid, Config.auth_token }]
