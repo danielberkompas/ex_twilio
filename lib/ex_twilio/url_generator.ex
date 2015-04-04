@@ -75,8 +75,7 @@ defmodule ExTwilio.UrlGenerator do
   """
   @spec to_query_string(list) :: String.t
   def to_query_string(list) do
-    Enum.map(list, fn {key, value} -> {camelize(key), value} end)
-    |> Enum.into(%{})
+    for({key, value} <- list, into: %{}, do: {camelize(key), value})
     |> URI.encode_query
   end
 
@@ -114,7 +113,7 @@ defmodule ExTwilio.UrlGenerator do
 
   @spec build_query(list) :: String.t
   defp build_query(options) do
-    query = Enum.reject(options, fn({key, _val}) -> Enum.member?(@special, key) end)
+    query = Enum.reject(options, fn({key, _val}) -> key in @special end)
             |> to_query_string
 
     if String.length(query) > 0, do: "?" <> query, else: query
@@ -122,9 +121,7 @@ defmodule ExTwilio.UrlGenerator do
 
   @spec build_segments(list, list) :: String.t
   defp build_segments(allowed_keys, list) do
-    Enum.reduce allowed_keys, "", fn key, acc -> 
-      acc <> segment({key, list[key]})
-    end
+    for key <- allowed_keys, into: "", do: segment({key, list[key]})
   end
 
   @spec segment({atom, any}, list) :: String.t
