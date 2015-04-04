@@ -4,7 +4,13 @@
 
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.0.1...HEAD)
 
+**Implemented enhancements:**
+
+- Simplify URL generation logic [\#4](https://github.com/danielberkompas/ex_twilio/issues/4)
+
 **Merged pull requests:**
+
+- \[\#4\] Rework URL generation [\#7](https://github.com/danielberkompas/ex_twilio/pull/7) ([danielberkompas](https://github.com/danielberkompas))
 
 - Run Dialyzer on Travis CI [\#6](https://github.com/danielberkompas/ex_twilio/pull/6) ([danielberkompas](https://github.com/danielberkompas))
 
