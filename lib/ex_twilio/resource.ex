@@ -50,7 +50,7 @@ defmodule ExTwilio.Resource do
       variable = String.downcase(resource) |> Inflex.pluralize
       variable_singular = Inflex.singularize(variable)
 
-      if Enum.member? import_functions, :stream do
+      if :stream in import_functions do
         @doc """
         Create a stream of all #{resource} records from the Twilio API.
 
@@ -60,7 +60,7 @@ defmodule ExTwilio.Resource do
         def stream(options \\ []), do: Api.stream(__MODULE__, options)
       end
 
-      if Enum.member? import_functions, :all do
+      if :all in import_functions do
         @doc """
         Retrieve _all_ of the #{resource} records from the Twilio API, paging
         through all the API response pages.
@@ -75,7 +75,7 @@ defmodule ExTwilio.Resource do
         def all(options \\ []), do: Api.all(__MODULE__, options)
       end
 
-      if Enum.member? import_functions, :list do
+      if :list in import_functions do
         @doc """
         Retrieve a list of #{Inflex.pluralize resource} from the API. 
 
@@ -157,7 +157,7 @@ defmodule ExTwilio.Resource do
         end
       end
 
-      if Enum.member? import_functions, :find do
+      if :find in import_functions do
         @doc """
         Find any #{resource} by its Twilio SID.
 
@@ -172,7 +172,7 @@ defmodule ExTwilio.Resource do
         def find(sid, options \\ []), do: Api.find(__MODULE__, sid, options)
       end
 
-      if Enum.member? import_functions, :create do
+      if :create in import_functions do
         @doc """
         Create a new #{resource} in the Twilio API. Any field supported by
         Twilio's #{resource} API can be passed in the 'data' keyword list.
@@ -183,7 +183,7 @@ defmodule ExTwilio.Resource do
         def create(data, options \\ []), do: Api.create(__MODULE__, data, options)
       end
 
-      if Enum.member? import_functions, :update do
+      if :update in import_functions do
         @doc """
         Update an #{resource} in the Twilio API. You can pass it a binary SID as
         the identifier, or a whole %#{module}{} struct.
@@ -199,7 +199,7 @@ defmodule ExTwilio.Resource do
         def update(sid, data, options \\ []), do: Api.update(__MODULE__, sid, data, options)
       end
 
-      if Enum.member? import_functions, :destroy do
+      if :destroy in import_functions do
         @doc """
         Delete any #{resource} from your Twilio account, using its SID.
 
