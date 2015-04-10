@@ -32,4 +32,6 @@ defmodule ExTwilio.Call do
 
   def complete(%{sid: sid}), do: complete(sid)
   def complete(sid),         do: update(sid, status: "completed")
+
+  def parents, do: [:account]
 end

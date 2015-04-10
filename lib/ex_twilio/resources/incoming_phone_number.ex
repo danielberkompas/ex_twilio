@@ -29,4 +29,6 @@ defmodule ExTwilio.IncomingPhoneNumber do
             capabilities: nil,
             address_requirements: nil,
             uri: nil
+
+  def parents, do: [:account]
 end

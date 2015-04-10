@@ -14,4 +14,6 @@ defmodule ExTwilio.Token do
             ice_servers: nil,
             date_created: nil,
             date_updated: nil
+
+  def parents, do: [:account]
 end

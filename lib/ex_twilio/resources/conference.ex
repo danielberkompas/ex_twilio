@@ -14,4 +14,6 @@ defmodule ExTwilio.Conference do
             date_updated: nil,
             account_sid: nil,
             uri: nil
+
+  def parents, do: [:account]
 end

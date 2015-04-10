@@ -9,4 +9,6 @@ defmodule ExTwilio.Feedback do
 
   defstruct quality_score: nil,
             issue: nil
+
+  def parents, do: [:account, :call]
 end

@@ -12,7 +12,5 @@ defmodule ExTwilio.Member do
             wait_time: nil,
             position: nil
 
-  def dequeue(sid, options \\ [])
-  def dequeue(%{sid: sid}, options), do: dequeue(sid, options)
-  def dequeue(sid, options),         do: update(sid, options)
+  def parents, do: [:account, :queue]
 end

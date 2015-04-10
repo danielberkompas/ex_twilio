@@ -15,4 +15,6 @@ defmodule ExTwilio.Recording do
             duration: nil,
             api_version: nil,
             uri: nil
+
+  def parents, do: [:account]
 end

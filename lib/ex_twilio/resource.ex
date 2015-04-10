@@ -228,6 +228,12 @@ defmodule ExTwilio.Resource do
       """
       def resource_name, do: Url.resource_name(__MODULE__)
 
+      @spec parents :: list
+      def parents, do: []
+
+      @spec children :: list
+      def children, do: []
+
       defoverridable Module.definitions_in(__MODULE__)
     end
   end

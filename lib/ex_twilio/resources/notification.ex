@@ -24,4 +24,6 @@ defmodule ExTwilio.Notification do
             response_headers: nil,
             response_body: nil,
             uri: nil
+
+  def parents, do: [:account, :call]
 end
