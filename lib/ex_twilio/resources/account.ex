@@ -43,6 +43,7 @@ defmodule ExTwilio.Account do
       {:ok, account} = ExTwilio.Account.find("<sid>")
       ExTwilio.Account.reactivate(account)
   """
+  @spec reactivate(map | String.t) :: Parser.success | Parser.error
   def reactivate(%{sid: sid}), do: reactivate(sid)
   def reactivate(sid),         do: update(sid, status: "active")
 
@@ -57,6 +58,7 @@ defmodule ExTwilio.Account do
       {:ok, account} = ExTwilio.Account.find("<sid>")
       ExTwilio.Account.close(account)
   """
+  @spec close(map | String.t) :: Parser.success | Parser.error
   def close(%{sid: sid}), do: close(sid)
   def close(sid),         do: update(sid, status: "closed")
 
