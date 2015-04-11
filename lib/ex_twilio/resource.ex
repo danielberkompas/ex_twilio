@@ -191,7 +191,7 @@ defmodule ExTwilio.Resource do
             {:ok, #{variable_singular}} = #{module}.find("...")
             {:error, msg, http_status} = #{module}.find("...")
         """
-        @spec find(String.t, list) :: Parser.parsed_list_response
+        @spec find(String.t | nil, list) :: Parser.parsed_list_response
         def find(sid, options \\ []), do: Api.find(__MODULE__, sid, options)
       end
 
