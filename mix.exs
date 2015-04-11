@@ -6,7 +6,9 @@ defmodule ExTwilio.Mixfile do
      version: "0.1.0",
      elixir: "~> 1.0",
      name: "ExTwilio",
+     description: "Twilio API library for Elixir",
      source_url: "https://github.com/danielberkompas/ex_twilio",
+     package: package,
      dialyzer: [
        plt_file: "#{System.get_env("HOME")}/#{plt_filename}",
        flags: ["--no_native", "-Wno_match", "-Wno_return"]
@@ -51,5 +53,15 @@ defmodule ExTwilio.Mixfile do
       nil     -> :erlang.system_info(:otp_release)
       release -> release
     end
+  end
+
+  defp package do
+    [
+      contributors: ["Daniel Berkompas"],
+      licenses: ["MIT"],
+      links: %{
+        "Github" => "https://github.com/danielberkompas/ex_twilio"
+      }
+    ]
   end
 end

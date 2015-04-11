@@ -5,12 +5,27 @@ ExTwilio
 
 ## Installation
 
-ExTwilio is currently beta software, and hasn't been published to [Hex][hex]
-yet. To install, get it from Github:
+ExTwilio is currently beta software. You can install it from Hex:
 
 ```elixir
 def deps do
-  [{:ex_twilio, github: "danielberkompas/ex_twilio"}]
+  [
+    {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.1"},
+    {:httpotion, github: "myfreeweb/httpotion"},
+    {:ex_twilio, "~> 0.1.0"}
+  ]
+end
+```
+
+Or from Github:
+
+```elixir
+def deps do
+  [
+    {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.1"},
+    {:httpotion, github: "myfreeweb/httpotion"},
+    {:ex_twilio, github: "danielberkompas/ex_twilio"}
+  ]
 end
 ```
 
