@@ -26,5 +26,7 @@ defmodule ExTwilio.Application do
             sms_status_callback: nil,
             message_status_callback: nil,
             uri: nil
+
+  def parents, do: [:account]
 end
 

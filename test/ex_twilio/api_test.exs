@@ -8,6 +8,8 @@ defmodule ExTwilio.ApiTest do
     defstruct sid: nil, name: nil
     def resource_name, do: "Resources"
     def resource_collection_name, do: "resources"
+    def parents, do: []
+    def children, do: []
   end
 
   doctest ExTwilio.Api

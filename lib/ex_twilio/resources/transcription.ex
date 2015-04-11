@@ -18,4 +18,6 @@ defmodule ExTwilio.Transcription do
             price: nil,
             price_unit: nil,
             uri: nil
+
+  def parents, do: [:account, :recording]
 end

@@ -12,4 +12,6 @@ defmodule ExTwilio.Queue do
             current_size: nil,
             max_size: nil,
             average_wait_time: nil
+
+  def parents, do: [:account]
 end

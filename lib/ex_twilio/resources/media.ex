@@ -17,4 +17,5 @@ defmodule ExTwilio.Media do
 
   def resource_name, do: "Media"
   def resource_collection_name, do: "media_list"
+  def parents, do: [:account, :message]
 end

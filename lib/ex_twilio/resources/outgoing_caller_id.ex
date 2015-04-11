@@ -16,4 +16,6 @@ defmodule ExTwilio.OutgoingCallerId do
             validation_code: nil,
             call_sid: nil,
             uri: nil
+
+  def parents, do: [:account]
 end

@@ -17,4 +17,6 @@ defmodule ExTwilio.AuthorizedConnectApp do
             connect_app_company_name: nil,
             connect_app_homepage_url: nil,
             uri: nil
+
+  def parents, do: [:account]
 end

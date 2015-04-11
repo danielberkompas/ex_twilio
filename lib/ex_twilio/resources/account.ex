@@ -59,4 +59,6 @@ defmodule ExTwilio.Account do
   """
   def close(%{sid: sid}), do: close(sid)
   def close(sid),         do: update(sid, status: "closed")
+
+  def parents, do: [:account]
 end

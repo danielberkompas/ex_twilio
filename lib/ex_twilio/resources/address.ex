@@ -15,4 +15,6 @@ defmodule ExTwilio.Address do
             region: nil,
             postal_code: nil,
             iso_country: nil
+
+  def parents, do: [:account]
 end

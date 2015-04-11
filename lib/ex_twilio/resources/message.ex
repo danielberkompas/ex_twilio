@@ -26,4 +26,6 @@ defmodule ExTwilio.Message do
             api_version: nil,
             uri: nil,
             subresource_uri: nil
+
+  def parents, do: [:account]
 end

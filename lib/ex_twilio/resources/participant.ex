@@ -16,4 +16,6 @@ defmodule ExTwilio.Participant do
             start_conference_on_enter: nil,
             end_conference_on_exit: nil,
             uri: nil
+
+  def parents, do: [:account, :conference]
 end

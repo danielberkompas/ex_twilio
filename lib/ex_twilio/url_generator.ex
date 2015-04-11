@@ -5,10 +5,6 @@ defmodule ExTwilio.UrlGenerator do
   Generates Twilio URLs for modules. See `build_url/3` for more information.
   """
 
-  @parents  [:account, :address, :conference, :queue, :message, :call, :recording]
-  @children [:iso_country_code, :type]
-  @special   @parents ++ @children ++ [:query]
-
   @doc """
   Infers the proper Twilio URL for a resource when given a module, an optional
   SID, and a list of options.
@@ -21,38 +17,41 @@ defmodule ExTwilio.UrlGenerator do
   # Examples
 
       iex> ExTwilio.UrlGenerator.build_url(Resource)
-      "#{Config.base_url}Accounts/#{Config.account_sid}/Resources.json"
+      "#{Config.base_url}/Accounts/#{Config.account_sid}/Resources.json"
 
       iex> ExTwilio.UrlGenerator.build_url(Resource, nil, account: 2)
-      "#{Config.base_url}Accounts/2/Resources.json"
+      "#{Config.base_url}/Accounts/2/Resources.json"
 
       iex> ExTwilio.UrlGenerator.build_url(Resource, 1, account: 2)
-      "#{Config.base_url}Accounts/2/Resources/1.json"
+      "#{Config.base_url}/Accounts/2/Resources/1.json"
 
       iex> ExTwilio.UrlGenerator.build_url(Resource, 1)
-      "#{Config.base_url}Accounts/#{Config.account_sid}/Resources/1.json"
+      "#{Config.base_url}/Accounts/#{Config.account_sid}/Resources/1.json"
 
       iex> ExTwilio.UrlGenerator.build_url(Resource, nil, page: 20)
-      "#{Config.base_url}Accounts/#{Config.account_sid}/Resources.json?Page=20"
+      "#{Config.base_url}/Accounts/#{Config.account_sid}/Resources.json?Page=20"
 
       iex> ExTwilio.UrlGenerator.build_url(Resource, nil, iso_country_code: "US", type: "Mobile", page: 20)
-      "#{Config.base_url}Accounts/#{Config.account_sid}/Resources/US/Mobile.json?Page=20"
+      "#{Config.base_url}/Accounts/#{Config.account_sid}/Resources/US/Mobile.json?Page=20"
+
+      iex> ExTwilio.UrlGenerator.build_url(Resource, 1, sip_ip_access_control_list: "list", account: "account_sid")
+      "#{Config.base_url}/Accounts/account_sid/SIP/IpAccessControlLists/list/Resources/1.json"
   """
   @spec build_url(atom, String.t | nil, list) :: String.t
   def build_url(module, id \\ nil, options \\ []) do
     url = Config.base_url 
 
     # Add Account SID segment if not already present
-    options = Dict.put_new(options, :account, Config.account_sid)
+    options = add_account_to_options(module, options)
 
     # Append parents
-    url = url <> build_segments(@parents, options) <> "/" 
+    url = url <> build_segments(:parent, module.parents, options)
 
     # Append module segment
-    url = url <> segment({module.resource_name, id}, include_nil: true)
+    url = url <> segment(:main, {module.resource_name, id})
 
-    # TODO: Append any child segments
-    url = url <> build_segments(@children, options)
+    # Append any child segments
+    url = url <> build_segments(:child, module.children, options)
 
     # Append .json
     url = url <> ".json"
@@ -61,7 +60,7 @@ defmodule ExTwilio.UrlGenerator do
     if Dict.has_key?(options, :query) do
       url <> options[:query]
     else
-      url <> build_query(options)
+      url <> build_query(module, options)
     end
   end
 
@@ -111,32 +110,50 @@ defmodule ExTwilio.UrlGenerator do
     module |> resource_name |> Mix.Utils.underscore
   end
 
-  @spec build_query(list) :: String.t
-  defp build_query(options) do
-    query = Enum.reject(options, fn({key, _val}) -> key in @special end)
+  @spec add_account_to_options(atom, list) :: list
+  defp add_account_to_options(module, options) do
+    if module == ExTwilio.Account and options[:account] == nil do
+      options
+    else
+      Dict.put_new(options, :account, Config.account_sid)
+    end
+  end
+
+  @spec build_query(atom, list) :: String.t
+  defp build_query(module, options) do
+    special = module.parents ++ module.children
+    query = Enum.reject(options, fn({key, _val}) -> key in special end)
             |> to_query_string
 
-    if String.length(query) > 0, do: "?" <> query, else: query
+    if String.length(query) > 0, do: "?" <> query, else: ""
   end
 
-  @spec build_segments(list, list) :: String.t
-  defp build_segments(allowed_keys, list) do
-    for key <- allowed_keys, into: "", do: segment({key, list[key]})
+  @spec build_segments(atom, list, list) :: String.t
+  defp build_segments(type, allowed_keys, list) do
+    for key <- allowed_keys, into: "", do: segment(type, {key, list[key]})
   end
 
-  @spec segment({atom, any}, list) :: String.t
-  defp segment(segment, options \\ [])
-  defp segment({key, nil}, [include_nil: true]), do: inflect(key)
-  defp segment({_key, nil}, _options), do: ""
-  defp segment({key, value}, _options) when key in @children, do: "/" <> value
-  defp segment({key, value}, _options) do
-    "#{inflect(key)}/#{value}"
+  @spec segment(atom, {atom, any}) :: String.t
+  defp segment(type, segment)
+  defp segment(type, {_key, nil}) when type in [:parent, :child], do: ""
+  defp segment(:child, {_key, value}), do: "/" <> to_string(value)
+  defp segment(:main, {key, nil}),     do: "/" <> inflect(key)
+  defp segment(type, {key, value}) when type in [:main, :parent] and is_atom(key) do
+    "/#{infer_module(key).resource_name}/#{value}"
+  end
+  defp segment(type, {key, value}) when type in [:main, :parent] and is_binary(key) do
+    "/#{inflect(key)}/#{value}"
   end
 
   @spec inflect(String.t | atom) :: String.t
   defp inflect(string) when is_binary(string), do: string
   defp inflect(atom) when is_atom(atom) do
     atom |> camelize |> Inflex.pluralize
+  end
+
+  @spec infer_module(atom) :: atom
+  defp infer_module(atom) do
+    Module.concat(ExTwilio, camelize(atom))
   end
 
   @spec camelize(String.t | atom) :: String.t

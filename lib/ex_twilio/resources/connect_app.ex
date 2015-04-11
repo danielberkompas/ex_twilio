@@ -20,4 +20,6 @@ defmodule ExTwilio.ConnectApp do
             deauthorize_callback_url: nil,
             deauthorize_callback_method: nil,
             uri: nil
+
+  def parents, do: [:account]
 end

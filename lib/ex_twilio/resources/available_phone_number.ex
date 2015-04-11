@@ -18,4 +18,7 @@ defmodule ExTwilio.AvailablePhoneNumber do
             iso_country: nil,
             capabilities: nil,
             address_requirements: nil
+
+  def parents, do: [:account]
+  def children, do: [:iso_country_code, :type]
 end
