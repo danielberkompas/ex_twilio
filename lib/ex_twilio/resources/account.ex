@@ -4,6 +4,22 @@ defmodule ExTwilio.Account do
 
   - [Account docs](https://www.twilio.com/docs/api/rest/accounts)
   - [Subaccount docs](https://www.twilio.com/docs/api/rest/subaccounts)
+
+  ## Examples
+
+  An ExTwilio.Account can represent either an Account or a SubAccount. To see
+  all accounts and subaccounts that your auth_token has access to, run:
+
+      ExTwilio.Account.all
+
+  If you want to find a SubAccount, use `find/1`.
+
+      ExTwilio.Account.find("sid")
+
+  If you want to see items associated with a SubAccount, you can do so by
+  passing in an `account:` option in all other ExTwilio resources. For example:
+
+      ExTwilio.Call.list(account: "subaccount_sid")
   """
 
   defstruct sid: nil,

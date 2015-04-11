@@ -3,6 +3,13 @@ defmodule ExTwilio.DependentPhoneNumber do
   Represents an DependentPhoneNumber resource in the Twilio API.
 
   - [Twilio docs](https://www.twilio.com/docs/api/rest/dependent-phone-numbers)
+
+  ## Examples
+
+  Since DependentPhoneNumbers are a nested resource in the Twilio API, you must
+  pass in a parent Address SID to all functions in this module.
+
+      ExTwilio.DependentPhoneNumber.all(address: "address_sid")
   """
 
   defstruct sid: nil,

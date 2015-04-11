@@ -3,6 +3,13 @@ defmodule ExTwilio.Participant do
   Represents an Participant resource in the Twilio API.
 
   - [Twilio docs](https://www.twilio.com/docs/api/rest/participants)
+
+  ## Examples
+
+  Since Participants belong to Conferences in the Twilio API, you must pass a
+  conference to each function in this module. For example:
+
+      ExTwilio.Participant.list(conference: "conference_sid")
   """
 
   defstruct call_sid: nil,
