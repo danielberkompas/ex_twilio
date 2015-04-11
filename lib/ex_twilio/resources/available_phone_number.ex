@@ -5,8 +5,6 @@ defmodule ExTwilio.AvailablePhoneNumber do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/available-phone-numbers)
   """
 
-  use ExTwilio.Resource, import: [:stream, :all, :list]
-
   defstruct friendly_name: nil,
             phone_number: nil,
             lata: nil,
@@ -18,6 +16,8 @@ defmodule ExTwilio.AvailablePhoneNumber do
             iso_country: nil,
             capabilities: nil,
             address_requirements: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list]
 
   def parents, do: [:account]
   def children, do: [:iso_country_code, :type]

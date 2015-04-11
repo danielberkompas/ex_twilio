@@ -5,8 +5,6 @@ defmodule ExTwilio.ShortCode do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/short-codes)
   """
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :update]
-
   defstruct sid: nil,
             date_created: nil,
             date_updated: nil,
@@ -19,6 +17,8 @@ defmodule ExTwilio.ShortCode do
             sms_fallback_url: nil,
             sms_fallback_url_method: nil,
             uri: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :update]
 
   def resource_name, do: "SMS/ShortCodes"
   def parents, do: [:account]

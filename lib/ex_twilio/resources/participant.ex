@@ -5,8 +5,6 @@ defmodule ExTwilio.Participant do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/participants)
   """
 
-  use ExTwilio.Resource, import: [:stream, :list, :all, :find, :update, :destroy]
-
   defstruct call_sid: nil,
             conference_sid: nil,
             date_created: nil,
@@ -16,6 +14,8 @@ defmodule ExTwilio.Participant do
             start_conference_on_enter: nil,
             end_conference_on_exit: nil,
             uri: nil
+
+  use ExTwilio.Resource, import: [:stream, :list, :all, :find, :update, :destroy]
 
   def parents, do: [:account, :conference]
 end

@@ -6,8 +6,6 @@ defmodule ExTwilio.Account do
   - [Subaccount docs](https://www.twilio.com/docs/api/rest/subaccounts)
   """
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update]
-
   defstruct sid: nil,
             owner_account_sid: nil,
             date_created: nil,
@@ -18,6 +16,8 @@ defmodule ExTwilio.Account do
             auth_token: nil,
             uri: nil,
             subresource_uris: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update]
 
   @doc """
   Suspend an Account by updating its status to "suspended".

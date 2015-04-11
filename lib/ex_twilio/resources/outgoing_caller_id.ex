@@ -5,8 +5,6 @@ defmodule ExTwilio.OutgoingCallerId do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/outgoing-caller-ids)
   """
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
-
   defstruct sid: nil,
             date_created: nil,
             date_updated: nil,
@@ -16,6 +14,8 @@ defmodule ExTwilio.OutgoingCallerId do
             validation_code: nil,
             call_sid: nil,
             uri: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
 
   def parents, do: [:account]
 end

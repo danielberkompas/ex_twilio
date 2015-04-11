@@ -5,10 +5,10 @@ defmodule ExTwilio.Feedback do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/call-feedback)
   """
 
-  use ExTwilio.Resource, import: [:find, :create]
-
   defstruct quality_score: nil,
             issue: nil
+
+  use ExTwilio.Resource, import: [:find, :create]
 
   def parents, do: [:account, :call]
 end

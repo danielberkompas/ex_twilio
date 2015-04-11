@@ -4,11 +4,13 @@ defmodule ExTwilio.ResourceTest do
   import Mock
 
   defmodule TestResource do
+    defstruct sid: nil
     use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
   end
 
   test "only imports specified methods" do
     defmodule ExclusiveMethods do
+      defstruct sid: nil
       use ExTwilio.Resource, import: [:stream]
     end
 
@@ -17,6 +19,11 @@ defmodule ExTwilio.ResourceTest do
         apply ExclusiveMethods, method, ["id"]
       end
     end
+  end
+
+  test ".new should return the module's struct" do
+    assert %TestResource{} == TestResource.new
+    assert %TestResource{sid: "hello"} == TestResource.new(sid: "hello")
   end
 
   test ".stream should delegate to Api.stream" do

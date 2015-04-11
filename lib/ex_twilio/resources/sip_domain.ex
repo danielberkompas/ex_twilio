@@ -5,8 +5,6 @@ defmodule ExTwilio.SipDomain do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/domain)
   """
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
-
   defstruct sid: nil,
             friendly_name: nil,
             account_sid: nil,
@@ -22,6 +20,8 @@ defmodule ExTwilio.SipDomain do
             date_created: nil,
             date_updated: nil,
             uri: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
 
   def resource_name, do: "SIP/Domains"
   def resource_collection_name, do: "domains"

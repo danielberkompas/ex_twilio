@@ -5,8 +5,6 @@ defmodule ExTwilio.ConnectApp do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/connect-apps)
   """
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update]
-
   defstruct sid: nil,
             date_created: nil,
             date_updated: nil,
@@ -20,6 +18,8 @@ defmodule ExTwilio.ConnectApp do
             deauthorize_callback_url: nil,
             deauthorize_callback_method: nil,
             uri: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update]
 
   def parents, do: [:account]
 end

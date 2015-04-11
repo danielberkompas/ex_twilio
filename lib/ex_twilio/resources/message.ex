@@ -5,8 +5,6 @@ defmodule ExTwilio.Message do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/messages)
   """
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
-
   defstruct sid: nil,
             date_created: nil,
             date_updated: nil,
@@ -26,6 +24,8 @@ defmodule ExTwilio.Message do
             api_version: nil,
             uri: nil,
             subresource_uri: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
 
   def parents, do: [:account]
 end

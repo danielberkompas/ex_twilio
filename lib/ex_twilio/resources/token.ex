@@ -5,8 +5,6 @@ defmodule ExTwilio.Token do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/tokens)
   """
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :create]
-
   defstruct username: nil,
             password: nil,
             ttl: nil,
@@ -14,6 +12,8 @@ defmodule ExTwilio.Token do
             ice_servers: nil,
             date_created: nil,
             date_updated: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :create]
 
   def parents, do: [:account]
 end

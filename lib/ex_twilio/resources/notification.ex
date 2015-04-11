@@ -5,8 +5,6 @@ defmodule ExTwilio.Notification do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/notifications)
   """
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
-
   defstruct sid: nil,
             date_created: nil,
             date_updated: nil,
@@ -24,6 +22,8 @@ defmodule ExTwilio.Notification do
             response_headers: nil,
             response_body: nil,
             uri: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
 
   def parents, do: [:account, :call]
 end

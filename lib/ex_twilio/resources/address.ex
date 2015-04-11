@@ -4,7 +4,6 @@ defmodule ExTwilio.Address do
 
   - [Twilio docs](https://www.twilio.com/docs/api/rest/addresses)
   """
-  use ExTwilio.Resource, import: [:stream, :all, :list, :create, :find, :update]
 
   defstruct sid: nil,
             account_sid: nil,
@@ -15,6 +14,8 @@ defmodule ExTwilio.Address do
             region: nil,
             postal_code: nil,
             iso_country: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :create, :find, :update]
 
   def parents, do: [:account]
 end
