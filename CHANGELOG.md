@@ -1,8 +1,8 @@
 # Change Log
 
-## [Unreleased](https://github.com/danielberkompas/ex_twilio/tree/HEAD)
+## [v0.1.0](https://github.com/danielberkompas/ex_twilio/tree/v0.1.0) (2015-04-11)
 
-[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.0.1...HEAD)
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.0.1...v0.1.0)
 
 **Implemented enhancements:**
 
@@ -10,7 +10,15 @@
 
 - Simplify URL generation logic [\#4](https://github.com/danielberkompas/ex_twilio/issues/4)
 
+**Closed issues:**
+
+- Create tests for all Resource modules [\#3](https://github.com/danielberkompas/ex_twilio/issues/3)
+
+- Add list of supported endpoints to README [\#2](https://github.com/danielberkompas/ex_twilio/issues/2)
+
 **Merged pull requests:**
+
+- Finish documenting and tests for now [\#12](https://github.com/danielberkompas/ex_twilio/pull/12) ([danielberkompas](https://github.com/danielberkompas))
 
 - Support All Twilio REST Endpoints [\#11](https://github.com/danielberkompas/ex_twilio/pull/11) ([danielberkompas](https://github.com/danielberkompas))
 
