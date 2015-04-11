@@ -6,9 +6,13 @@
 
 **Implemented enhancements:**
 
+- Support all Twilio API endpoints [\#9](https://github.com/danielberkompas/ex_twilio/issues/9)
+
 - Simplify URL generation logic [\#4](https://github.com/danielberkompas/ex_twilio/issues/4)
 
 **Merged pull requests:**
+
+- Support All Twilio REST Endpoints [\#11](https://github.com/danielberkompas/ex_twilio/pull/11) ([danielberkompas](https://github.com/danielberkompas))
 
 - Reduce reliance on Enum [\#8](https://github.com/danielberkompas/ex_twilio/pull/8) ([danielberkompas](https://github.com/danielberkompas))
 
