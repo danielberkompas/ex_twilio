@@ -2,7 +2,7 @@ defmodule ExTwilio.ApiTest do
   use ExUnit.Case, async: false
   alias ExTwilio.Api
   alias ExTwilio.Config
-  import Mock
+  import TestHelper
 
   defmodule Resource do
     defstruct sid: nil, name: nil
@@ -172,19 +172,5 @@ defmodule ExTwilio.ApiTest do
 
       fun.(expected)
     end
-  end
-
-  def with_fixture(:get, response, fun),    do: with_fixture({:get,    fn(_url) -> response end}, fun)
-  def with_fixture(:post, response, fun),   do: with_fixture({:post,   fn(_url, _options) -> response end}, fun)
-  def with_fixture(:delete, response, fun), do: with_fixture({:delete, fn(_url) -> response end}, fun)
-  def with_fixture(stub, fun) do
-    with_mock Api, [:passthrough], [stub] do
-      fun.()
-    end
-  end
-
-  def json_response(map, status) do
-    {:ok, json} = Poison.encode(map)
-    %{body: json, status_code: status}
   end
 end
