@@ -3,7 +3,7 @@ defmodule ExTwilio.Mixfile do
 
   def project do
     [app: :ex_twilio,
-     version: "0.0.1",
+     version: "0.1.0",
      elixir: "~> 1.0",
      name: "ExTwilio",
      source_url: "https://github.com/danielberkompas/ex_twilio",
