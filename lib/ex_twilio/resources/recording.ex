@@ -5,8 +5,6 @@ defmodule ExTwilio.Recording do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/recordings)
   """
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
-
   defstruct sid: nil,
             date_created: nil,
             date_updated: nil,
@@ -15,6 +13,8 @@ defmodule ExTwilio.Recording do
             duration: nil,
             api_version: nil,
             uri: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
 
   def parents, do: [:account]
 end

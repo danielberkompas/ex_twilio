@@ -5,8 +5,6 @@ defmodule ExTwilio.Transcription do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/transcriptions)
   """
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
-
   defstruct sid: nil,
             date_created: nil,
             date_updated: nil,
@@ -18,6 +16,8 @@ defmodule ExTwilio.Transcription do
             price: nil,
             price_unit: nil,
             uri: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
 
   def parents, do: [:account, :recording]
 end

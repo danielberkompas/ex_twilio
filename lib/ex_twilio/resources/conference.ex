@@ -5,8 +5,6 @@ defmodule ExTwilio.Conference do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/conference)
   """
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find]
-
   defstruct sid: nil,
             friendly_name: nil,
             status: nil,
@@ -14,6 +12,8 @@ defmodule ExTwilio.Conference do
             date_updated: nil,
             account_sid: nil,
             uri: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find]
 
   def parents, do: [:account]
 end

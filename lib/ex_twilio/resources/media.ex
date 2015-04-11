@@ -3,9 +3,14 @@ defmodule ExTwilio.Media do
   Represents an Media resource in the Twilio API.
 
   - [Twilio docs](https://www.twilio.com/docs/api/rest/media)
-  """
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
+  ## Examples
+
+  Since Media belong to a Message in Twilio's API, you must pass a Message SID
+  to each function in this module.
+
+      ExTwilio.Media.all(message: "message_sid")
+  """
 
   defstruct sid: nil,
             date_created: nil,
@@ -14,6 +19,8 @@ defmodule ExTwilio.Media do
             parent_sid: nil,
             content_type: nil,
             uri: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
 
   def resource_name, do: "Media"
   def resource_collection_name, do: "media_list"

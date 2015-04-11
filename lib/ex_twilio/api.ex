@@ -161,7 +161,7 @@ defmodule ExTwilio.Api do
       ExTwilio.Api.find(ExTwilio.Call, "nonexistent sid")
       {:error, "The requested resource couldn't be found...", 404}
   """
-  @spec find(atom, String.t, list) :: Parser.success | Parser.error
+  @spec find(atom, String.t | nil, list) :: Parser.success | Parser.error
   def find(module, sid, options \\ []) do
     Parser.parse module, Api.get(Url.build_url(module, sid, options))
   end

@@ -5,8 +5,6 @@ defmodule ExTwilio.Application do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/applications)
   """
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
-
   defstruct sid: nil,
             date_created: nil,
             date_updated: nil,
@@ -26,6 +24,8 @@ defmodule ExTwilio.Application do
             sms_status_callback: nil,
             message_status_callback: nil,
             uri: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
 
   def parents, do: [:account]
 end

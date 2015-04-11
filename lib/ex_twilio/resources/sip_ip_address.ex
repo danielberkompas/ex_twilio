@@ -5,8 +5,6 @@ defmodule ExTwilio.SipIpAddress do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/ip-access-control-list#subresources)
   """
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
-
   defstruct sid: nil,
             account_sid: nil,
             friendly_name: nil,
@@ -14,6 +12,8 @@ defmodule ExTwilio.SipIpAddress do
             date_created: nil,
             date_updated: nil,
             uri: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
 
   def resource_name, do: "IpAddresses"
   def resource_collection_name, do: "ip_addresses"

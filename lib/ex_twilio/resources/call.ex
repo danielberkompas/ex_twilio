@@ -4,9 +4,6 @@ defmodule ExTwilio.Call do
 
   - [Twilio docs](https://www.twilio.com/docs/api/rest/calls)
   """
-
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
-
   defstruct sid: nil,
             parent_call_sid: nil,
             date_created: nil,
@@ -26,6 +23,8 @@ defmodule ExTwilio.Call do
             forwarded_from: nil,
             caller_name: nil,
             uri: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
 
   def cancel(%{sid: sid}), do: cancel(sid)
   def cancel(sid),         do: update(sid, status: "canceled")

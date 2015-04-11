@@ -5,8 +5,6 @@ defmodule ExTwilio.IncomingPhoneNumber do
   - [Twilio docs](https://www.twilio.com/docs/api/rest/incoming-phone-number)
   """
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
-
   defstruct sid: nil,
             account_sid: nil,
             date_created: nil,
@@ -29,6 +27,8 @@ defmodule ExTwilio.IncomingPhoneNumber do
             capabilities: nil,
             address_requirements: nil,
             uri: nil
+
+  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
 
   def parents, do: [:account]
 end

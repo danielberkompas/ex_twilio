@@ -50,6 +50,29 @@ defmodule ExTwilio.Resource do
       variable = String.downcase(resource) |> Inflex.pluralize
       variable_singular = Inflex.singularize(variable)
 
+      @doc """
+      Creates a new #{module} struct. Optionally, you can pass in attributes to
+      set their initial value in the struct.
+
+      ## Example
+
+          %#{module}{} = #{module}.new
+          %#{module}{sid: "sid"} = #{module}.new(sid: "sid")
+      """
+      @spec new :: %__MODULE__{}
+      def new, do: %__MODULE__{}
+
+      @spec new(list) :: %__MODULE__{}
+      def new(attrs) do
+        do_new %__MODULE__{}, attrs
+      end
+
+      @spec do_new(%__MODULE__{}, list) :: %__MODULE__{}
+      defp do_new(struct, []), do: struct
+      defp do_new(struct, [{key, val}|tail]) do
+        do_new Map.put(struct, key, val), tail
+      end
+
       if :stream in import_functions do
         @doc """
         Create a stream of all #{resource} records from the Twilio API.
@@ -168,7 +191,7 @@ defmodule ExTwilio.Resource do
             {:ok, #{variable_singular}} = #{module}.find("...")
             {:error, msg, http_status} = #{module}.find("...")
         """
-        @spec find(String.t, list) :: Parser.parsed_list_response
+        @spec find(String.t | nil, list) :: Parser.parsed_list_response
         def find(sid, options \\ []), do: Api.find(__MODULE__, sid, options)
       end
 
