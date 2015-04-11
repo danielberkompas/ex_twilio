@@ -5,7 +5,8 @@ ExTwilio
 
 ## Installation
 
-ExTwilio is currently beta software, and hasn't been published to [Hex][hex] yet. To install, get it from Github:
+ExTwilio is currently beta software, and hasn't been published to [Hex][hex]
+yet. To install, get it from Github:
 
 ```elixir
 def deps do
@@ -15,26 +16,33 @@ end
 
 ## Configuration
 
-You will need to set the following configuration variables in your `config/config.exs` file:
+You will need to set the following configuration variables in your 
+`config/config.exs` file:
 
 ```elixir
 use Mix.Config
 
-config :ex_twilio, account_sid: System.get_env("TWILIO_ACCOUNT_SID")
-config :ex_twilio, auth_token:  System.get_env("TWILIO_AUTH_TOKEN")
+config :ex_twilio, account_sid: System.get_env("TWILIO_ACCOUNT_SID"),
+                   auth_token:  System.get_env("TWILIO_AUTH_TOKEN")
 ```
 
-For security, I recommend that you use environment variables rather than hard coding your account credentials. If you don't already have an environment variable manager, you can create a `.env` file in your project with the following content:
+For security, I recommend that you use environment variables rather than hard
+coding your account credentials. If you don't already have an environment
+variable manager, you can create a `.env` file in your project with the
+following content:
 
 ```bash
 export TWILIO_ACCOUNT_SID=<account sid here>
 export TWILIO_AUTH_TOKEN=<auth token>
 ```
 
-Then, just be sure to run `source .env` in your shell before compiling your project.
+Then, just be sure to run `source .env` in your shell before compiling your
+project.
 
 ### Multiple Environments
-If you want to use different Twilio credentials for different environments, then create separate Mix configuration files for each environment. To do this, change `config/config.exs` to look like this:
+If you want to use different Twilio credentials for different environments, then
+create separate Mix configuration files for each environment. To do this, change
+`config/config.exs` to look like this:
 
 ```elixir
 # config/config.exs
@@ -46,11 +54,15 @@ use Mix.Config
 import_config "#{Mix.env}.exs"
 ```
 
-Then, create a `config/#{environment_name}.exs` file for each environment. You can then set the `config :ex_twilio` variables differently in each file.
+Then, create a `config/#{environment_name}.exs` file for each environment. You
+can then set the `config :ex_twilio` variables differently in each file.
 
 ## Usage
 
-ExTwilio comes with module for each supported Twilio API resource. For example, the "Call" resource is accessible through the `ExTwilio.Call` module. Depending on what the underlying API supports, a resource module may have the following methods:
+ExTwilio comes with module for each supported Twilio API resource. For example,
+the "Call" resource is accessible through the `ExTwilio.Call` module. Depending
+on what the underlying API supports, a resource module may have the following
+methods:
 
 | Method            | Description                                                       |
 | ----------------- | ----------------------------------------------------------------- |
@@ -66,7 +78,9 @@ ExTwilio comes with module for each supported Twilio API resource. For example, 
 | **update**        | Update a resource.                                                |
 | **destroy**       | Destroy a resource.                                               |
 
-Resource modules may contain their own custom methods. If the underlying API endpoint does not support an action, the related method will _not_ be available on that module.
+Resource modules may contain their own custom methods. If the underlying API
+endpoint does not support an action, the related method will _not_ be available
+on that module.
 
 ### Example
 
@@ -113,7 +127,7 @@ inspect(call)
 #   start_time: "Sat, 14 Mar 2015 14:27:43 +0000", 
 #   status: "completed",
 #   to: "+1xxxxxxxxxx",
-#   uri: "/2010-04-01/Accounts/AC15cd65ff3a7418303ea2b0e88f3321dc/Calls/CA13a9c7f80c6f3761fabae43242b5b6c6.json"
+#   uri: "/2010-04-01/Accounts/ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/Calls/CAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.json"
 # }
 
 # Update a call
@@ -134,7 +148,9 @@ For more in-depth documentation, see the generated docs for each module.
 See the [CONTRIBUTING.md](CONTRIBUTING.md) file for contribution guidelines.
 
 ## License
-ExTwilio is licensed under the MIT license. For more details, see the `LICENSE` file at the root of the repository. It depends on Elixir, which is under the Apache 2 license.
+ExTwilio is licensed under the MIT license. For more details, see the `LICENSE`
+file at the root of the repository. It depends on Elixir, which is under the
+Apache 2 license.
 
 Twilio<sup>TM</sup> is trademark of Twilio, Inc.
 
