@@ -82,6 +82,38 @@ Resource modules may contain their own custom methods. If the underlying API
 endpoint does not support an action, the related method will _not_ be available
 on that module.
 
+### Supported Endpoints
+
+ExTwilio currently supports the following Twilio endpoints:
+
+- [Account](https://www.twilio.com/docs/api/2010-04-01/rest/account). Including SubAccounts.
+- [Address](https://www.twilio.com/docs/api/2010-04-01/rest/addresses)
+    - [DependentPhoneNumber](https://www.twilio.com/docs/api/2010-04-01/rest/addresses#instance-subresources)
+- [Application](https://www.twilio.com/docs/api/2010-04-01/rest/applications)
+- [AuthorizedConnectApp](https://www.twilio.com/docs/api/2010-04-01/rest/authorized-connect-apps)
+- [AvailablePhoneNumber](https://www.twilio.com/docs/api/2010-04-01/rest/available-phone-numbers)
+- [Call](https://www.twilio.com/docs/api/2010-04-01/rest/call)
+    - [Feedback](https://www.twilio.com/docs/api/2010-04-01/rest/call-feedback)
+- [Conference](https://www.twilio.com/docs/api/2010-04-01/rest/conference)
+    - [Participant](https://www.twilio.com/docs/api/2010-04-01/rest/participant)
+- [ConnectApp](https://www.twilio.com/docs/api/2010-04-01/rest/connect-apps)
+- [IncomingPhoneNumber](https://www.twilio.com/docs/api/2010-04-01/rest/incoming-phone-numbers)
+- [Message](https://www.twilio.com/docs/api/2010-04-01/rest/message)
+    - [Media](https://www.twilio.com/docs/api/2010-04-01/rest/media)
+- [Notification](https://www.twilio.com/docs/api/2010-04-01/rest/notification)
+- [OutgoingCallerId](https://www.twilio.com/docs/api/2010-04-01/rest/outgoing-caller-ids)
+- [Queue](https://www.twilio.com/docs/api/2010-04-01/rest/queue)
+    - [Member](https://www.twilio.com/docs/api/2010-04-01/rest/member)
+- [Recording](https://www.twilio.com/docs/api/2010-04-01/rest/recording)
+- [ShortCode](https://www.twilio.com/docs/api/2010-04-01/rest/short-codes)
+- [Token](https://www.twilio.com/docs/api/2010-04-01/rest/token)
+- [Transcription](https://www.twilio.com/docs/api/2010-04-01/rest/transcription)
+- [SipCredentialList](https://www.twilio.com/docs/api/2010-04-01/rest/credential-list)
+    - [SipCredential](https://www.twilio.com/docs/api/rest/credential-list#subresources)
+- [SipDomain](https://www.twilio.com/docs/api/2010-04-01/rest/domain)
+- [SipIPAccessControlList](https://www.twilio.com/docs/api/2010-04-01/rest/ip-access-control-list)
+    - [SipIpAddress](https://www.twilio.com/docs/api/rest/ip-access-control-list#subresources)
+
 ### Example
 
 ```elixir
