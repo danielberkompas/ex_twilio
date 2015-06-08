@@ -18,7 +18,7 @@ defmodule ExTwilio.ShortCode do
             sms_fallback_url_method: nil,
             uri: nil
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :update]
+  use ExTwilio.Resource, import: [:stream, :all, :find, :update]
 
   def resource_name, do: "SMS/ShortCodes"
   def parents, do: [:account]

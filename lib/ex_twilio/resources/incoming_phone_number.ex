@@ -28,7 +28,7 @@ defmodule ExTwilio.IncomingPhoneNumber do
             address_requirements: nil,
             uri: nil
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update, :destroy]
+  use ExTwilio.Resource, import: [:stream, :all, :find, :create, :update, :destroy]
 
   def parents, do: [:account]
 end

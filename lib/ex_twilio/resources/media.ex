@@ -20,7 +20,7 @@ defmodule ExTwilio.Media do
             content_type: nil,
             uri: nil
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
+  use ExTwilio.Resource, import: [:stream, :all, :find, :destroy]
 
   def resource_name, do: "Media"
   def resource_collection_name, do: "media_list"

@@ -1,38 +1,20 @@
 defmodule ExTwilio.Resource do
   @moduledoc """
   Mixin to include `ExTwilio.Api` module functionality in a module with slightly
-  prettier syntax. Under the hood, it delegates all the work to `ExTwilio.Api`.
+  prettier syntax. Under the hood, it delegates all the work to other `ExTwilio`
+  modules, primarily `ExTwilio.Api`.
 
   ## Example
 
   Define a module, and `use ExTwilio.Resource`.
 
       defmodule ExTwilio.Call do
-        use ExTwilio.Resource, import: [:stream, :all, :list]
+        use ExTwilio.Resource, import: [:stream, :all]
 
         defstruct sid: nil, ...
       end
 
-  The `import` option specifies which of the `ExTwilio.Api` methods you want to
-  be able to use. Under the hood, this creates three methods on your new module,
-  and they look like this:
-
-      def stream(options \\ []), do: Api.stream(__MODULE__, options)
-      def all(options \\ []),    do: Api.all(__MODULE__, options)
-      def list(options \\ []),   do: Api.list(__MODULE__, options)
-
-  As you can see, they're simple aliases to `Api` methods. However, they do make
-  your code look a lot nicer.
-
-      # Instead of this:
-      ExTwilio.Api.all(ExTwilio.Call)
-
-      # You can write:
-      ExTwilio.Call.all
-
-  **Important**: You must define a struct for each module in which you `use
-  ExTwilio.Resource`. Items from Twilio will be converted into instances of
-  this struct.
+  The `import` option specifies which methods you want to be able to use.
   """
 
   @doc """
@@ -44,6 +26,7 @@ defmodule ExTwilio.Resource do
       alias ExTwilio.Api
       alias ExTwilio.Parser
       alias ExTwilio.UrlGenerator, as: Url
+      alias ExTwilio.ResultStream
 
       module   = String.replace(to_string(__MODULE__), ~r/Elixir\./, "")
       resource = String.replace(module, ~r/ExTwilio\./, "")
@@ -75,12 +58,11 @@ defmodule ExTwilio.Resource do
 
       if :stream in import_functions do
         @doc """
-        Create a stream of all #{resource} records from the Twilio API.
-
-        Delegates to `ExTwilio.Api.stream/2`.
+        Create an `ExTwilio.ResultStream` of all #{resource} records from the 
+        Twilio API.
         """
-        #@spec stream(list) :: Enumerable.t
-        def stream(options \\ []), do: Api.stream(__MODULE__, options)
+        @spec stream(list) :: Stream.t
+        def stream(options \\ []), do: ResultStream.new(__MODULE__, options)
       end
 
       if :all in import_functions do
@@ -95,89 +77,7 @@ defmodule ExTwilio.Resource do
             #{variable} = #{module}.all
         """
         @spec all(list) :: [map]
-        def all(options \\ []), do: Api.all(__MODULE__, options)
-      end
-
-      if :list in import_functions do
-        @doc """
-        Retrieve a list of #{Inflex.pluralize resource} from the API. 
-
-        Delegates to `ExTwilio.Api.list/2`.
-
-        ## Examples
-
-            # Successful response
-            {:ok, #{variable}, metadata} = #{module}.list
-
-            # Error response
-            {:error, msg, http_code} = #{module}.list
-        """
-        @spec list(list) :: Parser.parsed_list_response
-        def list(options \\ []), do: Api.list(__MODULE__, options)
-
-        @doc """
-        Get the next page of #{variable}, using the metadata from the previous
-        response. See `all/0` for an easy way to get all the records.
-
-        Delegates to `ExTwilio.Api.fetch_page/2`.
-
-        ## Examples
-
-            {:ok, page1, meta} = #{module}.list
-            {:ok, page2, meta} = #{module}.next_page(meta)
-        """
-        @spec next_page(map) :: Parser.parsed_list_response
-        def next_page(metadata) do
-          Api.fetch_page(__MODULE__, metadata["next_page_uri"])
-        end
-
-        @doc """
-        Get the previous page of #{variable}, using metadata from a previous 
-        response.
-
-        Delegates to `ExTwilio.Api.fetch_page/2`.
-
-        ## Examples
-
-            {:ok, page2, meta} = #{module}.list(page: 2)
-            {:ok, page1, meta} = #{module}.previous_page(meta)
-        """
-        @spec previous_page(map) :: Parser.parsed_list_response
-        def previous_page(metadata) do
-          Api.fetch_page(__MODULE__, metadata["previous_page_uri"])
-        end
-
-        @doc """
-        Get the first page of #{variable}, using metadata from any page's 
-        response.
-
-        Delegates to `ExTwilio.Api.fetch_page/2`.
-
-        ## Examples
-
-            {:ok, page10, meta} = #{module}.list(page: 10)
-            {:ok, page1, meta}  = #{module}.first_page(meta)
-        """
-        @spec first_page(map) :: Parser.parsed_list_response
-        def first_page(metadata) do
-          Api.fetch_page(__MODULE__, metadata["first_page_uri"])
-        end
-
-        @doc """
-        Get the last page of #{variable}, using metadta from any page's 
-        response.
-
-        Delegates to `ExTwilio.Api.fetch_page/2`.
-
-        ## Examples
-            
-            {:ok, page10, meta}    = #{module}.list(page: 10)
-            {:ok, last_page, meta} = #{module}.last_page(meta)
-        """
-        @spec last_page(map) :: Parser.parsed_list_response
-        def last_page(metadata) do
-          Api.fetch_page(__MODULE__, metadata["last_page_uri"])
-        end
+        def all(options \\ []), do: stream(options) |> Enum.into([])
       end
 
       if :find in import_functions do
