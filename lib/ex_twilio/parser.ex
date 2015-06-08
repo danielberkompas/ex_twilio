@@ -32,17 +32,17 @@ defmodule ExTwilio.Parser do
   You can parse JSON into that module's struct like so:
 
       iex> response = %{body: "{ \\"sid\\": \\"AD34123\\" }", status_code: 200}
-      ...> ExTwilio.Parser.parse(Resource, response)
+      ...> ExTwilio.Parser.parse(response, Resource)
       {:ok, %Resource{sid: "AD34123"}}
 
   You can also parse into a regular map if you want.
 
       iex> response = %{body: "{ \\"sid\\": \\"AD34123\\" }", status_code: 200}
-      ...> ExTwilio.Parser.parse(%{}, response)
+      ...> ExTwilio.Parser.parse(response, %{})
       {:ok, %{"sid" => "AD34123"}}
   """
-  @spec parse(atom, response) :: success | error
-  def parse(module, response) do
+  @spec parse(response, module) :: success | error
+  def parse(response, module) do
     handle_errors response, fn(body) ->
       Poison.decode!(body, as: module)
     end
@@ -77,8 +77,8 @@ defmodule ExTwilio.Parser do
       ExTwilio.Parser.parse_list(Resource, json, "resources")
       {:ok, [%Resource{sid: "first"}, %Resource{sid: "second"}], %{"next_page" => 10}}
   """
-  @spec parse_list(atom, response, key) :: success_list | error
-  def parse_list(module, response, key) do
+  @spec parse_list(response, module, key) :: success_list | error
+  def parse_list(response, module, key) do
     result = handle_errors response, fn(body) ->
       as = Dict.put(%{}, key, [module])
       Poison.decode!(body, as: as)

@@ -23,7 +23,7 @@ defmodule ExTwilio.Notification do
             response_body: nil,
             uri: nil
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
+  use ExTwilio.Resource, import: [:stream, :all, :find, :destroy]
 
   def parents, do: [:account, :call]
 end

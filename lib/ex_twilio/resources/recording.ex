@@ -14,7 +14,7 @@ defmodule ExTwilio.Recording do
             api_version: nil,
             uri: nil
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
+  use ExTwilio.Resource, import: [:stream, :all, :find, :destroy]
 
   def parents, do: [:account]
 end

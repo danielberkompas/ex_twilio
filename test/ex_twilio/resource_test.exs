@@ -26,27 +26,6 @@ defmodule ExTwilio.ResourceTest do
     assert %TestResource{sid: "hello"} == TestResource.new(sid: "hello")
   end
 
-  test ".stream should delegate to Api.stream" do
-    with_mock Api, [stream: fn(_, _) -> nil end] do
-      TestResource.stream(page_size: 1)
-      assert called Api.stream(TestResource, [page_size: 1])
-    end
-  end
-
-  test ".all should delegate to Api.all" do
-    with_mock Api, [all: fn(_, _) -> nil end] do
-      TestResource.all
-      assert called Api.all(TestResource, [])
-    end
-  end
-
-  test ".list should delegate to Api.list" do
-    with_mock Api, [list: fn(_, _) -> nil end] do
-      TestResource.list(page_size: 1)
-      assert called Api.list(TestResource, [page_size: 1])
-    end
-  end
-
   test ".find should delegate to Api.find" do
     with_mock Api, [find: fn(_, _, _) -> nil end] do
       TestResource.find("id")
@@ -72,38 +51,6 @@ defmodule ExTwilio.ResourceTest do
     with_mock Api, [destroy: fn(_, _, _) -> nil end] do
       TestResource.destroy("id")
       assert called Api.destroy(TestResource, "id", [])
-    end
-  end
-
-  test ".next_page should delegate to Api.fetch_page with 'next_page_uri'" do
-    with_mock Api, [fetch_page: fn(_, _) -> nil end] do
-      meta = %{ "next_page_uri" => "next_page" }
-      TestResource.next_page(meta)
-      assert called Api.fetch_page(TestResource, "next_page")
-    end
-  end
-
-  test ".previous_page should delegate to Api.fetch_page with 'previous_page_uri'" do
-    with_mock Api, [fetch_page: fn(_, _) -> nil end] do
-      meta = %{ "previous_page_uri" => "previous_page" }
-      TestResource.previous_page(meta)
-      assert called Api.fetch_page(TestResource, "previous_page")
-    end
-  end
-
-  test ".first_page should delegate to Api.fetch_page with 'first_page_uri'" do
-    with_mock Api, [fetch_page: fn(_, _) -> nil end] do
-      meta = %{ "first_page_uri" => "first_page" }
-      TestResource.first_page(meta)
-      assert called Api.fetch_page(TestResource, "first_page")
-    end
-  end
-
-  test ".last_page should delegate to Api.fetch_page with 'last_page_uri'" do
-    with_mock Api, [fetch_page: fn(_, _) -> nil end] do
-      meta = %{ "last_page_uri" => "last_page" }
-      TestResource.last_page(meta)
-      assert called Api.fetch_page(TestResource, "last_page")
     end
   end
 end

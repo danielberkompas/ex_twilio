@@ -14,49 +14,6 @@ defmodule ExTwilio.ApiTest do
 
   doctest ExTwilio.Api
 
-  test ".stream should automatically page through resources, yielding each resource" do
-    page1 = %{
-      "resources" => [
-        %{sid: "1", name: "first"}, 
-      ],
-      next_page_uri: "?Page=2"
-    }
-
-    page2 = %{
-      "resources" => [
-        %{sid: "2", name: "second"}, 
-      ],
-      next_page_uri: nil
-    }
-
-    with_fixture {:get, fn url ->
-                            if String.match?(url, ~r/\?Page=2/) do
-                              json_response(page2, 200)
-                            else
-                              json_response(page1, 200)
-                            end
-                        end}, fn ->
-      expected = [%Resource{sid: "1", name: "first"}, %Resource{sid: "2", name: "second"}]
-      assert expected == Enum.into Api.stream(Resource), []
-    end
-  end
-
-  test ".list should fetch the first page of results" do
-    with_list_fixture fn(expected) ->
-      assert expected == Api.list(Resource)
-    end
-  end
-
-  test ".fetch_page should fetch a page of results, given a page url" do
-    with_list_fixture fn(expected) ->
-      assert expected == Api.fetch_page(Resource, "next_page_path")
-    end
-  end
-
-  test ".fetch_page should return an error if passed a nil path" do
-    assert {:error, "That page does not exist."} == Api.fetch_page(Resource, nil)
-  end
-
   test ".find should return the resource if it exists" do
     json = json_response(%{sid: "id"}, 200)
 

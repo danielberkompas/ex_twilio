@@ -33,7 +33,7 @@ defmodule ExTwilio.Account do
             uri: nil,
             subresource_uris: nil
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :create, :update]
+  use ExTwilio.Resource, import: [:stream, :all, :find, :create, :update]
 
   @doc """
   Suspend an Account by updating its status to "suspended".

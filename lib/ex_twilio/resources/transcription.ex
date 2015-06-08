@@ -17,7 +17,7 @@ defmodule ExTwilio.Transcription do
             price_unit: nil,
             uri: nil
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find, :destroy]
+  use ExTwilio.Resource, import: [:stream, :all, :find, :destroy]
 
   def parents, do: [:account, :recording]
 end

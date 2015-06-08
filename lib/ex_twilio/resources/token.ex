@@ -13,7 +13,7 @@ defmodule ExTwilio.Token do
             date_created: nil,
             date_updated: nil
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :create]
+  use ExTwilio.Resource, import: [:stream, :all, :create]
 
   def parents, do: [:account]
 end

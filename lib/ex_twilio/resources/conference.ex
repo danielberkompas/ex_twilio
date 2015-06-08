@@ -13,7 +13,7 @@ defmodule ExTwilio.Conference do
             account_sid: nil,
             uri: nil
 
-  use ExTwilio.Resource, import: [:stream, :all, :list, :find]
+  use ExTwilio.Resource, import: [:stream, :all, :find]
 
   def parents, do: [:account]
 end

@@ -10,17 +10,17 @@ defmodule ExTwilio.ParserTest do
 
   test ".parse should decode a successful response into a named struct" do
     response = %{body: "{ \"sid\": \"unique_id\" }", status_code: 200}
-    assert {:ok, %Resource{sid: "unique_id"}} == parse(Resource, response)
+    assert {:ok, %Resource{sid: "unique_id"}} == parse(response, Resource)
   end
 
   test ".parse should return an error when response is 400" do
     response = %{body: "{ \"message\": \"Error message\" }", status_code: 400}
-    assert {:error, "Error message", 400} == parse(Resource, response)
+    assert {:error, "Error message", 400} == parse(response, Resource)
   end
 
   test ".parse should return :ok when response is 204 'No Content'" do
     response = %{body: "", status_code: 204}
-    assert :ok == parse(Resource, response)
+    assert :ok == parse(response, Resource)
   end
   
   test ".parse_list should decode into a list of named structs" do
@@ -38,6 +38,6 @@ defmodule ExTwilio.ParserTest do
     expected = [%Resource{sid: "first"}, %Resource{sid: "second"}]
     metadata = %{"next_page" => 10}
 
-    assert {:ok, expected, metadata} == parse_list(Resource, response, "resources")
+    assert {:ok, expected, metadata} == parse_list(response, Resource, "resources")
   end
 end
