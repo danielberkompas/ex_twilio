@@ -29,7 +29,6 @@ defmodule ExTwilio.ResultStream do
 
       ExTwilio.ResultStream.new(ExTwilio.Call)
   """
-  @spec new(module) :: Stream.t
   def new(module, options \\ []) do
     url = UrlGenerator.build_url(module, nil, options)
 

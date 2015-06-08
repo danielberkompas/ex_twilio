@@ -61,7 +61,6 @@ defmodule ExTwilio.Resource do
         Create an `ExTwilio.ResultStream` of all #{resource} records from the 
         Twilio API.
         """
-        @spec stream(list) :: Stream.t
         def stream(options \\ []), do: ResultStream.new(__MODULE__, options)
       end
 
