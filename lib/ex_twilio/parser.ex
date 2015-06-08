@@ -78,7 +78,7 @@ defmodule ExTwilio.Parser do
       {:ok, [%Resource{sid: "first"}, %Resource{sid: "second"}], %{"next_page" => 10}}
   """
   @spec parse_list(atom, response, key) :: success_list | error
-  def parse_list(module, response, key) do
+  def parse_list(response, module, key) do
     result = handle_errors response, fn(body) ->
       as = Dict.put(%{}, key, [module])
       Poison.decode!(body, as: as)
