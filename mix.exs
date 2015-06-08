@@ -9,6 +9,7 @@ defmodule ExTwilio.Mixfile do
      description: "Twilio API library for Elixir",
      source_url: "https://github.com/danielberkompas/ex_twilio",
      package: package,
+     docs: docs,
      dialyzer: [
        plt_file: "#{System.get_env("HOME")}/#{plt_filename}",
        flags: ["--no_native", "-Wno_match", "-Wno_return"]
@@ -41,6 +42,13 @@ defmodule ExTwilio.Mixfile do
       {:mock, "~> 0.1.0", only: :test},
       {:ex_doc, "~> 0.7", only: :docs},
       {:inch_ex, only: :docs}
+    ]
+  end
+
+  def docs do
+    [
+      readme: "README.md",
+      main: ExTwilio
     ]
   end
 
