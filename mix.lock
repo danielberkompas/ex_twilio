@@ -9,6 +9,6 @@
   "inflex": {:hex, :inflex, "1.0.0"},
   "meck": {:hex, :meck, "0.8.2"},
   "mock": {:hex, :mock, "0.1.0"},
-  "poison": {:hex, :poison, "1.4.0"},
+  "poison": {:hex, :poison, "1.5.0"},
   "quinn": {:hex, :quinn, "0.0.3"},
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.1"}}
