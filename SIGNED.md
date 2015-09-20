@@ -3,19 +3,19 @@
 -----BEGIN PGP SIGNATURE-----
 Comment: GPGTools - https://gpgtools.org
 
-iQIcBAABCgAGBQJVXzhDAAoJEKU82t1CbYQMiUQQAJrpSV+hu04zVarjxH0H6W+x
-ker8vGZ7zdYvCUC2hSMn4erv37Yz1ewfkKN71eOKuwTeloh7Nd9I5w/HBZV22iOX
-hqMA5vxD7Z0SbQzQfoBgDHMeF2myOwHcprLMU8y09Z6CoUWHLnQ+gaNIw+bBpT7Y
-zSbnS12zn6/4gRenf276M2dfxVBQ9mfLndz2E2tUVcpifh5pM/u54dHxWySoH4m3
-qr2NrPvlv0hmNnum4VAcRXRpa3uvuwx8uAurs51XXGkF/nf9ftRz2ddcyP/hmzkc
-5y2lsMzg9EJOK+JzPC9AsVCm+D6hN3RjapW9uAcDFac6r9QXmeEChg1z92MRYwT0
-aC0ZJ8JOmCPexLb5HPFNu+VYgsjjLrtIFyrxQL/1qK9NVkya2jIHKdf+Zqidww9s
-TTdRZEysP1OKy3J8GBUS6BuLXq19yDbYK2PBFfWpXvKR63ATBVZLSoRCtphFV+OJ
-LUHurP3VM7Bf6itbX/R/+kJtnxpPkCu/iRA+QZj+fTmfQV2eqgezr5UDKt/RRgbx
-l8s51mr7c/fufkhgEmtK3cWFvHe5f+pvyNxR3j4s4EHV3us2d7bomLz5pY5sN1pE
-pVwdNmCF3c1BDEqPn9OiV/lfWDWMISO4XEn0A44ckRMPmqDHIft7+BaWChVFO+/H
-0lQUQoxgvbLdqCqUpJMa
-=qkJj
+iQIcBAABCgAGBQJV/hsOAAoJEKU82t1CbYQMdAEQAIURTkt4Sv5FQW0tpJuugYBX
+ZH/usQk7paXsxjgBuGJFRfTtonjcF7vmDtbgsLIQdsJDpgQLd+VfHDN0VvNlJUWb
+aMhhYbDi4gYXadjRkNtRt9V0Dc/i7EEvr1x1Lfm2s5rk7ur5hvFAYxfKauTSLatg
+YaXUtQBfMZyjoSlpunsPQeG4XZafpBBq43CfOoyjGUxk79oS4YP+EhC/uvNqT+Yi
+f3cMKHsYCOBZDhNqtCcaKCzZpQ1rnKpelMSVmFr1NpRqiudiCuJW1au2PjpRgVA3
+FeXAeifYhgWF71O9RtXCwcnM2bqvCW4+QXbaEX/tTjpztBeCKU6hFR0JNrLlJlUZ
+bQZCbw8UKaVBQbZh29W2yoTdeHphq8IrMc3ufko1oSw+H2JIat5b78YbQFo+9/7n
+spLHPas227RPqdK7GpdLdMlT7gNkmWCjmJaaWELG8Aps6xKKWxA/eegJCtb2DbM+
+mkERUT1UKzxV2a6gfPkEH78dwjucAbRfv/XXxLPz0dMlGLHFepnw5xC9K6QIRP2b
+kGYajGErqcBvWCfCKbE9XEDLo7n1aCwaCHHpbgEjQTMODCEjSpPH5BBJywbdymaG
+n/tOA4aMfKxJzfikCod0HT+6To4vXp2MXB3sC5oi36T23kcUQ3NVLr/w4XZkSQBC
+T+xPrBD9JjKzcc+hpmbf
+=XZRL
 -----END PGP SIGNATURE-----
 
 ```
@@ -32,11 +32,11 @@ size  exec  file                                   contents
 226           .env.sample                          3ffe8824962b877b97282a8490632f2cdb5e3beabb7b744da0a665b49ddfff69
 44            .gitignore                           857886e5471b620284290fd034dbb7f70309a3df6ac085e46294ee0e307f7738
 746           .travis.yml                          7958215bf72b5105028bb746cb265a8dffdafd7bfed6c173697245e94081cd10
-1944          CHANGELOG.md                         6cb3c8f0d4bb9d95f1f89038694d7c09f4f3d02f1d75d3038f6db8b63f2e9bea
+3079          CHANGELOG.md                         ed0fc6943c84b0b2af5b940af1520dad8b95a777c56de4e47d76ac071fc3b990
 558           CONTRIBUTING.md                      4e71192ef692f4d50ab95ffd2c6070e6450413382ed2fea5452eb6a9bba0e16f
 1083          LICENSE                              a24b375a609f6c84e82c1458fbb0383678e3f492ffb83912731fa5313831a7c9
 322           NOTICE                               9b9f53c89cde0e23ea4f718683e5f76d576d8129dc4a5b3d2597128bc61024ad
-8031          README.md                            a49b5f21b05dbd5f6a4a9a66e596fc84f171681411c33371ad480ce0c88c61c0
+8124          README.md                            ae8ca28e2f518b523b8fdceccb361de6881491b944db419371dddadc5d57623c
               config/                                                                                              
 169             config.exs                         bac83faf919bb771de3e6e31dea3fbebb836b5935fd0175a047de59e3e857a58
 154             dev.exs                            0e1eb76b1943c0db60e394c487a4da263102216fb393d54dfcbbc01a3e685fc1
@@ -44,50 +44,52 @@ size  exec  file                                   contents
 164             test.exs                           58cbb56e4e4d4551af2e2949cc9ce0a230369b7d34b6ebac4f7ae2c4daeb5e6f
               lib/                                                                                                 
                 ex_twilio/                                                                                         
-8958              api.ex                           c03e8a9c5f9e37b5270e925b5138d46fe30293205ee6e44c1835b8efb15e9f50
+5021              api.ex                           7dcc5e287ff08e269821e672d127e53ecd328c8b15c01a35d3387500bc69b8bf
 1275              config.ex                        7d5253ef8ab2316dd781b1a5207646f0f00fe1473263e59df02d4723d0b739b4
-3086              parser.ex                        3133422eedd288c085033ccc1961d9958a6f0dd68abc497c30e827f594fc2414
-8434              resource.ex                      00fb0fd5ca733d112dd253371fc6987beaab484a37eb523c1ebdc45486685c5a
+3090              parser.ex                        7cbaf37c671305ffd099df8bafe06ece0ae36364a652c63c8082e04e2cd89fb3
+3174              resource.ex                      d3868ff8791ef31c43dd722a9928478f71130d4d5269dc39ae97be9d3c8e401d
                   resources/                                                                                       
-2552                account.ex                     c9ace8fcd17b93960feca84554a6618f98a5c80daee560f0a64ed79bc3be2153
-538                 address.ex                     9a9ed5d40f4c83f80edda298aac0ac2b41f0b487ccb36985e2223d772ea3507d
-928                 application.ex                 b3dab2d7315507f102322f574d529265b55809b45ab8aa78b0ff0330ba8fa492
-661                 authorized_connect_app.ex      08634cfef74b36776d17e77a4e55e914b737514642fe1174bf751842bd5e02f9
-677                 available_phone_number.ex      c7a2b3b4737144afa8ea0dad1f4ea9544a7bb75732841d5897df13041b3b25ff
-1040                call.ex                        392c5ca9de7b694581cb13a4b1b468c7f1d16408c572489fd8a2f535965facf8
-471                 conference.ex                  f01a1ef54aa37c57db0a0628ef4fa02b595095ba711f439f4813e52a3c5ccc32
-718                 connect_app.ex                 1a776aa9bf060be41c4f4c16f9ef6509fa2d2cb07b44f0bd329a00a7326064d4
-788                 dependent_phone_number.ex      e2040a3f6f0fc3dd4936086caeabeaad2813b719bd201cf6e064eadd9314cdff
+2545                account.ex                     1654419388008c6c9ebe9a8c8ebc4ff5fe582cc4eb35fba4db67ab919d4c4e55
+531                 address.ex                     f3b0d171a2399677a3a8c018e2e67d5372473ec05b5b7d2f21e52e0785afa143
+921                 application.ex                 da87d3fe0a74e5a23f9887b03126c7d3aa506b79c34f80e28eba8b2dbde77da1
+654                 authorized_connect_app.ex      ac394d3d0799d5d3af56a55a5109239234cefab80309702c22396ab18a79f45d
+670                 available_phone_number.ex      95a3bde92c96fb6f1caca5d282f98c57fe71a6040ab31fc027d978c393cb94be
+1033                call.ex                        fbc0162d5385364cebbc319dce9a2ed3768adc148e2ec04bc19f7bad3badfc43
+464                 conference.ex                  cd9e2f23c3cc9a62f575f3b996985c02eb1130652b8f599f5d84a544fca34dfd
+711                 connect_app.ex                 96b95e7d00b015dce7a3c8f6896898e9c03b0b9fb960611acd3aa353c617d6be
+781                 dependent_phone_number.ex      9b184ab4b22ead193ca061ae3297d38f50cd94d190eeb2068c7e0fad5c5b97f2
 1013                feedback.ex                    d04e8726550abb0c9f5643f99a0850d4b0f56fd368a8a06028ae39c32d27f82b
-1052                incoming_phone_number.ex       71865c604079735e735ba91ef694c57bd2064bb1a9a923b7d29a0209428be274
-741                 media.ex                       bf836a1c621ae5ae9928b006cc22a99084b727cd68d5ce8a9aedd9c9cfe872a2
-582                 member.ex                      66621c87fb6c7fa9c25d1ad9defbfaaa775677ae9066112203ad56e61ddf1a6b
-819                 message.ex                     d4224aefe8611b5358cf2b845f102c9639baf25f596dde037cc8ca6cd7e4144b
-802                 notification.ex                ce4c7b8150324aae85edc5a1bbfdc7b68c9b73d7299cb744ed77fae4409438e5
-587                 outgoing_caller_id.ex          784806664bd03b9479e9786b28dcd0f2a77b0f54bab48134eea947ba4e00c576
-813                 participant.ex                 79fd3076c6104b8db5351cd3875ec00453d44a2b45773bc88ca17dab8d62577c
-440                 queue.ex                       2110badd2c8628b548a1df4b2c44f701fc46b52db0544704ec671efe8e5edf1d
-506                 recording.ex                   fb024906574b533add8d13819f255bb100e7d6b7b0bae4c5cf0486ec81d97a1f
-689                 short_code.ex                  ace726fbcadae1388e84009aaa8e34499907d4d30b72d4d05ff410ccab69de0f
-630                 sip_credential.ex              656fb25cbf0a176b325571664a88dfa6f422c28180ea92efb278afe2afa94ccf
-587                 sip_credential_list.ex         d61d603241c5a83279bbecc482459a54822cb0aaa0ce25222a9436e715667be5
-868                 sip_domain.ex                  e48e14b2064cc35706bc018da3c762b24577457abc66d18facfb79d25da653e0
-616                 sip_ip_access_control_list.ex  e022b84a8b64e0c0442093fd0749fccdac774603c7fb52707d532f30bd59d627
-643                 sip_ip_address.ex              8b64d8148e54a99b2c110f9f0a0ca56fbb4ead588216a00c006536b9eeae8624
-464                 token.ex                       62222a7708d3695d436a98d5e81c9df20d8e5e133ace8bad1a690bceadf7affe
-620                 transcription.ex               1a9c4af995f693bcf802627a34056d498748ac43f544dded7af4f604894ea96b
+1045                incoming_phone_number.ex       46544684e8306647947b0a47a72054a60762395ef621970ea1ca6f4c72dc7005
+734                 media.ex                       468588b3500192bef2f6b1b24fd991150458482ce4ce5afdc9faa9fdc7bf696b
+575                 member.ex                      231886d183bb94c3a517e7f71fb8733aeb4b64f898eb71a59e62557074f798b7
+812                 message.ex                     1cf237bc8abccd72da52af64d555c22dd4b5b39814c815b3e97001f74a6136f2
+795                 notification.ex                0bf2a41f2136beeb52cfd4358acbe4f1351e3963e0da42ab2a8532a032be5113
+580                 outgoing_caller_id.ex          341334b5ae570386f230f98f27cc03ca99a43d042570751b5a6a082407437e4e
+806                 participant.ex                 e1994b065ed6061f578e9b37f29261f18305ee61be19bb0c3ac339a781ee4d9a
+433                 queue.ex                       5b9ec0d44593c716150932ac66b2fe877ec570bc7886487ac64c063b031fbabc
+499                 recording.ex                   7f6da062d36cd9914f3aee00788a1c9590d9e974ef348ceeb993633e08d80463
+682                 short_code.ex                  11d091ae3376756e90b2eebf8cf661f77b7b21840456f81e85f611b3fc14fd2a
+623                 sip_credential.ex              ab262b52aa709598ee7b10e16e18f254d523ff1793c3019f451c5ca7477ed1bf
+580                 sip_credential_list.ex         f7f99a49e6420ffd4b085d0816a238155f9a5a876fdfb3d9217eae809546890b
+861                 sip_domain.ex                  7e5f8d976eb0198ffbe084a1a4739a063500b5dbbc9f03220660a0b3f1d65645
+609                 sip_ip_access_control_list.ex  a7a738842990b8953b65d78a97946065284e5bbf189b425f00feb5ebc26e244d
+636                 sip_ip_address.ex              34081a965dd18aa42e11d524cc436faafc51fe571b2714547826c0e3630545a4
+457                 token.ex                       fde6ed43733e8d355d40c71f3f62090b31c1e6657bd4ec244c7ffb928c119758
+613                 transcription.ex               f8f3a7df91c4e4cafafd5a50f55697ad00d5fe8424471445c1ecb9fc3711aa6d
+1563              result_stream.ex                 eca2c575c006e74ffc9a347775df05df4644f6ed266152248fc3035452c314d1
 5214              url_generator.ex                 c6d1d3c278dbac020c70d43036918307f8bbd1fb8ea52bfb06fb33ed49e74f0c
 386             ex_twilio.ex                       dadf12d2474b8e54317cc0a56bd658238bd67e1d9caa0a6d5778ec55cce57ce9
-1628          mix.exs                              85fd9d771ffd6e8fde620769d4c085a4d6d2cb5c616d1f2de28edc0374016c3f
-649           mix.lock                             353bc77cafba8cd0b99948900f24e2782306cb8f6f682e3adbad054317cc5ab1
+1714          mix.exs                              fefaa0b67e3c19c8f0641c4cb2258c0b4096f8beb8b8d55f11d9c29ead88b98d
+649           mix.lock                             f64e994e1bf1da6772315dbf686f2c3c35815e088763caf11972fc271482e53e
               script/                                                                                              
-622   x         release                            3bf505bc77c52e4ff6618c63f5dc3cb176f636266abbf4aa9161d6222771663a
+855   x         release                            7d354f305a2b7261f1cca0a565805056b40133789ff6710b4090751997ec1532
               test/                                                                                                
                 ex_twilio/                                                                                         
-5431              api_test.exs                     2f64c93e2dac2854f5c50b4f00869299d4e684b2330dc6592095576121557ff1
-1234              parser_test.exs                  41b4c2a172474c30572a12c41b05a1fb7873c0f4fd6d4464f8191c2df6f69281
-3473              resource_test.exs                1eaeefd36caee1149edcdf99b93057215f46499ee931d72ea724beb45bf05885
+4119              api_test.exs                     648034c03a2bac6e89e59f565f6646864dc2d4508ac16c0c3bfb335fb26ba191
+1234              parser_test.exs                  1243a153ff2656e48d49b2d0f6f826014087a220bd5b73ee24ece0f16fa7ea90
+1660              resource_test.exs                6b81fcfc3ea433d4a3810daca753493ebd6158d6b3ed6848e86f6b482639d908
                   resources/                                                                                       
+1846              result_stream_test.exs           be4e04ae6037bf1cb2f858343b6b6aa3e5ba26d8ce5fa21d00e6c7947e8418a6
 358               url_generator_test.exs           cd65fb1fbd30369f284ef33d5114b60b9ddc353d530c48781bd9bd0bf25855dc
 655             test_helper.exs                    b58dd855aa4a9ecd9d94591390418585557ddc8e4783d436116264f096c80831
 ```

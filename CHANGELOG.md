@@ -1,35 +1,45 @@
 # Change Log
 
-## [v0.1.0](https://github.com/danielberkompas/ex_twilio/tree/v0.1.0) (2015-04-11)
+## [Unreleased](https://github.com/danielberkompas/ex_twilio/tree/HEAD)
 
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.1...HEAD)
+
+**Implemented enhancements:**
+
+- Refactor `stream` function, remove list functions [\#14](https://github.com/danielberkompas/ex_twilio/pull/14) ([danielberkompas](https://github.com/danielberkompas))
+
+**Merged pull requests:**
+
+- Upgrade ExDoc [\#18](https://github.com/danielberkompas/ex_twilio/pull/18) ([danielberkompas](https://github.com/danielberkompas))
+- Update release script [\#17](https://github.com/danielberkompas/ex_twilio/pull/17) ([danielberkompas](https://github.com/danielberkompas))
+-  pin Poison dependency to \>= 1.4 and \< 2 [\#16](https://github.com/danielberkompas/ex_twilio/pull/16) ([jeffweiss](https://github.com/jeffweiss))
+- Upgrade ibrowse dependency for R18 support [\#15](https://github.com/danielberkompas/ex_twilio/pull/15) ([nickcampbell18](https://github.com/nickcampbell18))
+
+## [v0.1.1](https://github.com/danielberkompas/ex_twilio/tree/v0.1.1) (2015-05-22)
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.0...v0.1.1)
+
+## [v0.1.0](https://github.com/danielberkompas/ex_twilio/tree/v0.1.0) (2015-04-11)
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.0.1...v0.1.0)
 
 **Implemented enhancements:**
 
 - Support all Twilio API endpoints [\#9](https://github.com/danielberkompas/ex_twilio/issues/9)
-
 - Simplify URL generation logic [\#4](https://github.com/danielberkompas/ex_twilio/issues/4)
 
 **Closed issues:**
 
 - Create tests for all Resource modules [\#3](https://github.com/danielberkompas/ex_twilio/issues/3)
-
 - Add list of supported endpoints to README [\#2](https://github.com/danielberkompas/ex_twilio/issues/2)
 
 **Merged pull requests:**
 
 - Finish documenting and tests for now [\#12](https://github.com/danielberkompas/ex_twilio/pull/12) ([danielberkompas](https://github.com/danielberkompas))
-
 - Support All Twilio REST Endpoints [\#11](https://github.com/danielberkompas/ex_twilio/pull/11) ([danielberkompas](https://github.com/danielberkompas))
-
 - Reduce reliance on Enum [\#8](https://github.com/danielberkompas/ex_twilio/pull/8) ([danielberkompas](https://github.com/danielberkompas))
-
 - \[\#4\] Rework URL generation [\#7](https://github.com/danielberkompas/ex_twilio/pull/7) ([danielberkompas](https://github.com/danielberkompas))
-
 - Run Dialyzer on Travis CI [\#6](https://github.com/danielberkompas/ex_twilio/pull/6) ([danielberkompas](https://github.com/danielberkompas))
 
 ## [v0.0.1](https://github.com/danielberkompas/ex_twilio/tree/v0.0.1) (2015-03-31)
-
 **Closed issues:**
 
 - Update all inline documentation [\#1](https://github.com/danielberkompas/ex_twilio/issues/1)
