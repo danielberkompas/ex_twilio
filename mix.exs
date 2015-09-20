@@ -40,7 +40,7 @@ defmodule ExTwilio.Mixfile do
       {:poison, "~> 1.4"},
       {:inflex, "~> 1.0.0"},
       {:mock, "~> 0.1.0", only: :test},
-      {:ex_doc, "~> 0.7", only: :docs},
+      {:ex_doc, only: :docs},
       {:inch_ex, only: :docs}
     ]
   end
