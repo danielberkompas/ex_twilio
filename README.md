@@ -11,8 +11,8 @@ ExTwilio is currently beta software. You can install it from Hex:
 ```elixir
 def deps do
   [
-    {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.1"},
-    {:ex_twilio, "~> 0.1.0"}
+    {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.2"},
+    {:ex_twilio, "~> 0.1.2"}
   ]
 end
 ```
@@ -22,7 +22,7 @@ Or from Github:
 ```elixir
 def deps do
   [
-    {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.1"},
+    {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.2"},
     {:ex_twilio, github: "danielberkompas/ex_twilio"}
   ]
 end
