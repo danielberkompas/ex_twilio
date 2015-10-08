@@ -1,9 +1,9 @@
 defmodule ExTwilio.UrlGenerator do
-  alias ExTwilio.Config
-
   @moduledoc """
   Generates Twilio URLs for modules. See `build_url/3` for more information.
   """
+
+  alias ExTwilio.Config
 
   @doc """
   Infers the proper Twilio URL for a resource when given a module, an optional
@@ -107,7 +107,7 @@ defmodule ExTwilio.UrlGenerator do
   """
   @spec resource_collection_name(atom) :: String.t
   def resource_collection_name(module) do
-    module |> resource_name |> Mix.Utils.underscore
+    module |> resource_name |> ExTwilio.Utils.underscore
   end
 
   @spec add_account_to_options(atom, list) :: list
@@ -158,6 +158,6 @@ defmodule ExTwilio.UrlGenerator do
 
   @spec camelize(String.t | atom) :: String.t
   defp camelize(name) do
-    name |> to_string |> Mix.Utils.camelize
+    name |> to_string |> ExTwilio.Utils.camelize
   end
 end
