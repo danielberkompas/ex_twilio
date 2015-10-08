@@ -65,7 +65,7 @@ defmodule ExTwilio.Mixfile do
 
   defp package do
     [
-      contributors: ["Daniel Berkompas"],
+      maintainers: ["Daniel Berkompas"],
       licenses: ["MIT"],
       links: %{
         "Github" => "https://github.com/danielberkompas/ex_twilio"
