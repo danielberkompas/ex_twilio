@@ -21,7 +21,7 @@ defmodule ExTwilio.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger, :ibrowse, :httpotion]]
+    [applications: [:logger, :ibrowse, :httpotion, :inflex, :poison]]
   end
 
   # Dependencies can be Hex packages:
