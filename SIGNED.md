@@ -3,19 +3,19 @@
 -----BEGIN PGP SIGNATURE-----
 Comment: GPGTools - https://gpgtools.org
 
-iQIcBAABCgAGBQJV/hsOAAoJEKU82t1CbYQMdAEQAIURTkt4Sv5FQW0tpJuugYBX
-ZH/usQk7paXsxjgBuGJFRfTtonjcF7vmDtbgsLIQdsJDpgQLd+VfHDN0VvNlJUWb
-aMhhYbDi4gYXadjRkNtRt9V0Dc/i7EEvr1x1Lfm2s5rk7ur5hvFAYxfKauTSLatg
-YaXUtQBfMZyjoSlpunsPQeG4XZafpBBq43CfOoyjGUxk79oS4YP+EhC/uvNqT+Yi
-f3cMKHsYCOBZDhNqtCcaKCzZpQ1rnKpelMSVmFr1NpRqiudiCuJW1au2PjpRgVA3
-FeXAeifYhgWF71O9RtXCwcnM2bqvCW4+QXbaEX/tTjpztBeCKU6hFR0JNrLlJlUZ
-bQZCbw8UKaVBQbZh29W2yoTdeHphq8IrMc3ufko1oSw+H2JIat5b78YbQFo+9/7n
-spLHPas227RPqdK7GpdLdMlT7gNkmWCjmJaaWELG8Aps6xKKWxA/eegJCtb2DbM+
-mkERUT1UKzxV2a6gfPkEH78dwjucAbRfv/XXxLPz0dMlGLHFepnw5xC9K6QIRP2b
-kGYajGErqcBvWCfCKbE9XEDLo7n1aCwaCHHpbgEjQTMODCEjSpPH5BBJywbdymaG
-n/tOA4aMfKxJzfikCod0HT+6To4vXp2MXB3sC5oi36T23kcUQ3NVLr/w4XZkSQBC
-T+xPrBD9JjKzcc+hpmbf
-=XZRL
+iQIcBAABCgAGBQJWFmLHAAoJEKU82t1CbYQMhiwP+wSQ4jpli0oj7zLngm2dBotx
+dWmf+D/R8JVWigke8R69mt5NgaVlNY/2TnWLSQ04Gxybg4eT/oBasn+7+bb+cT+x
+u+LdH4ylVRpYgzHQUfB9HrqhMx21ngnWe5ihzL7I0dIJVbJVJjN5juoF8KOa+X9x
+PI6T+UHryJAgFWujGLhAHn76kbu9KwOvWgmElXlMmcbiw2WdYUEE/yAYmy2n8KpG
+bAgmhXQYwJboW/xyAw2ll+ffT32oOzwRob8xhTV6CdDGLXyGeZC/y59uWqOuiXx4
+aOQBKgh7+C5EYPYeUPbkmj4ooje2lRrWNyOwIMMvvTrrHBUSxfP2u3IY2T+PU3va
+0JNkl3IVeCxk+eG1WJB7aJuWtOwJFU8uXjugQSbul+Znm6LHpoK63aDtQz+5W4iS
+50aVske1s3H6DIfZbX+fDPIiLj7x+DKaf22dMYhQq35QN1V+OtVO+mXDzPHuSUUe
+5koeV7JvLbuSvpkAvui+/fLD7qrPuFXVMphhSx2q6m1XOL8azk94+JICE/O1cfaE
+tqTozoRoKy+/qpz6smCVy9pXb2EFzjgNv0c+f9+EP1DJxBdpPF7DwR0ytpTKTE/I
+uPo9ogj0ztcmjb9Riu5aN7CkD5UfPSr4z9vHM0Z1x13s+O/K+Ht428YzgEeiAL69
+YOfrsMs69LSUG46+t/8C
+=/Sfb
 -----END PGP SIGNATURE-----
 
 ```
@@ -32,11 +32,11 @@ size  exec  file                                   contents
 226           .env.sample                          3ffe8824962b877b97282a8490632f2cdb5e3beabb7b744da0a665b49ddfff69
 44            .gitignore                           857886e5471b620284290fd034dbb7f70309a3df6ac085e46294ee0e307f7738
 746           .travis.yml                          7958215bf72b5105028bb746cb265a8dffdafd7bfed6c173697245e94081cd10
-3079          CHANGELOG.md                         ed0fc6943c84b0b2af5b940af1520dad8b95a777c56de4e47d76ac071fc3b990
+3705          CHANGELOG.md                         2823ba25172ad6e64d6d98e176fce4e7aa08e03d6292133528ae44be8c8bbf1a
 558           CONTRIBUTING.md                      4e71192ef692f4d50ab95ffd2c6070e6450413382ed2fea5452eb6a9bba0e16f
 1083          LICENSE                              a24b375a609f6c84e82c1458fbb0383678e3f492ffb83912731fa5313831a7c9
 322           NOTICE                               9b9f53c89cde0e23ea4f718683e5f76d576d8129dc4a5b3d2597128bc61024ad
-8124          README.md                            ae8ca28e2f518b523b8fdceccb361de6881491b944db419371dddadc5d57623c
+8124          README.md                            62557de5e82947a9fc23abf570c020ca8d9c3e5b958b36fc1db796973f0cca12
               config/                                                                                              
 169             config.exs                         bac83faf919bb771de3e6e31dea3fbebb836b5935fd0175a047de59e3e857a58
 154             dev.exs                            0e1eb76b1943c0db60e394c487a4da263102216fb393d54dfcbbc01a3e685fc1
@@ -77,9 +77,10 @@ size  exec  file                                   contents
 457                 token.ex                       fde6ed43733e8d355d40c71f3f62090b31c1e6657bd4ec244c7ffb928c119758
 613                 transcription.ex               f8f3a7df91c4e4cafafd5a50f55697ad00d5fe8424471445c1ecb9fc3711aa6d
 1563              result_stream.ex                 eca2c575c006e74ffc9a347775df05df4644f6ed266152248fc3035452c314d1
-5214              url_generator.ex                 c6d1d3c278dbac020c70d43036918307f8bbd1fb8ea52bfb06fb33ed49e74f0c
+5224              url_generator.ex                 0c3179772ac8c7a0e31cbe12cd7ea4a45eeb804ee94c1173b7dbd0dac9608811
+2591              utils.ex                         e9a45efaf0fa9caad2f75092cddefebef8fdf7039496dfdf8e1a8076dc4c747f
 386             ex_twilio.ex                       dadf12d2474b8e54317cc0a56bd658238bd67e1d9caa0a6d5778ec55cce57ce9
-1714          mix.exs                              fefaa0b67e3c19c8f0641c4cb2258c0b4096f8beb8b8d55f11d9c29ead88b98d
+1732          mix.exs                              6b00096d6bb1da853979d97b3cab599e439c31d9c139a5eba0bd276a8a90e0a2
 649           mix.lock                             f64e994e1bf1da6772315dbf686f2c3c35815e088763caf11972fc271482e53e
               script/                                                                                              
 855   x         release                            7d354f305a2b7261f1cca0a565805056b40133789ff6710b4090751997ec1532
@@ -91,6 +92,7 @@ size  exec  file                                   contents
                   resources/                                                                                       
 1846              result_stream_test.exs           be4e04ae6037bf1cb2f858343b6b6aa3e5ba26d8ce5fa21d00e6c7947e8418a6
 358               url_generator_test.exs           cd65fb1fbd30369f284ef33d5114b60b9ddc353d530c48781bd9bd0bf25855dc
+80                utils_test.exs                   036a70dc6d17a8955fba665c5fbd30fd2ce6198e48ba1861cc626840a8fd2c38
 655             test_helper.exs                    b58dd855aa4a9ecd9d94591390418585557ddc8e4783d436116264f096c80831
 ```
 

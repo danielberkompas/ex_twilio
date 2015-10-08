@@ -1,5 +1,18 @@
 # Change Log
 
+## [Unreleased](https://github.com/danielberkompas/ex_twilio/tree/HEAD)
+
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.2...HEAD)
+
+**Closed issues:**
+
+- Drop using `Mix.Utils` in runtime. [\#19](https://github.com/danielberkompas/ex_twilio/issues/19)
+
+**Merged pull requests:**
+
+- \[\#19\]: Stop using Mix.Utils [\#21](https://github.com/danielberkompas/ex_twilio/pull/21) ([danielberkompas](https://github.com/danielberkompas))
+- Add missing applications to app template [\#20](https://github.com/danielberkompas/ex_twilio/pull/20) ([michalmuskala](https://github.com/michalmuskala))
+
 ## [v0.1.2](https://github.com/danielberkompas/ex_twilio/tree/v0.1.2) (2015-09-20)
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.1...v0.1.2)
 
