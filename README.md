@@ -81,11 +81,6 @@ methods:
 | Method            | Description                                                       |
 | ----------------- | ----------------------------------------------------------------- |
 | **all**           | Eager load all of the resource items on all pages. Use with care! |
-| **list**          | Get the first page of the resource. Page size is configurable.    |
-| **next_page**     | Given the current page, get the next page.                        |
-| **previous_page** | Given the current page, get the previous page.                    |
-| **first_page**    | Given the current page, get the first page.                       |
-| **last_page**     | Given the current page, get the last page.                        |
 | **stream**        | Create a Stream of all the items. Use like any Stream.            |
 | **find**          | Find a resource given its SID.                                    |
 | **create**        | Create a resource.                                                |
