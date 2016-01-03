@@ -28,6 +28,16 @@ def deps do
 end
 ```
 
+and run $ mix deps.get. Now, list the :ex_twilio application as your application dependency:
+
+```elixir
+def application do
+  [applications: [:ex_twilio]]
+end
+```
+
+
+
 ## Configuration
 
 You will need to set the following configuration variables in your 
