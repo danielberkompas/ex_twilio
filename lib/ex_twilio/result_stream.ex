@@ -35,7 +35,7 @@ defmodule ExTwilio.ResultStream do
     Stream.resource(
       fn -> fetch_page(url, module) end,
       &process_page/1,
-      fn _ -> end
+      fn _ -> nil end
     )
   end
 
