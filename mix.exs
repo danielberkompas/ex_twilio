@@ -35,10 +35,10 @@ defmodule ExTwilio.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.2"},
-      {:httpotion, "~> 2.1.0"},
+      {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.2.2"},
+      {:httpotion, "~> 2.1"},
       {:poison, "~> 1.4"},
-      {:inflex, "~> 1.0.0"},
+      {:inflex, "~> 1.0"},
       {:mock, "~> 0.1.0", only: :test},
       {:ex_doc, only: :docs},
       {:inch_ex, only: :docs}
