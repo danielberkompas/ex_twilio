@@ -74,7 +74,7 @@ defmodule ExTwilio.UrlGenerator do
   """
   @spec to_query_string(list) :: String.t
   def to_query_string(list) do
-    for({key, value} <- list, into: %{}, do: {camelize(key), value})
+    for({key, value} <- list, into: [], do: {camelize(key), value})
     |> URI.encode_query
   end
 
