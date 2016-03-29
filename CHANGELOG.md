@@ -2,7 +2,24 @@
 
 ## [Unreleased](https://github.com/danielberkompas/ex_twilio/tree/HEAD)
 
-[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.2...HEAD)
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.3...HEAD)
+
+**Closed issues:**
+
+- Add TaskRouter support [\#27](https://github.com/danielberkompas/ex_twilio/issues/27)
+- next\_page and etc implementation?  [\#23](https://github.com/danielberkompas/ex_twilio/issues/23)
+- How can I use the Message module? [\#22](https://github.com/danielberkompas/ex_twilio/issues/22)
+
+**Merged pull requests:**
+
+- Upgrade Travis to Elixir 1.2 and OTP 18 [\#30](https://github.com/danielberkompas/ex_twilio/pull/30) ([danielberkompas](https://github.com/danielberkompas))
+- Allow query strings to contain multiple values for a param [\#29](https://github.com/danielberkompas/ex_twilio/pull/29) ([brentonannan](https://github.com/brentonannan))
+- add fixes for Elixir 1.2 compiler warnings [\#26](https://github.com/danielberkompas/ex_twilio/pull/26) ([jeffweiss](https://github.com/jeffweiss))
+- adds required steps for installation [\#25](https://github.com/danielberkompas/ex_twilio/pull/25) ([AdamBrodzinski](https://github.com/AdamBrodzinski))
+- Remove deleted functions from README [\#24](https://github.com/danielberkompas/ex_twilio/pull/24) ([danielberkompas](https://github.com/danielberkompas))
+
+## [v0.1.3](https://github.com/danielberkompas/ex_twilio/tree/v0.1.3) (2015-10-08)
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.2...v0.1.3)
 
 **Closed issues:**
 
