@@ -1,5 +1,13 @@
 # Change Log
 
+## [Unreleased](https://github.com/danielberkompas/ex_twilio/tree/HEAD)
+
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.6...HEAD)
+
+**Merged pull requests:**
+
+- Fix Parser for Poison 2.0 [\#31](https://github.com/danielberkompas/ex_twilio/pull/31) ([danielberkompas](https://github.com/danielberkompas))
+
 ## [v0.1.6](https://github.com/danielberkompas/ex_twilio/tree/v0.1.6) (2016-04-16)
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.5...v0.1.6)
 
