@@ -3,19 +3,19 @@
 -----BEGIN PGP SIGNATURE-----
 Comment: GPGTools - https://gpgtools.org
 
-iQIcBAABCgAGBQJWFmPEAAoJEKU82t1CbYQM16YP/jMcDcCVL+G7cqd59GKtnuQm
-xzJMQOWsAJRCcRvhyYgozpsizjvaMTRkOBDw/9INV11VSMzbUYrEvcfx08HXrwKO
-e83ag6TwT6BcjO9jITIspq7RoFz39qdjY01Ng7MXWjrBUaZEun5ZQ1mHBHtW39P0
-eHbyPx8sC7Nwg1mQ52EseMXrfLfqJOGVsk0u2az4LQUDneEmO0dG8m4XID1H/ZU3
-BCmx+HlqaNV1K7v+1+WQX1gnmuwDEeJO58epuShfc4rTNUdodmOTtNXSF9RUoMyh
-PiUFD5UfH1xrUc7rsODfT+u59PKX+HCQYxIMpTEe4jHVc1P4uyQ4vrsMIvB09tqg
-3M/dN5/EAIaXIlDK3EqOOJk/T+Bv828AvTRoUt9biQ062JJQng5GQNVnTgg3f1dK
-BnY30LKT9XTcpm2dlTOZE04lfYJrx9zbP43iEd32zyqRPY4oSFnukstN49W4GN6y
-Jii8uI7fQNkczgBATfvMMLS5y9AdQN8HgEaG4mOg6KGRfYDJz46Utzy4uhWmAeGE
-LjhncGl8468Cc1gWT1RNwqEM+Ds6kdhdeXpxdO1zFygpxpIjdRWhjBGHcV97f2uo
-xnBmCGTY+J7JtcCfvh6P8RK1aQE1Bcpi9uUK1Gbw14qrr5p+fMB86xs9is7+SCmb
-49bR9a6hy/yCFSshm/tg
-=RvT2
+iQIcBAABCgAGBQJXEndvAAoJEKU82t1CbYQMjfYP/iA5FKLp5Tsv77RiRtQnMdBa
+Ky/qds4bsyGtRertSX18CZMpzJSXD5UM1R3Y51v1AHDuRadIZyUuW+c2wVt8g5i0
+18j8jBzyAzvIWuHztCo6Oa0j1Dc55+to4rUB9Tx+uFI9W+yr/7vdUNr8fP5nigcD
+tmonN9Dmg56drhLDq0Yj4kEovsHOOe6KhoLfmCBELYZm4kIimD3Lo2P0rYKD8BNL
+LB1eiNY1RRkY+TJlJ37CTn20ZNgL8d8glSg3GgHn1sFNx844CbonkcXEc7JC8z3A
+2jZu7cAqG6a4+9Ij8TdFT9MiredAquWQDVz92rmuec6iAv9ZeSzkjnHExoj4ckoz
+cw/0NFTMdHw5hPRxGrG3kcfpRxQ637ndHlhMDNrFWeGzpMi9dbtRVrheU393HtBT
+PmQnMM1zQ55mBA/aSanHByGtsSLYR+gQS0DxQBI4odQooZcrvjibcGvBPLTKfaTM
+SWZ0K7Odzy+LTBhrVJifHvSyNiVTKwkssFtPlbPezoIqIPXbuOE3ZgKd2ESAodKq
+2uRjorJTgaOg/pXI+5FUgoauH9KqhgBDfVV4RRF5AgUl8qQP1k2cZYiuDdMduYZE
+EqUTUcPXom3ZDFCzjPHw1g2g0jP7DtaiAcM/lFfoIvXodd81U69BIaah/7y2U3OS
+xOJkFNUwWcqBB5xzkhq8
+=Ztuv
 -----END PGP SIGNATURE-----
 
 ```
@@ -31,17 +31,14 @@ size  exec  file                                   contents
             ./                                                                                                     
 226           .env.sample                          3ffe8824962b877b97282a8490632f2cdb5e3beabb7b744da0a665b49ddfff69
 44            .gitignore                           857886e5471b620284290fd034dbb7f70309a3df6ac085e46294ee0e307f7738
-746           .travis.yml                          7958215bf72b5105028bb746cb265a8dffdafd7bfed6c173697245e94081cd10
-3705          CHANGELOG.md                         2823ba25172ad6e64d6d98e176fce4e7aa08e03d6292133528ae44be8c8bbf1a
-558           CONTRIBUTING.md                      4e71192ef692f4d50ab95ffd2c6070e6450413382ed2fea5452eb6a9bba0e16f
-1083          LICENSE                              a24b375a609f6c84e82c1458fbb0383678e3f492ffb83912731fa5313831a7c9
-322           NOTICE                               9b9f53c89cde0e23ea4f718683e5f76d576d8129dc4a5b3d2597128bc61024ad
-8124          README.md                            62557de5e82947a9fc23abf570c020ca8d9c3e5b958b36fc1db796973f0cca12
+706           .travis.yml                          d0d164b8f4213b6f5dd344aed88b80c20336d7a405eeff55c4a25cd6add567e2
+5016          CHANGELOG.md                         ffcb2ca23d4628fb33378e6f9a2a86e01a6c03771d8891875c8cc8e7bcd14f1c
               config/                                                                                              
 169             config.exs                         bac83faf919bb771de3e6e31dea3fbebb836b5935fd0175a047de59e3e857a58
 154             dev.exs                            0e1eb76b1943c0db60e394c487a4da263102216fb393d54dfcbbc01a3e685fc1
 15              docs.exs                           93916c97d87a60564f1e10f03e407774c618a5349b41b7ed5bc1b6fae12f3e81
 164             test.exs                           58cbb56e4e4d4551af2e2949cc9ce0a230369b7d34b6ebac4f7ae2c4daeb5e6f
+558           CONTRIBUTING.md                      4e71192ef692f4d50ab95ffd2c6070e6450413382ed2fea5452eb6a9bba0e16f
               lib/                                                                                                 
                 ex_twilio/                                                                                         
 5021              api.ex                           7dcc5e287ff08e269821e672d127e53ecd328c8b15c01a35d3387500bc69b8bf
@@ -69,19 +66,22 @@ size  exec  file                                   contents
 433                 queue.ex                       5b9ec0d44593c716150932ac66b2fe877ec570bc7886487ac64c063b031fbabc
 499                 recording.ex                   7f6da062d36cd9914f3aee00788a1c9590d9e974ef348ceeb993633e08d80463
 682                 short_code.ex                  11d091ae3376756e90b2eebf8cf661f77b7b21840456f81e85f611b3fc14fd2a
-623                 sip_credential.ex              ab262b52aa709598ee7b10e16e18f254d523ff1793c3019f451c5ca7477ed1bf
 580                 sip_credential_list.ex         f7f99a49e6420ffd4b085d0816a238155f9a5a876fdfb3d9217eae809546890b
+623                 sip_credential.ex              ab262b52aa709598ee7b10e16e18f254d523ff1793c3019f451c5ca7477ed1bf
 861                 sip_domain.ex                  7e5f8d976eb0198ffbe084a1a4739a063500b5dbbc9f03220660a0b3f1d65645
 609                 sip_ip_access_control_list.ex  a7a738842990b8953b65d78a97946065284e5bbf189b425f00feb5ebc26e244d
 636                 sip_ip_address.ex              34081a965dd18aa42e11d524cc436faafc51fe571b2714547826c0e3630545a4
 457                 token.ex                       fde6ed43733e8d355d40c71f3f62090b31c1e6657bd4ec244c7ffb928c119758
 613                 transcription.ex               f8f3a7df91c4e4cafafd5a50f55697ad00d5fe8424471445c1ecb9fc3711aa6d
-1563              result_stream.ex                 eca2c575c006e74ffc9a347775df05df4644f6ed266152248fc3035452c314d1
-5224              url_generator.ex                 0c3179772ac8c7a0e31cbe12cd7ea4a45eeb804ee94c1173b7dbd0dac9608811
+1567              result_stream.ex                 562b73ba207b80b8444cb11e4d79babdc7092d03bc69199fbf292cb84ad19484
+5223              url_generator.ex                 a44748c89ba68013e6a85eaa54df418e31f66d13acc0c58db75711e5a812f129
 2591              utils.ex                         e9a45efaf0fa9caad2f75092cddefebef8fdf7039496dfdf8e1a8076dc4c747f
 386             ex_twilio.ex                       dadf12d2474b8e54317cc0a56bd658238bd67e1d9caa0a6d5778ec55cce57ce9
-1731          mix.exs                              05226e7859791a073d19c6155085b64876b6dcc758a0afc5a8389d5a744bfb98
-649           mix.lock                             f64e994e1bf1da6772315dbf686f2c3c35815e088763caf11972fc271482e53e
+1083          LICENSE                              a24b375a609f6c84e82c1458fbb0383678e3f492ffb83912731fa5313831a7c9
+1753          mix.exs                              23ea308e827aeae1063e0693c1cd6e87ae6f6befc3fc4ea5c57456e9874a8fe0
+652           mix.lock                             9f9642eadf109fbb2d38ffbc28214040a1adb28824fc91201cd78983e3099c33
+322           NOTICE                               9b9f53c89cde0e23ea4f718683e5f76d576d8129dc4a5b3d2597128bc61024ad
+7990          README.md                            b10d343b5af8d5ae22db8bcbf0b3031ce2e6d7696f092de41494c11bf75a5623
               script/                                                                                              
 855   x         release                            7d354f305a2b7261f1cca0a565805056b40133789ff6710b4090751997ec1532
               test/                                                                                                
@@ -91,7 +91,7 @@ size  exec  file                                   contents
 1660              resource_test.exs                6b81fcfc3ea433d4a3810daca753493ebd6158d6b3ed6848e86f6b482639d908
                   resources/                                                                                       
 1846              result_stream_test.exs           be4e04ae6037bf1cb2f858343b6b6aa3e5ba26d8ce5fa21d00e6c7947e8418a6
-358               url_generator_test.exs           cd65fb1fbd30369f284ef33d5114b60b9ddc353d530c48781bd9bd0bf25855dc
+844               url_generator_test.exs           259a36ef3acf4c911dc14080700e594b7228c5a35a4825e685e1bcc14880a5fc
 80                utils_test.exs                   036a70dc6d17a8955fba665c5fbd30fd2ce6198e48ba1861cc626840a8fd2c38
 655             test_helper.exs                    b58dd855aa4a9ecd9d94591390418585557ddc8e4783d436116264f096c80831
 ```
