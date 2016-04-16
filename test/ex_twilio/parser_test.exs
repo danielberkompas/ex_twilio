@@ -22,7 +22,7 @@ defmodule ExTwilio.ParserTest do
     response = %{body: "", status_code: 204}
     assert :ok == parse(response, Resource)
   end
-  
+
   test ".parse_list should decode into a list of named structs" do
     json = """
     {
