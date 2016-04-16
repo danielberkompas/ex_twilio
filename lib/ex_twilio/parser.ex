@@ -44,9 +44,12 @@ defmodule ExTwilio.Parser do
   @spec parse(response, module) :: success | error
   def parse(response, module) do
     handle_errors response, fn(body) ->
-      Poison.decode!(body, as: module)
+      Poison.decode!(body, as: target(module))
     end
   end
+
+  defp target(module) when is_atom(module), do: module.__struct__
+  defp target(other), do: other
 
   @doc """
   Parse a response expected to contain multiple resources. If you pass in a
@@ -80,7 +83,7 @@ defmodule ExTwilio.Parser do
   @spec parse_list(response, module, key) :: success_list | error
   def parse_list(response, module, key) do
     result = handle_errors response, fn(body) ->
-      as = Dict.put(%{}, key, [module])
+      as = Dict.put(%{}, key, [target(module)])
       Poison.decode!(body, as: as)
     end
 
