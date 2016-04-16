@@ -13,7 +13,7 @@ ExTwilio is currently beta software. You can install it from Hex:
 def deps do
   [
     {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.2"},
-    {:ex_twilio, "~> 0.1.6"}
+    {:ex_twilio, "~> 0.1.7"}
   ]
 end
 ```
