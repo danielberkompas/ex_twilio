@@ -1,5 +1,8 @@
 # Change Log
 
+## [v0.1.6](https://github.com/danielberkompas/ex_twilio/tree/v0.1.6) (2016-04-16)
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.5...v0.1.6)
+
 ## [v0.1.5](https://github.com/danielberkompas/ex_twilio/tree/v0.1.5) (2016-04-16)
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.4...v0.1.5)
 
