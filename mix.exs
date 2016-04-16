@@ -37,11 +37,11 @@ defmodule ExTwilio.Mixfile do
     [
       {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.2.2"},
       {:httpotion, "~> 2.1"},
-      {:poison, "~> 1.4"},
+      {:poison, ">= 2.0.0"},
       {:inflex, "~> 1.0"},
       {:mock, "~> 0.1.0", only: :test},
-      {:ex_doc, only: :docs},
-      {:inch_ex, only: :docs}
+      {:ex_doc, ">= 0.0.0", only: :docs},
+      {:inch_ex, ">= 0.0.0", only: :docs}
     ]
   end
 

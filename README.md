@@ -3,6 +3,7 @@ ExTwilio
 [![Hex.pm](https://img.shields.io/hexpm/v/ex_twilio.svg)](https://hex.pm/packages/ex_twilio)
 [![Build Status](https://travis-ci.org/danielberkompas/ex_twilio.svg?branch=master)](https://travis-ci.org/danielberkompas/ex_twilio)
 [![Inline docs](http://inch-ci.org/github/danielberkompas/ex_twilio.svg?branch=master)](http://inch-ci.org/github/danielberkompas/ex_twilio)
+[![Deps Status](https://beta.hexfaktor.org/badge/all/github/danielberkompas/ex_twilio.svg)](https://beta.hexfaktor.org/github/danielberkompas/ex_twilio)
 
 ## Installation
 
@@ -35,8 +36,6 @@ def application do
   [applications: [:ex_twilio]]
 end
 ```
-
-
 
 ## Configuration
 
