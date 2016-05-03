@@ -107,7 +107,7 @@ defmodule ExTwilio.UrlGenerator do
   """
   @spec resource_collection_name(atom) :: String.t
   def resource_collection_name(module) do
-    module |> resource_name |> ExTwilio.Utils.underscore
+    module |> resource_name |> Macro.underscore
   end
 
   @spec add_account_to_options(atom, list) :: list
@@ -158,6 +158,6 @@ defmodule ExTwilio.UrlGenerator do
 
   @spec camelize(String.t | atom) :: String.t
   defp camelize(name) do
-    name |> to_string |> ExTwilio.Utils.camelize
+    name |> to_string |> Macro.camelize
   end
 end
