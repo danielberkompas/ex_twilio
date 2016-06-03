@@ -28,7 +28,7 @@ defmodule ExTwilio.ResultStream do
 
   ## Example
 
-  ExTwilio.ResultStream.new(ExTwilio.Call)
+      ExTwilio.ResultStream.new(ExTwilio.Call)
   """
   def new(module, options \\ []) do
     url = UrlGenerator.build_url(module, nil, options)
