@@ -59,8 +59,8 @@ defmodule ExTwilio.ResultStream do
     |> process_page
   end
 
-  defp process_page({items, next_page_url, module}) do
-    {items, {nil, next_page_url, module}}
+  defp process_page({items, next_page_uri, module}) do
+    {items, {nil, next_page_uri, module}}
   end
 
   defp next_page_url(uri), do: "https://#{Config.api_domain}" <> uri
