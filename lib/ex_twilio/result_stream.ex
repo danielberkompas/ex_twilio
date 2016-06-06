@@ -15,6 +15,7 @@ defmodule ExTwilio.ResultStream do
   alias ExTwilio.Api
   alias ExTwilio.Parser
   alias ExTwilio.UrlGenerator
+  alias ExTwilio.Config
 
   @type url :: String.t
 
@@ -52,13 +53,15 @@ defmodule ExTwilio.ResultStream do
     {:halt, nil}
   end
 
-  defp process_page({nil, next_page_url, module}) do
-    next_page_url
+  defp process_page({nil, next_page_uri, module}) do
+    next_page_url(next_page_uri)
     |> fetch_page(module)
     |> process_page
   end
 
-  defp process_page({items, next_page_url, module}) do
-    {items, {nil, next_page_url, module}}
+  defp process_page({items, next_page_uri, module}) do
+    {items, {nil, next_page_uri, module}}
   end
+
+  defp next_page_url(uri), do: "https://#{Config.api_domain}" <> uri
 end
