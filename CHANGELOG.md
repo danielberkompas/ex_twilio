@@ -1,5 +1,22 @@
 # Change Log
 
+## [Unreleased](https://github.com/danielberkompas/ex_twilio/tree/HEAD)
+
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.7...HEAD)
+
+**Closed issues:**
+
+- Lack of domain when running ExTwilio.Call.all\(\) [\#38](https://github.com/danielberkompas/ex_twilio/issues/38)
+- Hex dependency resolution issues [\#34](https://github.com/danielberkompas/ex_twilio/issues/34)
+- ExTwilio.Message.create throws {:error, "The requested resource /2010-04-01/Messages.json was not found", 404} [\#33](https://github.com/danielberkompas/ex_twilio/issues/33)
+- 2 Factor Authentication [\#32](https://github.com/danielberkompas/ex_twilio/issues/32)
+- Switch out HTTPotion for Tesla? [\#10](https://github.com/danielberkompas/ex_twilio/issues/10)
+
+**Merged pull requests:**
+
+- Provide full url to process\_page when there is more than 50 entries. [\#40](https://github.com/danielberkompas/ex_twilio/pull/40) ([rlb3](https://github.com/rlb3))
+- Remove unnecessary Utils module and replace its usages with Macro [\#35](https://github.com/danielberkompas/ex_twilio/pull/35) ([AvaelKross](https://github.com/AvaelKross))
+
 ## [v0.1.7](https://github.com/danielberkompas/ex_twilio/tree/v0.1.7) (2016-04-16)
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.6...v0.1.7)
 
