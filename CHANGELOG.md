@@ -7,6 +7,13 @@
 **Closed issues:**
 
 - Accessing the Usage logs [\#39](https://github.com/danielberkompas/ex_twilio/issues/39)
+- Error on sending messages [\#36](https://github.com/danielberkompas/ex_twilio/issues/36)
+- Add ability to create Capability tokens [\#28](https://github.com/danielberkompas/ex_twilio/issues/28)
+
+**Merged pull requests:**
+
+- Depend on Hex version of ibrowse [\#42](https://github.com/danielberkompas/ex_twilio/pull/42) ([danielberkompas](https://github.com/danielberkompas))
+- This makes ex\_twilio compatible with elixir 1.3 [\#41](https://github.com/danielberkompas/ex_twilio/pull/41) ([tokafish](https://github.com/tokafish))
 
 ## [v0.1.8](https://github.com/danielberkompas/ex_twilio/tree/v0.1.8) (2016-06-06)
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.7...v0.1.8)
