@@ -11,10 +11,7 @@ ExTwilio is currently beta software. You can install it from Hex:
 
 ```elixir
 def deps do
-  [
-    {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.2"},
-    {:ex_twilio, "~> 0.1.8"}
-  ]
+  [{:ex_twilio, "~> 0.1.8"}]
 end
 ```
 
@@ -22,14 +19,11 @@ Or from Github:
 
 ```elixir
 def deps do
-  [
-    {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.2"},
-    {:ex_twilio, github: "danielberkompas/ex_twilio"}
-  ]
+  [{:ex_twilio, github: "danielberkompas/ex_twilio"}]
 end
 ```
 
-and run $ mix deps.get. Now, list the :ex_twilio application as your application dependency:
+and run `mix deps.get`. Now, list the `:ex_twilio` application as your application dependency:
 
 ```elixir
 def application do
@@ -39,7 +33,7 @@ end
 
 ## Configuration
 
-You will need to set the following configuration variables in your 
+You will need to set the following configuration variables in your
 `config/config.exs` file:
 
 ```elixir
@@ -148,7 +142,7 @@ stream
 |> Stream.map(fn(call) -> call.sid end)
 |> Enum.into([]) # Only here does any work happen.
 # => ["CAc14d7...", "CA649ea861..."]
- 
+
 # Get the first page. The meta variable is a map of paging information
 # from Twilio.
 {:ok, calls, meta} = ExTwilio.Call.list
@@ -163,18 +157,18 @@ inspect(call)
 #   account_sid: "ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 #   answered_by: nil, caller_name: "",
 #   date_created: "Sat, 14 Mar 2015 14:27:38 +0000",
-#   date_updated: "Sat, 14 Mar 2015 14:28:35 +0000", 
+#   date_updated: "Sat, 14 Mar 2015 14:28:35 +0000",
 #   direction: "outbound-api",
-#   duration: "52", 
+#   duration: "52",
 #   end_time: "Sat, 14 Mar 2015 14:28:35 +0000",
-#   forwarded_from: nil, 
-#   from: "+1xxxxxxxxxx", 
+#   forwarded_from: nil,
+#   from: "+1xxxxxxxxxx",
 #   parent_call_sid: nil,
-#   phone_number_sid: "", 
-#   price: "-0.01500", 
+#   phone_number_sid: "",
+#   price: "-0.01500",
 #   price_unit: "USD",
 #   sid: "CA13a9c7f80c6f3761fabae43242b5b6c6",
-#   start_time: "Sat, 14 Mar 2015 14:27:43 +0000", 
+#   start_time: "Sat, 14 Mar 2015 14:27:43 +0000",
 #   status: "completed",
 #   to: "+1xxxxxxxxxx",
 #   uri: "/2010-04-01/Accounts/ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/Calls/CAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.json"
@@ -183,7 +177,7 @@ inspect(call)
 # Update a call
 call = ExTwilio.Call.update(call, status: "canceled")
 
-# Get a call's recordings. This pattern is repeated wherever you are 
+# Get a call's recordings. This pattern is repeated wherever you are
 # getting a nested resource.
 recordings = ExTwilio.Recording.all(call: call.sid)
 
