@@ -122,7 +122,7 @@ defmodule ExTwilio.Api do
   """
   @spec process_options(list) :: list
   def process_options(options) do
-    Dict.put(options, :basic_auth, { Config.account_sid, Config.auth_token })
+    Dict.merge([basic_auth: { Config.account_sid, Config.auth_token }], options)
   end
 
   @doc """
