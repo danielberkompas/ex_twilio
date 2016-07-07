@@ -94,6 +94,11 @@ defmodule ExTwilio.ApiTest do
     assert expected == Api.process_options([])
   end
 
+  test ".process_options allows for overriding basic HTTP auth" do
+    overridden = [basic_auth: { "overridden_sid", "overridden_token" }]
+    assert overridden == Api.process_options(overridden)
+  end
+
   test ".process_request_headers adds the correct 'Content-Type' header" do
     expected = %{:"Content-Type" => "application/x-www-form-urlencoded; charset=UTF-8"}
     assert expected == Api.process_request_headers(%{})
