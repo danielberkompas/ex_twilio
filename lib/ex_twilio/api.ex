@@ -42,9 +42,9 @@ defmodule ExTwilio.Api do
       {:error, "The requested resource couldn't be found...", 404}
   """
   @spec find(atom, String.t | nil, list) :: Parser.success | Parser.error
-  def find(module, sid, options \\ []) do
-    Url.build_url(module, sid, options)
-    |> Api.get
+  def find(module, sid, query_options \\ [], http_options \\ []) do
+    Url.build_url(module, sid, query_options, http_options)
+    |> Api.get(http_options)
     |> Parser.parse(module)
   end
 
@@ -60,9 +60,9 @@ defmodule ExTwilio.Api do
       {:error, "No 'To' number is specified", 400}
   """
   @spec create(atom, list, list) :: Parser.success | Parser.error
-  def create(module, data, options \\ []) do
-    Url.build_url(module, nil, options)
-    |> Api.post(body: data)
+  def create(module, data, query_options \\ [], http_options \\ []) do
+    Url.build_url(module, nil, query_options, http_options)
+    |> Api.post(Dict.merge([body: data], http_options))
     |> Parser.parse(module)
   end
 
@@ -78,12 +78,12 @@ defmodule ExTwilio.Api do
       {:error, "The requested resource ... was not found", 404}
   """
   @spec update(atom, String.t, list, list) :: Parser.success | Parser.error
-  def update(module, sid, data, options \\ [])
-  def update(module, sid, data, options) when is_binary(sid), do: do_update(module, sid, data, options)
-  def update(module, %{sid: sid}, data, options),             do: do_update(module, sid, data, options)
-  defp do_update(module, sid, data, options) do
-    Url.build_url(module, sid, options)
-    |> Api.post(body: data)
+  def update(module, sid, data, query_options \\ [], http_options \\ [])
+  def update(module, sid, data, query_options, http_options) when is_binary(sid), do: do_update(module, sid, data, query_options, http_options)
+  def update(module, %{sid: sid}, data, query_options, http_options),             do: do_update(module, sid, data, query_options, http_options)
+  defp do_update(module, sid, data, query_options, http_options) do
+    Url.build_url(module, sid, query_options, http_options)
+    |> Api.post(Dict.merge([body: data], http_options))
     |> Parser.parse(module)
   end
 
@@ -99,12 +99,12 @@ defmodule ExTwilio.Api do
       {:error, "The requested resource ... was not found", 404}
   """
   @spec destroy(atom, String.t) :: Parser.success_delete | Parser.error
-  def destroy(module, sid, options \\ [])
-  def destroy(module, sid, options) when is_binary(sid), do: do_destroy(module, sid, options)
-  def destroy(module, %{sid: sid}, options),             do: do_destroy(module, sid, options)
-  defp do_destroy(module, sid, options) do
-    Url.build_url(module, sid, options)
-    |> Api.delete
+  def destroy(module, sid, query_options \\ [], http_options \\ [])
+  def destroy(module, sid, query_options, http_options) when is_binary(sid), do: do_destroy(module, sid, query_options, http_options)
+  def destroy(module, %{sid: sid}, query_options, http_options),             do: do_destroy(module, sid, query_options, http_options)
+  defp do_destroy(module, sid, query_options, http_options) do
+    Url.build_url(module, sid, query_options, http_options)
+    |> Api.delete(http_options)
     |> Parser.parse(module)
   end
 
@@ -114,7 +114,6 @@ defmodule ExTwilio.Api do
 
   @doc """
   Adds the Account SID and Auth Token to every request through HTTP basic auth.
-  Config Account SID and Auth Token may be overridden when using a Sub Account.
 
   ## Example
 
