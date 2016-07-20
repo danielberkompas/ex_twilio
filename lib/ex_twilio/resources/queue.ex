@@ -11,7 +11,14 @@ defmodule ExTwilio.Queue do
             max_size: nil,
             average_wait_time: nil
 
-  use ExTwilio.Resource, import: [:stream, :all, :find, :create, :update, :destroy]
+  use ExTwilio.Resource, import: [
+    :stream,
+    :all,
+    :find,
+    :create,
+    :update,
+    :destroy
+  ]
 
   def parents, do: [:account]
 end

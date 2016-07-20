@@ -5,7 +5,7 @@ defmodule ExTwilio.Config do
 
   @doc """
   Returns the Twilio Account SID. Set it in `mix.exs`:
-  
+
       config :ex_twilio, account_sid: "YOUR_ACCOUNT_SID"
   """
   def account_sid, do: Application.get_env(:ex_twilio, :account_sid)
@@ -34,7 +34,7 @@ defmodule ExTwilio.Config do
   def api_version, do: Application.get_env(:ex_twilio, :api_version) || "2010-04-01"
 
   @doc """
-  Return the combined base URL of the Twilio API, using the configuration 
+  Return the combined base URL of the Twilio API, using the configuration
   settings given.
   """
   def base_url do

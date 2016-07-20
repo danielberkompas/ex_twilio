@@ -54,7 +54,8 @@ defmodule ExTwilio.ResultStream do
   end
 
   defp process_page({nil, next_page_uri, module}) do
-    next_page_url(next_page_uri)
+    next_page_uri
+    |> next_page_url
     |> fetch_page(module)
     |> process_page
   end
