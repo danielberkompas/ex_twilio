@@ -5,9 +5,9 @@ defmodule TestHelper do
   alias ExTwilio.Api
   import Mock
 
-  def with_fixture(:get, response, fun),    do: with_fixture({:get,    fn(_url) -> response end}, fun)
-  def with_fixture(:post, response, fun),   do: with_fixture({:post,   fn(_url, _options) -> response end}, fun)
-  def with_fixture(:delete, response, fun), do: with_fixture({:delete, fn(_url) -> response end}, fun)
+  def with_fixture(:get!, response, fun),    do: with_fixture({:get!,    fn(_url) -> response end}, fun)
+  def with_fixture(:post!, response, fun),   do: with_fixture({:post!,   fn(_url, _options) -> response end}, fun)
+  def with_fixture(:delete!, response, fun), do: with_fixture({:delete!, fn(_url) -> response end}, fun)
   def with_fixture(stub, fun) do
     with_mock Api, [:passthrough], [stub] do
       fun.()

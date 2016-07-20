@@ -23,6 +23,8 @@ defmodule ExTwilio.Api do
   alias ExTwilio.UrlGenerator, as: Url
   alias __MODULE__ # Necessary for mocks in tests
 
+  @type data :: map | list | binary
+
   @doc """
   Find a given resource in the Twilio API by its SID.
 
@@ -44,7 +46,7 @@ defmodule ExTwilio.Api do
   @spec find(atom, String.t | nil, list) :: Parser.success | Parser.error
   def find(module, sid, options \\ []) do
     Url.build_url(module, sid, options)
-    |> Api.get
+    |> Api.get!
     |> Parser.parse(module)
   end
 
@@ -59,10 +61,10 @@ defmodule ExTwilio.Api do
       ExTwilio.Api.create(ExTwilio.Call, [])
       {:error, "No 'To' number is specified", 400}
   """
-  @spec create(atom, list, list) :: Parser.success | Parser.error
+  @spec create(atom, data, list) :: Parser.success | Parser.error
   def create(module, data, options \\ []) do
     Url.build_url(module, nil, options)
-    |> Api.post(body: data)
+    |> Api.post!(data)
     |> Parser.parse(module)
   end
 
@@ -77,13 +79,13 @@ defmodule ExTwilio.Api do
       ExTwilio.Api.update(ExTwilio.Call, "nonexistent", [status: "complete"])
       {:error, "The requested resource ... was not found", 404}
   """
-  @spec update(atom, String.t, list, list) :: Parser.success | Parser.error
+  @spec update(atom, String.t, data, list) :: Parser.success | Parser.error
   def update(module, sid, data, options \\ [])
   def update(module, sid, data, options) when is_binary(sid), do: do_update(module, sid, data, options)
   def update(module, %{sid: sid}, data, options),             do: do_update(module, sid, data, options)
   defp do_update(module, sid, data, options) do
     Url.build_url(module, sid, options)
-    |> Api.post(body: data)
+    |> Api.post!(data)
     |> Parser.parse(module)
   end
 
@@ -104,7 +106,7 @@ defmodule ExTwilio.Api do
   def destroy(module, %{sid: sid}, options),             do: do_destroy(module, sid, options)
   defp do_destroy(module, sid, options) do
     Url.build_url(module, sid, options)
-    |> Api.delete
+    |> Api.delete!
     |> Parser.parse(module)
   end
 
