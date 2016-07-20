@@ -1,5 +1,14 @@
 # Change Log
 
+## [Unreleased](https://github.com/danielberkompas/ex_twilio/tree/HEAD)
+
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.9...HEAD)
+
+**Merged pull requests:**
+
+- Add Credo Linter [\#45](https://github.com/danielberkompas/ex_twilio/pull/45) ([danielberkompas](https://github.com/danielberkompas))
+- Switch to HTTPoison [\#44](https://github.com/danielberkompas/ex_twilio/pull/44) ([danielberkompas](https://github.com/danielberkompas))
+
 ## [v0.1.9](https://github.com/danielberkompas/ex_twilio/tree/v0.1.9) (2016-07-02)
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.8...v0.1.9)
 
