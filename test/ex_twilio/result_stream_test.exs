@@ -42,7 +42,7 @@ defmodule ExTwilio.ResultStreamTest do
   end
 
   defp with_streaming_fixture(fun) do
-    with_fixture({:get, fn url ->
+    with_fixture({:get!, fn url ->
                             if String.match?(url, ~r/\?Page=2/) do
                               json_response(page2, 200)
                             else
