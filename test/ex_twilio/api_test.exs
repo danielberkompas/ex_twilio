@@ -4,7 +4,6 @@ defmodule ExTwilio.ApiTest do
   import TestHelper
 
   alias ExTwilio.Api
-  alias ExTwilio.Config
 
   defmodule Resource do
     defstruct sid: nil, name: nil
@@ -91,22 +90,19 @@ defmodule ExTwilio.ApiTest do
   # HTTPotion API
   ###
 
-  test ".process_options adds in the basic HTTP auth" do
-    expected = [basic_auth: { Config.account_sid, Config.auth_token }]
-    assert expected == Api.process_options([])
+  test ".process_request_headers adds the correct headers" do
+    headers = Api.process_request_headers([])
+    content = {:"Content-Type", "application/x-www-form-urlencoded; charset=UTF-8"}
+    assert content in headers
+    assert Keyword.keys(headers) == [:Authorization, :"Content-Type"]
   end
 
-  test ".process_request_headers adds the correct 'Content-Type' header" do
-    expected = %{:"Content-Type" => "application/x-www-form-urlencoded; charset=UTF-8"}
-    assert expected == Api.process_request_headers(%{})
+  test ".format_data converts data to a query string when passed a list" do
+    assert "FieldName=value" == Api.format_data([field_name: "value"])
   end
 
-  test ".process_request_body converts body to a query string when passed a list" do
-    assert "FieldName=value" == Api.process_request_body([field_name: "value"])
-  end
-
-  test ".process_request_body does not modify the body when passed a not-list" do
-    assert "unmodified" == Api.process_request_body("unmodified")
+  test ".format_data does not modify the body when passed a not-list" do
+    assert "unmodified" == Api.format_data("unmodified")
   end
 
   ###

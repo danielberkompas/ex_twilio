@@ -23,7 +23,7 @@ defmodule ExTwilio.Api do
   alias ExTwilio.UrlGenerator, as: Url
   alias __MODULE__ # Necessary for mocks in tests
 
-  @type data :: map | list | binary
+  @type data :: map | list
 
   @doc """
   Find a given resource in the Twilio API by its SID.
@@ -63,7 +63,9 @@ defmodule ExTwilio.Api do
   """
   @spec create(atom, data, list) :: Parser.success | Parser.error
   def create(module, data, options \\ []) do
-    Url.build_url(module, nil, options)
+    data = format_data(data)
+    module
+    |> Url.build_url(nil, options)
     |> Api.post!(data)
     |> Parser.parse(module)
   end
@@ -84,7 +86,9 @@ defmodule ExTwilio.Api do
   def update(module, sid, data, options) when is_binary(sid), do: do_update(module, sid, data, options)
   def update(module, %{sid: sid}, data, options),             do: do_update(module, sid, data, options)
   defp do_update(module, sid, data, options) do
-    Url.build_url(module, sid, options)
+    data = format_data(data)
+    module
+    |> Url.build_url(sid, options)
     |> Api.post!(data)
     |> Parser.parse(module)
   end
@@ -105,7 +109,8 @@ defmodule ExTwilio.Api do
   def destroy(module, sid, options) when is_binary(sid), do: do_destroy(module, sid, options)
   def destroy(module, %{sid: sid}, options),             do: do_destroy(module, sid, options)
   defp do_destroy(module, sid, options) do
-    Url.build_url(module, sid, options)
+    module
+    |> Url.build_url(sid, options)
     |> Api.delete!
     |> Parser.parse(module)
   end
@@ -115,47 +120,23 @@ defmodule ExTwilio.Api do
   ###
 
   @doc """
-  Adds the Account SID and Auth Token to every request through HTTP basic auth.
-
-  ## Example
-
-      iex> ExTwilio.Api.process_options([])
-      [basic_auth: { #{inspect Config.account_sid}, #{inspect Config.auth_token} }]
-  """
-  @spec process_options(list) :: list
-  def process_options(options) do
-    Dict.put(options, :basic_auth, { Config.account_sid, Config.auth_token })
-  end
-
-  @doc """
-  Automatically add the Content-Type application/x-www-form-urlencoded. This
-  allows POST request data to be processed properly. It seems to have no
-  negative effect on GET calls, so it is added to all requests.
-
-  ## Example
-
-      iex> ExTwilio.Api.process_request_headers([])
-      [{:"Content-Type", "application/x-www-form-urlencoded; charset=UTF-8"}]
+  Automatically adds the correct headers to each API request.
   """
   @spec process_request_headers(list) :: list
   def process_request_headers(headers) do
-    Dict.put(headers, :"Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+    headers
+    |> Keyword.put(:"Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+    |> Keyword.put(:"Authorization", "Basic " <> Base.encode64("#{Config.account_sid}:#{Config.auth_token}"))
   end
 
-  @doc """
-  If the request body is a list, then convert the list to a query string.
-  Otherwise, pass it through unmodified.
-
-  ## Examples
-
-      iex> ExTwilio.Api.process_request_body([hello: "world"])
-      "Hello=world"
-
-      iex> ExTwilio.Api.process_request_body("Hello, world!")
-      "Hello, world!"
-  """
-  def process_request_body(body) when is_list(body) do
-    Url.to_query_string(body)
+  @spec format_data(data) :: binary
+  def format_data(data) when is_map(data) do
+    data
+    |> Map.to_list
+    |> Url.to_query_string
   end
-  def process_request_body(body), do: body
+  def format_data(data) when is_list(data) do
+    Url.to_query_string(data)
+  end
+  def format_data(data), do: data
 end
