@@ -1,6 +1,8 @@
 defmodule ExTwilio.UrlGeneratorTest do
   use ExUnit.Case
 
+  import ExTwilio.UrlGenerator
+
   defmodule Resource do
     defstruct sid: nil, name: nil
     def resource_name, do: "Resources"

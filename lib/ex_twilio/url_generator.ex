@@ -16,30 +16,30 @@ defmodule ExTwilio.UrlGenerator do
 
   # Examples
 
-      iex> ExTwilio.UrlGenerator.build_url(Resource)
+      iex> build_url(Resource)
       "#{Config.base_url}/Accounts/#{Config.account_sid}/Resources.json"
 
-      iex> ExTwilio.UrlGenerator.build_url(Resource, nil, account: 2)
+      iex> build_url(Resource, nil, account: 2)
       "#{Config.base_url}/Accounts/2/Resources.json"
 
-      iex> ExTwilio.UrlGenerator.build_url(Resource, 1, account: 2)
+      iex> build_url(Resource, 1, account: 2)
       "#{Config.base_url}/Accounts/2/Resources/1.json"
 
-      iex> ExTwilio.UrlGenerator.build_url(Resource, 1)
+      iex> build_url(Resource, 1)
       "#{Config.base_url}/Accounts/#{Config.account_sid}/Resources/1.json"
 
-      iex> ExTwilio.UrlGenerator.build_url(Resource, nil, page: 20)
+      iex> build_url(Resource, nil, page: 20)
       "#{Config.base_url}/Accounts/#{Config.account_sid}/Resources.json?Page=20"
 
-      iex> ExTwilio.UrlGenerator.build_url(Resource, nil, iso_country_code: "US", type: "Mobile", page: 20)
+      iex> build_url(Resource, nil, iso_country_code: "US", type: "Mobile", page: 20)
       "#{Config.base_url}/Accounts/#{Config.account_sid}/Resources/US/Mobile.json?Page=20"
 
-      iex> ExTwilio.UrlGenerator.build_url(Resource, 1, sip_ip_access_control_list: "list", account: "account_sid")
+      iex> build_url(Resource, 1, sip_ip_access_control_list: "list", account: "account_sid")
       "#{Config.base_url}/Accounts/account_sid/SIP/IpAccessControlLists/list/Resources/1.json"
   """
   @spec build_url(atom, String.t | nil, list) :: String.t
   def build_url(module, id \\ nil, options \\ []) do
-    url = Config.base_url 
+    url = Config.base_url
 
     # Add Account SID segment if not already present
     options = add_account_to_options(module, options)
@@ -74,7 +74,8 @@ defmodule ExTwilio.UrlGenerator do
   """
   @spec to_query_string(list) :: String.t
   def to_query_string(list) do
-    for({key, value} <- list, into: [], do: {camelize(key), value})
+    list
+    |> Enum.map(fn {key, value} -> {camelize(key), value} end)
     |> URI.encode_query
   end
 
@@ -107,7 +108,9 @@ defmodule ExTwilio.UrlGenerator do
   """
   @spec resource_collection_name(atom) :: String.t
   def resource_collection_name(module) do
-    module |> resource_name |> Macro.underscore
+    module
+    |> resource_name
+    |> Macro.underscore
   end
 
   @spec add_account_to_options(atom, list) :: list
@@ -122,8 +125,10 @@ defmodule ExTwilio.UrlGenerator do
   @spec build_query(atom, list) :: String.t
   defp build_query(module, options) do
     special = module.parents ++ module.children
-    query = Enum.reject(options, fn({key, _val}) -> key in special end)
-            |> to_query_string
+    query =
+      options
+      |> Enum.reject(fn({key, _val}) -> key in special end)
+      |> to_query_string
 
     if String.length(query) > 0, do: "?" <> query, else: ""
   end

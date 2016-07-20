@@ -45,7 +45,8 @@ defmodule ExTwilio.Api do
   """
   @spec find(atom, String.t | nil, list) :: Parser.success | Parser.error
   def find(module, sid, options \\ []) do
-    Url.build_url(module, sid, options)
+    module
+    |> Url.build_url(sid, options)
     |> Api.get!
     |> Parser.parse(module)
   end
@@ -84,7 +85,7 @@ defmodule ExTwilio.Api do
   @spec update(atom, String.t, data, list) :: Parser.success | Parser.error
   def update(module, sid, data, options \\ [])
   def update(module, sid, data, options) when is_binary(sid), do: do_update(module, sid, data, options)
-  def update(module, %{sid: sid}, data, options),             do: do_update(module, sid, data, options)
+  def update(module, %{sid: sid}, data, options), do: do_update(module, sid, data, options)
   defp do_update(module, sid, data, options) do
     data = format_data(data)
     module
@@ -107,7 +108,7 @@ defmodule ExTwilio.Api do
   @spec destroy(atom, String.t) :: Parser.success_delete | Parser.error
   def destroy(module, sid, options \\ [])
   def destroy(module, sid, options) when is_binary(sid), do: do_destroy(module, sid, options)
-  def destroy(module, %{sid: sid}, options),             do: do_destroy(module, sid, options)
+  def destroy(module, %{sid: sid}, options), do: do_destroy(module, sid, options)
   defp do_destroy(module, sid, options) do
     module
     |> Url.build_url(sid, options)
@@ -124,9 +125,10 @@ defmodule ExTwilio.Api do
   """
   @spec process_request_headers(list) :: list
   def process_request_headers(headers) do
+    auth = Base.encode64("#{Config.account_sid}:#{Config.auth_token}")
     headers
     |> Keyword.put(:"Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
-    |> Keyword.put(:"Authorization", "Basic " <> Base.encode64("#{Config.account_sid}:#{Config.auth_token}"))
+    |> Keyword.put(:"Authorization", "Basic #{auth}")
   end
 
   @spec format_data(data) :: binary

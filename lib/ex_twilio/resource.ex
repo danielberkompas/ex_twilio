@@ -46,7 +46,11 @@ defmodule ExTwilio.Resource do
 
       if :all in import_functions do
         @spec all(list) :: [map]
-        def all(options \\ []), do: stream(options) |> Enum.into([])
+        def all(options \\ []) do
+          options
+          |> stream
+          |> Enum.into([])
+        end
       end
 
       if :find in import_functions do

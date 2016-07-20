@@ -13,6 +13,7 @@ before_script:
   - mix local.hex --force
   - mix deps.get --only test
 script:
+  - mix credo --strict
   - mix test
   - dialyzer --no_check_plt --plt $PLT_LOCATION -Wno_match -Wno_return --no_native _build/test/lib/ex_twilio/ebin
 after_script:

@@ -96,13 +96,13 @@ defmodule ExTwilio.Parser do
   @spec handle_errors(response, ((String.t) -> any)) :: success | success_delete | error
   defp handle_errors(response, fun) do
     case response do
-      %{body: body, status_code: status} when status in [200, 201] -> 
+      %{body: body, status_code: status} when status in [200, 201] ->
         {:ok, fun.(body)}
 
       %{body: _, status_code: 204} ->
         :ok
 
-      %{body: body, status_code: status} -> 
+      %{body: body, status_code: status} ->
         {:ok, json} = Poison.decode(body)
         {:error, json["message"], status}
     end
