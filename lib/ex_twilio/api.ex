@@ -16,7 +16,7 @@ defmodule ExTwilio.Api do
   details, see the documentation for each function.
   """
 
-  use HTTPotion.Base
+  use HTTPoison.Base
 
   alias ExTwilio.Config
   alias ExTwilio.Parser
@@ -43,7 +43,7 @@ defmodule ExTwilio.Api do
   """
   @spec find(atom, String.t | nil, list) :: Parser.success | Parser.error
   def find(module, sid, options \\ []) do
-    Url.build_url(module, sid, options) 
+    Url.build_url(module, sid, options)
     |> Api.get
     |> Parser.parse(module)
   end
@@ -61,7 +61,7 @@ defmodule ExTwilio.Api do
   """
   @spec create(atom, list, list) :: Parser.success | Parser.error
   def create(module, data, options \\ []) do
-    Url.build_url(module, nil, options) 
+    Url.build_url(module, nil, options)
     |> Api.post(body: data)
     |> Parser.parse(module)
   end
@@ -126,7 +126,7 @@ defmodule ExTwilio.Api do
   end
 
   @doc """
-  Automatically add the Content-Type application/x-www-form-urlencoded. This 
+  Automatically add the Content-Type application/x-www-form-urlencoded. This
   allows POST request data to be processed properly. It seems to have no
   negative effect on GET calls, so it is added to all requests.
 
@@ -141,7 +141,7 @@ defmodule ExTwilio.Api do
   end
 
   @doc """
-  If the request body is a list, then convert the list to a query string. 
+  If the request body is a list, then convert the list to a query string.
   Otherwise, pass it through unmodified.
 
   ## Examples
