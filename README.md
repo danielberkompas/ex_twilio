@@ -112,7 +112,7 @@ ExTwilio currently supports the following Twilio endpoints:
 - [IncomingPhoneNumber](https://www.twilio.com/docs/api/2010-04-01/rest/incoming-phone-numbers)
 - [Message](https://www.twilio.com/docs/api/2010-04-01/rest/message)
     - [Media](https://www.twilio.com/docs/api/2010-04-01/rest/media)
-- [Notification](https://www.twilio.com/docs/api/2010-04-01/rest/notification)
+- [Notification](https://www.twilio.com/docs/api/notifications/rest)
 - [OutgoingCallerId](https://www.twilio.com/docs/api/2010-04-01/rest/outgoing-caller-ids)
 - [Queue](https://www.twilio.com/docs/api/2010-04-01/rest/queue)
     - [Member](https://www.twilio.com/docs/api/2010-04-01/rest/member)
