@@ -187,6 +187,11 @@ ExTwilio.Call.destroy(call)
 
 For more in-depth documentation, see the generated docs for each module.
 
+### Making and Receiving Calls
+
+See the [CALLING_TUTORIAL.md](CALLING_TUTORIAL.md) file for instructions on
+making and receiving calls from the browser with ExTwilio.
+
 ## Contributing
 
 See the [CONTRIBUTING.md](CONTRIBUTING.md) file for contribution guidelines.
