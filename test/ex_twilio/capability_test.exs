@@ -8,7 +8,7 @@ defmodule ExTwilio.CapabilityTest do
 
   test ".new sets the start time for the TTL to be the current time" do
 
-    assert_in_delta DateTime.to_unix(ExTwilio.Capability.new.start_time), DateTime.to_unix(DateTime.utc_now), 1000
+    assert_in_delta ExTwilio.Capability.new.start_time, :erlang.system_time(:seconds), 1000
   end
 
   test ".new sets the account sid from the config" do
@@ -54,7 +54,7 @@ defmodule ExTwilio.CapabilityTest do
 
   test ".starting_at sets the start_time" do
 
-    assert ExTwilio.Capability.starting_at(ExTwilio.Capability.new, DateTime.from_unix!(1464096368)).start_time == DateTime.from_unix!(1464096368)
+    assert ExTwilio.Capability.starting_at(ExTwilio.Capability.new, 1464096368).start_time == 1464096368
   end
 
   test ".with_account_sid sets the account_sid" do
@@ -69,7 +69,7 @@ defmodule ExTwilio.CapabilityTest do
 
   test ".token sets an expiration time of one hour from now" do
 
-    assert_in_delta decoded_token(ExTwilio.Capability.new).claims["exp"], DateTime.to_unix(DateTime.utc_now) + 3600, 1000
+    assert_in_delta decoded_token(ExTwilio.Capability.new).claims["exp"], :erlang.system_time(:seconds) + 3600, 1000
   end
 
   test ".token sets the issuer to the account sid" do

@@ -34,7 +34,7 @@ defmodule ExTwilio.Capability do
     incoming_client_names: list,
     outgoing_client_app_sid: String.t,
     ttl: non_neg_integer,
-    start_time: DateTime.t,
+    start_time: non_neg_integer,
     auth_token: String.t,
     account_sid: String.t
   }
@@ -50,7 +50,7 @@ defmodule ExTwilio.Capability do
   @spec new :: capability
   def new do
     %Capability{}
-    |> starting_at(DateTime.utc_now)
+    |> starting_at(:erlang.system_time(:seconds))
     |> with_ttl(3600)
     |> with_account_sid(Config.account_sid)
     |> with_auth_token(Config.auth_token)
@@ -104,15 +104,15 @@ defmodule ExTwilio.Capability do
   end
 
   @doc """
-  Sets the time at which the TTL begins.
+  Sets the time at which the TTL begins in seconds since epoch.
 
   ## Example
 
   Sets the TTL to begin on 24th May, 2016
 
-      ExTwilio.Capability.starting_at(DateTime.from_unix!(1464096368))
+      ExTwilio.Capability.starting_at(1464096368)
   """
-  @spec starting_at(capability, DateTime.t) :: capability
+  @spec starting_at(capability, non_neg_integer) :: capability
   def starting_at(capability_struct = %Capability{}, start_time) do
     %{capability_struct | start_time: start_time}
   end
@@ -215,7 +215,7 @@ defmodule ExTwilio.Capability do
   end
 
   defp expiration_time(start_time, ttl) do
-    DateTime.to_unix(start_time) + ttl
+    start_time + ttl
   end
 
   defp jwt_payload(scope, issuer, expiration_time) do
