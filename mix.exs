@@ -38,6 +38,7 @@ defmodule ExTwilio.Mixfile do
       {:httpoison, ">= 0.9.0"},
       {:poison, ">= 2.0.0"},
       {:inflex, "~> 1.0"},
+      {:joken, "~> 1.2.2"},
       {:credo, "~> 0.4", only: [:dev, :test]},
       {:mock, "~> 0.1.0", only: :test},
       {:ex_doc, ">= 0.0.0", only: :docs},
