@@ -124,7 +124,7 @@ defmodule ExTwilio.Api do
   Automatically adds the correct headers to each API request.
   """
   @spec process_request_headers(list) :: list
-  def process_request_headers(headers) do
+  def process_request_headers(headers \\ []) do
     auth = Base.encode64("#{Config.account_sid}:#{Config.auth_token}")
     headers
     |> Keyword.put(:"Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
