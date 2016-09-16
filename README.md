@@ -126,6 +126,10 @@ ExTwilio currently supports the following Twilio endpoints:
 - [SipIPAccessControlList](https://www.twilio.com/docs/api/2010-04-01/rest/ip-access-control-list)
     - [SipIpAddress](https://www.twilio.com/docs/api/rest/ip-access-control-list#subresources)
 
+As well as Twilio's Lookup Rest API:
+
+- [Lookup](https://www.twilio.com/docs/api/lookups)
+
 ### Example
 
 ```elixir
