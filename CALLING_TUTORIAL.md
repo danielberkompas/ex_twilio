@@ -200,7 +200,7 @@ end
 
 Once you've started your web server, you can expose your endpoint to the world with a tool like [Ngrok](https://ngrok.com/), pointing it to your development server on port 4000
 
-`ngrok http 4000`
+    $ ngrok http 4000
 
 Create a [TwiML application](https://www.twilio.com/console/voice/dev-tools/twiml-apps) on Twilio, which will tell Twilio where to get instructions for routing incoming calls. Set the URL to point to your `voice` endpoint exposed by Ngrok, e.g.
 
