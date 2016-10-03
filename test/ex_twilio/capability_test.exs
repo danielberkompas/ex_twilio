@@ -80,8 +80,9 @@ defmodule ExTwilio.CapabilityTest do
   end
 
   test ".token sets the outgoing scope" do
-    capability = ExTwilio.Capability.new
-    |> ExTwilio.Capability.allow_client_outgoing("app sid")
+    capability =
+      ExTwilio.Capability.new
+      |> ExTwilio.Capability.allow_client_outgoing("app sid")
 
     assert decoded_token(capability).claims["scope"] == "scope:client:outgoing?appSid=app%20sid"
   end
