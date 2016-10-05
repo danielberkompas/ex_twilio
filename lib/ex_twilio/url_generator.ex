@@ -40,22 +40,21 @@ defmodule ExTwilio.UrlGenerator do
   """
   @spec build_url(atom, String.t | nil, list) :: String.t
   def build_url(module, id \\ nil, options \\ []) do
-    url = Config.base_url
+    url =
+      case Module.split(module) do
+        ["ExTwilio", "TaskRouter", _] ->
+          options = add_workspace_to_options(module, options)
 
-    # Add Account SID segment if not already present
-    options = add_account_to_options(module, options)
+          Config.task_router_url() |> add_segements(module, id, options)
+        _ ->
+          # Add Account SID segment if not already present
+          options = add_account_to_options(module, options)
 
-    # Append parents
-    url = url <> build_segments(:parent, module.parents, options)
+          url = Config.base_url() |> add_segements(module, id, options)
 
-    # Append module segment
-    url = url <> segment(:main, {module.resource_name, id})
-
-    # Append any child segments
-    url = url <> build_segments(:child, module.children, options)
-
-    # Append .json
-    url = url <> ".json"
+           # Append .json
+          url <> ".json"
+      end
 
     # Append querystring
     if Keyword.has_key?(options, :query) do
@@ -63,6 +62,17 @@ defmodule ExTwilio.UrlGenerator do
     else
       url <> build_query(module, options)
     end
+  end
+
+  defp add_segements(url, module, id, options) do
+    # Append parents
+    url = url <> build_segments(:parent, module.parents, options)
+
+    # Append module segment
+    url = url <> segment(:main, {module.resource_name, id})
+
+    # Append any child segments
+    url <> build_segments(:child, module.children, options)
   end
 
   @doc """
@@ -123,6 +133,11 @@ defmodule ExTwilio.UrlGenerator do
     end
   end
 
+  @spec add_workspace_to_options(atom, list) :: list
+  defp add_workspace_to_options(_module, options) do
+    Dict.put_new(options, :workspace, Config.workspace_sid)
+  end
+
   @spec build_query(atom, list) :: String.t
   defp build_query(module, options) do
     special = module.parents ++ module.children
@@ -159,7 +174,11 @@ defmodule ExTwilio.UrlGenerator do
 
   @spec infer_module(atom) :: atom
   defp infer_module(atom) do
-    Module.concat(ExTwilio, camelize(atom))
+    if atom == :workspace do
+      Module.concat(ExTwilio.TaskRouter, camelize(atom))
+    else
+      Module.concat(ExTwilio, camelize(atom))
+    end
   end
 
   @spec camelize(String.t | atom) :: String.t
