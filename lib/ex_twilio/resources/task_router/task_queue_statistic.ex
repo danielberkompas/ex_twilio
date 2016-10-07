@@ -1,5 +1,8 @@
 defmodule ExTwilio.TaskRouter.TaskQueueStatistic do
   @moduledoc """
+  Realtime and historical statistics for TaskQueues
+
+  - [Twilio docs](https://www.twilio.com/docs/api/taskrouter/taskqueue-statistics)
   """
 
   defstruct realtime: nil,

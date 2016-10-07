@@ -1,5 +1,8 @@
 defmodule ExTwilio.TaskRouter.Task do
   @moduledoc """
+  A Task instance resource represents a single item of work waiting to be processed.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/taskrouter/tasks)
   """
 
   defstruct sid: nil,
@@ -26,5 +29,5 @@ defmodule ExTwilio.TaskRouter.Task do
   use ExTwilio.Resource, import: [:stream, :all, :find, :create, :update, :delete]
 
   def parents, do: [:workspace]
-  def children, do: [:ordering]
+  def children, do: [:ordering, :workflow_sid, :attributes]
 end

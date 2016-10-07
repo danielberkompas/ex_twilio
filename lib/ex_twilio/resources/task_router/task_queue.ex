@@ -1,5 +1,9 @@
 defmodule ExTwilio.TaskRouter.TaskQueue do
   @moduledoc """
+  TaskQueues are the resource you use to categorize Tasks
+  and describe which Workers are eligible to handle those Tasks
+
+  - [Twilio docs](https://www.twilio.com/docs/api/taskrouter/taskqueues)
   """
 
   defstruct sid: nil,
@@ -20,5 +24,5 @@ defmodule ExTwilio.TaskRouter.TaskQueue do
   use ExTwilio.Resource, import: [:stream, :all, :find, :create, :update, :delete]
 
   def parents, do: [:workspace]
-  def children, do: [:friendly_name, :evaluate_worker_attributes]
+  def children, do: [:friendly_name, :evaluate_worker_attributes, :reservation_activity_sid, :assignment_activity_sid, :target_workers]
 end

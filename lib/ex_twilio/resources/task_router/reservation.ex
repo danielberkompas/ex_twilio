@@ -1,5 +1,8 @@
 defmodule ExTwilio.TaskRouter.Reservation do
   @moduledoc """
+  TaskRouter creates a Reservation subresource whenever a Task is reserved for a a Worker.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/taskrouter/reservations)
   """
 
   defstruct sid: nil,
@@ -19,4 +22,5 @@ defmodule ExTwilio.TaskRouter.Reservation do
   use ExTwilio.Resource, import: [:stream, :all, :find, :update]
 
   def parents, do: [:workspace, :task]
+  def children, do: [:worker_sid, :reservation_status]
 end

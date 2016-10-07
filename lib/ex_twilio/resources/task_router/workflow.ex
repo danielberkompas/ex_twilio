@@ -1,5 +1,8 @@
 defmodule ExTwilio.TaskRouter.Workflow do
   @moduledoc """
+  Repersents a workflow that controls how tasks will be prioritized and routed into queues.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/taskrouter/workflows)
   """
 
   defstruct sid: nil,
@@ -19,5 +22,5 @@ defmodule ExTwilio.TaskRouter.Workflow do
   use ExTwilio.Resource, import: [:stream, :all, :find, :create, :update, :delete]
 
   def parents, do: [:workspace]
-  def children, do: [:friendly_name]
+  def children, do: [:friendly_name, :configuration]
 end

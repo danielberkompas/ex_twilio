@@ -1,5 +1,8 @@
 defmodule ExTwilio.TaskRouter.WorkerStatistic do
   @moduledoc """
+  TaskRouter provides real time and historical statistics for Workers.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/taskrouter/worker-statistics)
   """
 
   defstruct realtime: nil,

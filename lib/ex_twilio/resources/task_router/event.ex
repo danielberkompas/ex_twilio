@@ -1,5 +1,8 @@
 defmodule ExTwilio.TaskRouter.Event do
   @moduledoc """
+  Repersents the Event logs Twilio keeps track of.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/taskrouter/events)
   """
 
   defstruct sid: nil,
@@ -18,7 +21,9 @@ defmodule ExTwilio.TaskRouter.Event do
             event_data: nil,
             url: nil
 
-  use ExTwilio.Resource, import: [:find]
+  use ExTwilio.Resource, import: [:stream, :all, :find]
 
   def parents, do: [:workspace]
+  def children, do: [:minutes, :start_date, :end_date, :event_type, :worker_sid,
+                     :task_queue_sid, :workflow_sid, :task_sid, :reservation_sid]
 end

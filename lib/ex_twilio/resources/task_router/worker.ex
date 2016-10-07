@@ -1,5 +1,8 @@
 defmodule ExTwilio.TaskRouter.Worker do
   @moduledoc """
+  Repersents a worker resource who preforms tasks.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/taskrouter/workers)
   """
 
   defstruct sid: nil,
@@ -27,7 +30,10 @@ defmodule ExTwilio.TaskRouter.Worker do
       :activity_name,
       :activity_sid,
       :task_queue_name,
-      :task_queue_sid
+      :task_queue_sid,
+      :date_created,
+      :date_updated,
+      :date_status_changed
     ]
   end
 end

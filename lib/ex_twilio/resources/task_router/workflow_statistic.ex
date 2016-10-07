@@ -1,5 +1,8 @@
 defmodule ExTwilio.TaskRouter.WorkflowStatistic do
   @moduledoc """
+  Repersents a resource that provides statistics on workflows.
+
+  - [Twilio docs](https://www.twilio.com/docs/api/taskrouter/workflow-statistics)
   """
 
   defstruct realtime: nil,
