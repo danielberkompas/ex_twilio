@@ -27,9 +27,10 @@ defmodule ExTwilio.CapabilityTest do
   end
 
   test ".allow_client_incoming appends additional client names" do
-    capability = %ExTwilio.Capability{}
-    |> ExTwilio.Capability.allow_client_incoming("tommy")
-    |> ExTwilio.Capability.allow_client_incoming("billy")
+    capability =
+      %ExTwilio.Capability{}
+      |> ExTwilio.Capability.allow_client_incoming("tommy")
+      |> ExTwilio.Capability.allow_client_incoming("billy")
 
     assert capability.incoming_client_names == ["tommy", "billy"]
   end
@@ -40,9 +41,10 @@ defmodule ExTwilio.CapabilityTest do
   end
 
   test ".allow_client_outgoing overwrites the previous app sid" do
-    capability = %ExTwilio.Capability{}
-    |> ExTwilio.Capability.allow_client_outgoing("app_sid")
-    |> ExTwilio.Capability.allow_client_outgoing("not_app_sid")
+    capability =
+      %ExTwilio.Capability{}
+      |> ExTwilio.Capability.allow_client_outgoing("app_sid")
+      |> ExTwilio.Capability.allow_client_outgoing("not_app_sid")
 
     assert capability.outgoing_client_app_sid == "not_app_sid"
   end
@@ -78,16 +80,18 @@ defmodule ExTwilio.CapabilityTest do
   end
 
   test ".token sets the outgoing scope" do
-    capability = ExTwilio.Capability.new
-    |> ExTwilio.Capability.allow_client_outgoing("app sid")
+    capability =
+      ExTwilio.Capability.new
+      |> ExTwilio.Capability.allow_client_outgoing("app sid")
 
     assert decoded_token(capability).claims["scope"] == "scope:client:outgoing?appSid=app%20sid"
   end
 
   test ".token sets the incoming scope" do
-    capability = ExTwilio.Capability.new
-    |> ExTwilio.Capability.allow_client_incoming("tom my")
-    |> ExTwilio.Capability.allow_client_incoming("bil ly")
+    capability =
+      ExTwilio.Capability.new
+      |> ExTwilio.Capability.allow_client_incoming("tom my")
+      |> ExTwilio.Capability.allow_client_incoming("bil ly")
 
     assert decoded_token(capability).claims["scope"] == "scope:client:incoming?clientName=tom%20my scope:client:incoming?clientName=bil%20ly"
   end

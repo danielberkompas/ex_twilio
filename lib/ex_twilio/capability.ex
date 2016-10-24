@@ -18,7 +18,6 @@ defmodule ExTwilio.Capability do
       "xxxxx.yyyyy.zzzzz"
   """
 
-  alias ExTwilio.Capability
   alias ExTwilio.Config
 
   defstruct [
@@ -30,7 +29,7 @@ defmodule ExTwilio.Capability do
     account_sid: nil
   ]
 
-  @type capability :: %__MODULE__{
+  @type t :: %__MODULE__{
     incoming_client_names: list,
     outgoing_client_app_sid: String.t,
     ttl: non_neg_integer,
@@ -47,9 +46,9 @@ defmodule ExTwilio.Capability do
 
       ExTwilio.Capability.new
   """
-  @spec new :: capability
+  @spec new :: t
   def new do
-    %Capability{}
+    %__MODULE__{}
     |> starting_at(:erlang.system_time(:seconds))
     |> with_ttl(3600)
     |> with_account_sid(Config.account_sid)
@@ -69,11 +68,11 @@ defmodule ExTwilio.Capability do
 
       ExTwilio.Capability.allow_client_incoming("tommy")
   """
-  @spec allow_client_incoming(String.t) :: capability
+  @spec allow_client_incoming(String.t) :: t
   def allow_client_incoming(client_name), do: allow_client_incoming(new, client_name)
 
-  @spec allow_client_incoming(capability, String.t) :: capability
-  def allow_client_incoming(capability_struct = %Capability{incoming_client_names: client_names}, client_name) do
+  @spec allow_client_incoming(t, String.t) :: t
+  def allow_client_incoming(capability_struct = %__MODULE__{incoming_client_names: client_names}, client_name) do
     %{
       capability_struct |
       incoming_client_names: client_names ++ [client_name]
@@ -95,11 +94,11 @@ defmodule ExTwilio.Capability do
 
       ExTwilio.Capability.allow_client_outgoing("APabe7650f654fc34655fc81ae71caa3ff")
   """
-  @spec allow_client_outgoing(String.t) :: capability
+  @spec allow_client_outgoing(String.t) :: t
   def allow_client_outgoing(app_sid), do: allow_client_outgoing(new, app_sid)
 
-  @spec allow_client_outgoing(capability, String.t) :: capability
-  def allow_client_outgoing(capability_struct = %Capability{}, app_sid) do
+  @spec allow_client_outgoing(t, String.t) :: t
+  def allow_client_outgoing(capability_struct = %__MODULE__{}, app_sid) do
     %{capability_struct | outgoing_client_app_sid: app_sid}
   end
 
@@ -112,8 +111,8 @@ defmodule ExTwilio.Capability do
 
       ExTwilio.Capability.starting_at(1464096368)
   """
-  @spec starting_at(capability, non_neg_integer) :: capability
-  def starting_at(capability_struct = %Capability{}, start_time) do
+  @spec starting_at(t, non_neg_integer) :: t
+  def starting_at(capability_struct = %__MODULE__{}, start_time) do
     %{capability_struct | start_time: start_time}
   end
 
@@ -126,8 +125,8 @@ defmodule ExTwilio.Capability do
 
       ExTwilio.Capability.with_account_sid('XXX')
   """
-  @spec with_account_sid(capability, String.t) :: capability
-  def with_account_sid(capability_struct = %Capability{}, account_sid) do
+  @spec with_account_sid(t, String.t) :: t
+  def with_account_sid(capability_struct = %__MODULE__{}, account_sid) do
     %{capability_struct | account_sid: account_sid}
   end
 
@@ -140,8 +139,8 @@ defmodule ExTwilio.Capability do
 
       ExTwilio.Capability.with_auth_token('XXX')
   """
-  @spec with_auth_token(capability, String.t) :: capability
-  def with_auth_token(capability_struct = %Capability{}, auth_token) do
+  @spec with_auth_token(t, String.t) :: t
+  def with_auth_token(capability_struct = %__MODULE__{}, auth_token) do
     %{capability_struct | auth_token: auth_token}
   end
 
@@ -157,8 +156,8 @@ defmodule ExTwilio.Capability do
 
       ExTwilio.Capability.with_ttl(3600)
   """
-  @spec with_ttl(capability, non_neg_integer) :: capability
-  def with_ttl(capability_struct = %Capability{}, ttl) do
+  @spec with_ttl(t, non_neg_integer) :: t
+  def with_ttl(capability_struct = %__MODULE__{}, ttl) do
     %{capability_struct | ttl: ttl}
   end
 
@@ -176,8 +175,8 @@ defmodule ExTwilio.Capability do
 
       ExTwilio.Capability.token
   """
-  @spec token(capability) :: String.t
-  def token(capability_struct = %Capability{
+  @spec token(t) :: String.t
+  def token(capability_struct = %__MODULE__{
     account_sid: account_sid,
     start_time: start_time,
     ttl: ttl,
@@ -189,20 +188,20 @@ defmodule ExTwilio.Capability do
     |> generate_jwt(auth_token)
   end
 
-  defp capabilities(capability_struct = %Capability{}) do
+  defp capabilities(capability_struct = %__MODULE__{}) do
     incoming_capabililities(capability_struct) ++
     outgoing_capabilities(capability_struct)
   end
 
-  defp outgoing_capabilities(%Capability{outgoing_client_app_sid: nil}) do
+  defp outgoing_capabilities(%__MODULE__{outgoing_client_app_sid: nil}) do
     []
   end
 
-  defp outgoing_capabilities(%Capability{outgoing_client_app_sid: app_sid}) do
+  defp outgoing_capabilities(%__MODULE__{outgoing_client_app_sid: app_sid}) do
     ["scope:client:outgoing?appSid=#{URI.encode(app_sid)}"]
   end
 
-  defp incoming_capabililities(%Capability{incoming_client_names: client_names}) do
+  defp incoming_capabililities(%__MODULE__{incoming_client_names: client_names}) do
     Enum.map(client_names, &incoming_capability(&1))
   end
 
