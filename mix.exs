@@ -39,7 +39,7 @@ defmodule ExTwilio.Mixfile do
       {:poison, ">= 2.0.0"},
       {:inflex, "~> 1.0"},
       {:joken, "~> 1.3.1"},
-      {:credo, "~> 0.4", only: [:dev, :test]},
+      {:credo, "~> 0.5.1", only: [:dev, :test]},
       {:mock, "~> 0.2.0", only: :test},
       {:ex_doc, ">= 0.0.0", only: :docs},
       {:inch_ex, ">= 0.0.0", only: :docs}
