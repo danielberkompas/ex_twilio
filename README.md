@@ -11,7 +11,7 @@ ExTwilio is currently beta software. You can install it from Hex:
 
 ```elixir
 def deps do
-  [{:ex_twilio, "~> 0.2.0"}]
+  [{:ex_twilio, "~> 0.2.1"}]
 end
 ```
 
@@ -81,14 +81,14 @@ the "Call" resource is accessible through the `ExTwilio.Call` module. Depending
 on what the underlying API supports, a resource module may have the following
 methods:
 
-| Method            | Description                                                       |
-| ----------------- | ----------------------------------------------------------------- |
-| **all**           | Eager load all of the resource items on all pages. Use with care! |
-| **stream**        | Create a Stream of all the items. Use like any Stream.            |
-| **find**          | Find a resource given its SID.                                    |
-| **create**        | Create a resource.                                                |
-| **update**        | Update a resource.                                                |
-| **destroy**       | Destroy a resource.                                               |
+| Method      | Description                                                       |
+|:------------|:------------------------------------------------------------------|
+| **all**     | Eager load all of the resource items on all pages. Use with care! |
+| **stream**  | Create a Stream of all the items. Use like any Stream.            |
+| **find**    | Find a resource given its SID.                                    |
+| **create**  | Create a resource.                                                |
+| **update**  | Update a resource.                                                |
+| **destroy** | Destroy a resource.                                               |
 
 Resource modules may contain their own custom methods. If the underlying API
 endpoint does not support an action, the related method will _not_ be available
