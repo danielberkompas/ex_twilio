@@ -1,5 +1,22 @@
 # Change Log
 
+## [Unreleased](https://github.com/danielberkompas/ex_twilio/tree/HEAD)
+
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.2.0...HEAD)
+
+**Closed issues:**
+
+- where is "Api.get!" defined? [\#48](https://github.com/danielberkompas/ex_twilio/issues/48)
+
+**Merged pull requests:**
+
+- Update joken, mock [\#58](https://github.com/danielberkompas/ex_twilio/pull/58) ([danielberkompas](https://github.com/danielberkompas))
+- Add instructions for receiving a call in the calling tutorial [\#54](https://github.com/danielberkompas/ex_twilio/pull/54) ([joshuafleck](https://github.com/joshuafleck))
+- Add lookup rest api [\#51](https://github.com/danielberkompas/ex_twilio/pull/51) ([enilsen16](https://github.com/enilsen16))
+- Add capability tokens [\#50](https://github.com/danielberkompas/ex_twilio/pull/50) ([joshuafleck](https://github.com/joshuafleck))
+- Make the recommended config exrm compatible [\#49](https://github.com/danielberkompas/ex_twilio/pull/49) ([jeffrafter](https://github.com/jeffrafter))
+- Update notifications url \#46 [\#47](https://github.com/danielberkompas/ex_twilio/pull/47) ([Devinsuit](https://github.com/Devinsuit))
+
 ## [v0.2.0](https://github.com/danielberkompas/ex_twilio/tree/v0.2.0) (2016-07-20)
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.9...v0.2.0)
 
