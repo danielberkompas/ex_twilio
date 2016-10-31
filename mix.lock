@@ -13,7 +13,7 @@
   "inflex": {:hex, :inflex, "1.5.0", "e4ff5d900280b2011b24d1ac1c4590986ee5add2ea644c9894e72213cf93ff0b", [:mix], []},
   "joken": {:hex, :joken, "1.3.1", "11bea8e30405dc76875b1fb6d1ec0320557db0117a26b1017efaf41581fb6dee", [:mix], [{:jose, "~> 1.8", [hex: :jose, optional: false]}, {:plug, "~> 1.0", [hex: :plug, optional: true]}, {:poison, "~> 1.5 or ~> 2.0", [hex: :poison, optional: true]}]},
   "jose": {:hex, :jose, "1.8.0", "1ee027c5c0ff3922e3bfe58f7891509e8f87f771ba609ee859e623cc60237574", [:mix, :rebar3], [{:base64url, "~> 0.0.1", [hex: :base64url, optional: false]}]},
-  "meck": {:hex, :meck, "0.8.4", "59ca1cd971372aa223138efcf9b29475bde299e1953046a0c727184790ab1520", [:rebar, :make], []},
+  "meck": {:hex, :meck, "0.8.4", "59ca1cd971372aa223138efcf9b29475bde299e1953046a0c727184790ab1520", [:make, :rebar], []},
   "metrics": {:hex, :metrics, "1.0.1", "25f094dea2cda98213cecc3aeff09e940299d950904393b2a29d191c346a8486", [:rebar3], []},
   "mimerl": {:hex, :mimerl, "1.0.2", "993f9b0e084083405ed8252b99460c4f0563e41729ab42d9074fd5e52439be88", [:rebar3], []},
   "mock": {:hex, :mock, "0.2.0", "5991877be6bb514b647dbd6f4869bc12bd7f2829df16e86c98d6108f966d34d7", [:mix], [{:meck, "~> 0.8.2", [hex: :meck, optional: false]}]},

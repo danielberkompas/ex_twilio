@@ -32,11 +32,11 @@ defmodule ExTwilio.Capability do
 
   @type capability :: %__MODULE__{
     incoming_client_names: list,
-    outgoing_client_app_sid: String.t,
-    ttl: non_neg_integer,
-    start_time: non_neg_integer,
-    auth_token: String.t,
-    account_sid: String.t
+    outgoing_client_app_sid: String.t | nil,
+    ttl: non_neg_integer | nil,
+    start_time: non_neg_integer | nil,
+    auth_token: String.t | nil,
+    account_sid: String.t | nil
   }
 
   @doc """
