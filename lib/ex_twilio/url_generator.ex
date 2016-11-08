@@ -45,12 +45,12 @@ defmodule ExTwilio.UrlGenerator do
         ["ExTwilio", "TaskRouter", _] ->
           options = add_workspace_to_options(module, options)
 
-          Config.task_router_url() |> add_segements(module, id, options)
+          Config.task_router_url() |> add_segments(module, id, options)
         _ ->
           # Add Account SID segment if not already present
           options = add_account_to_options(module, options)
 
-          url = Config.base_url() |> add_segements(module, id, options)
+          url = Config.base_url() |> add_segments(module, id, options)
 
            # Append .json
           url <> ".json"
@@ -64,7 +64,7 @@ defmodule ExTwilio.UrlGenerator do
     end
   end
 
-  defp add_segements(url, module, id, options) do
+  defp add_segments(url, module, id, options) do
     # Append parents
     url = url <> build_segments(:parent, module.parents, options)
 
@@ -173,12 +173,9 @@ defmodule ExTwilio.UrlGenerator do
   end
 
   @spec infer_module(atom) :: atom
+  defp infer_module(:workspace), do: ExTwilio.TaskRouter.Workspace
   defp infer_module(atom) do
-    if atom == :workspace do
-      Module.concat(ExTwilio.TaskRouter, camelize(atom))
-    else
-      Module.concat(ExTwilio, camelize(atom))
-    end
+    Module.concat(ExTwilio, camelize(atom))
   end
 
   @spec camelize(String.t | atom) :: String.t
