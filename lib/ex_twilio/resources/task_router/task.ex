@@ -29,5 +29,5 @@ defmodule ExTwilio.TaskRouter.Task do
   use ExTwilio.Resource, import: [:stream, :all, :find, :create, :update, :delete]
 
   def parents, do: [:workspace]
-  def children, do: [:ordering, :workflow_sid, :attributes]
+  def children, do: [:attributes]
 end
