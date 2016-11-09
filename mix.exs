@@ -36,7 +36,7 @@ defmodule ExTwilio.Mixfile do
   defp deps do
     [
       {:httpoison, ">= 0.9.0"},
-      {:poison, ">= 2.0.0"},
+      {:poison, "~> 2.2"},
       {:inflex, "~> 1.0"},
       {:joken, "~> 1.3.1"},
       {:credo, "~> 0.5.1", only: [:dev, :test]},
