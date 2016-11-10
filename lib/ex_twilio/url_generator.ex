@@ -135,7 +135,7 @@ defmodule ExTwilio.UrlGenerator do
 
   @spec add_workspace_to_options(atom, list) :: list
   defp add_workspace_to_options(_module, options) do
-    Dict.put_new(options, :workspace, Config.workspace_sid)
+    Dict.put_new(options, :workspace, "WS5129855a41766bf529b76052885f3ce0")
   end
 
   @spec build_query(atom, list) :: String.t
@@ -174,6 +174,7 @@ defmodule ExTwilio.UrlGenerator do
 
   @spec infer_module(atom) :: atom
   defp infer_module(:workspace), do: ExTwilio.TaskRouter.Workspace
+  defp infer_module(:task), do: ExTwilio.TaskRouter.Task
   defp infer_module(atom) do
     Module.concat(ExTwilio, camelize(atom))
   end
