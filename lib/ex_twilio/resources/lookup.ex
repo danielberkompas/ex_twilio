@@ -13,6 +13,7 @@ defmodule ExTwilio.Lookup do
     @moduledoc false
     defstruct url: nil,
               carrier: nil,
+              caller_name: nil,
               national_format: nil,
               phone_number: nil,
               country_code: nil,
