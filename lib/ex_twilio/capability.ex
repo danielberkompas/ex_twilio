@@ -22,16 +22,18 @@ defmodule ExTwilio.Capability do
 
   defstruct [
     incoming_client_names: [],
-    outgoing_client_app_sid: nil,
+    outgoing_client_app: nil,
     ttl: nil,
     start_time: nil,
     auth_token: nil,
     account_sid: nil
   ]
 
+  @type outgoing_client_app :: {String.t, map}
+
   @type t :: %__MODULE__{
     incoming_client_names: list,
-    outgoing_client_app_sid: String.t | nil,
+    outgoing_client_app: outgoing_client_app | nil,
     ttl: non_neg_integer | nil,
     start_time: non_neg_integer | nil,
     auth_token: String.t | nil,
@@ -97,9 +99,19 @@ defmodule ExTwilio.Capability do
   @spec allow_client_outgoing(String.t) :: t
   def allow_client_outgoing(app_sid), do: allow_client_outgoing(new, app_sid)
 
+  @spec allow_client_outgoing(String.t, map) :: t
+  def allow_client_outgoing(app_sid, app_params = %{}) when is_binary(app_sid) do
+    allow_client_outgoing(new, app_sid, app_params)
+  end
+
   @spec allow_client_outgoing(t, String.t) :: t
-  def allow_client_outgoing(capability_struct = %__MODULE__{}, app_sid) do
-    %{capability_struct | outgoing_client_app_sid: app_sid}
+  def allow_client_outgoing(capability_struct = %__MODULE__{}, app_sid) when is_binary(app_sid) do
+    allow_client_outgoing(capability_struct, app_sid, %{})
+  end
+
+  @spec allow_client_outgoing(t, String.t, map) :: t
+  def allow_client_outgoing(capability_struct = %__MODULE__{}, app_sid, app_params = %{}) do
+    %{capability_struct | outgoing_client_app: {app_sid, app_params}}
   end
 
   @doc """
@@ -193,12 +205,20 @@ defmodule ExTwilio.Capability do
     outgoing_capabilities(capability_struct)
   end
 
-  defp outgoing_capabilities(%__MODULE__{outgoing_client_app_sid: nil}) do
+  defp outgoing_capabilities(%__MODULE__{outgoing_client_app: nil}) do
     []
   end
 
-  defp outgoing_capabilities(%__MODULE__{outgoing_client_app_sid: app_sid}) do
+  defp outgoing_capabilities(%__MODULE__{outgoing_client_app: {app_sid, app_params}}) when app_params == %{} do
     ["scope:client:outgoing?appSid=#{URI.encode(app_sid)}"]
+  end
+
+  defp outgoing_capabilities(%__MODULE__{outgoing_client_app: {app_sid, app_params}}) do
+    app_sid = URI.encode(app_sid)
+    app_params = app_params |>
+      URI.encode_query |>
+      URI.encode(&(!URI.char_reserved?(&1)))
+    ["scope:client:outgoing?appSid=#{app_sid}&appParams=#{app_params}"]
   end
 
   defp incoming_capabililities(%__MODULE__{incoming_client_names: client_names}) do

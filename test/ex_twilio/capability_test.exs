@@ -37,7 +37,12 @@ defmodule ExTwilio.CapabilityTest do
 
   test ".allow_client_outgoing sets the app sid" do
 
-    assert ExTwilio.Capability.allow_client_outgoing("app_sid").outgoing_client_app_sid == "app_sid"
+    assert ExTwilio.Capability.allow_client_outgoing("app_sid").outgoing_client_app == {"app_sid", %{}}
+  end
+
+  test ".allow_client_outgoing sets the app sid and params" do
+
+    assert ExTwilio.Capability.allow_client_outgoing("app_sid", %{key: "value"}).outgoing_client_app == {"app_sid", %{key: "value"}}
   end
 
   test ".allow_client_outgoing overwrites the previous app sid" do
@@ -46,7 +51,16 @@ defmodule ExTwilio.CapabilityTest do
       |> ExTwilio.Capability.allow_client_outgoing("app_sid")
       |> ExTwilio.Capability.allow_client_outgoing("not_app_sid")
 
-    assert capability.outgoing_client_app_sid == "not_app_sid"
+    assert capability.outgoing_client_app == {"not_app_sid", %{}}
+  end
+
+  test ".allow_client_outgoing overwrites the previous app sid and params" do
+    capability =
+      %ExTwilio.Capability{}
+      |> ExTwilio.Capability.allow_client_outgoing("app_sid")
+      |> ExTwilio.Capability.allow_client_outgoing("not_app_sid", %{key: "value"})
+
+    assert capability.outgoing_client_app == {"not_app_sid", %{key: "value"}}
   end
 
   test ".with_ttl sets the ttl" do
@@ -79,12 +93,20 @@ defmodule ExTwilio.CapabilityTest do
     assert decoded_token(ExTwilio.Capability.new).claims["iss"] == "account_sid"
   end
 
-  test ".token sets the outgoing scope" do
+  test ".token sets the outgoing scope when no parameters specified" do
     capability =
       ExTwilio.Capability.new
       |> ExTwilio.Capability.allow_client_outgoing("app sid")
 
     assert decoded_token(capability).claims["scope"] == "scope:client:outgoing?appSid=app%20sid"
+  end
+
+  test ".token sets the outgoing scope when parameters specified" do
+    capability =
+      ExTwilio.Capability.new
+      |> ExTwilio.Capability.allow_client_outgoing("app sid", %{user_id: "321", xargs_id: "value"})
+
+    assert decoded_token(capability).claims["scope"] == "scope:client:outgoing?appSid=app%20sid&appParams=user_id%3D321%26xargs_id%3Dvalue"
   end
 
   test ".token sets the incoming scope" do
