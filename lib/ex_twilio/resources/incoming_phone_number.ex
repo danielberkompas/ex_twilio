@@ -2,7 +2,7 @@ defmodule ExTwilio.IncomingPhoneNumber do
   @moduledoc """
   Represents an IncomingPhoneNumber resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/incoming-phone-number)
+  - [Twilio docs](https://www.twilio.com/docs/api/rest/incoming-phone-numbers)
   """
 
   defstruct sid: nil,
