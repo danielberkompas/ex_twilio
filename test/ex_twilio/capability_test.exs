@@ -65,6 +65,19 @@ defmodule ExTwilio.CapabilityTest do
     assert capability.outgoing_client_app == {"not_app_sid", %{key: "value"}}
   end
 
+  test ".allow_rtc sets grants for rtc" do
+    capability =
+      %ExTwilio.Capability{}
+      |> ExTwilio.Capability.allow_rtc("identity")
+
+    assert capability.grants == %{
+      identity: "identity",
+      rtc: %{
+        configuration_profile_sid: Config.rtc_profile_id
+      }
+    }
+  end
+
   test ".with_ttl sets the ttl" do
 
     assert ExTwilio.Capability.with_ttl(ExTwilio.Capability.new, 1000).ttl == 1000
@@ -118,6 +131,19 @@ defmodule ExTwilio.CapabilityTest do
       |> ExTwilio.Capability.allow_client_incoming("bil ly")
 
     assert decoded_token(capability).claims["scope"] == "scope:client:incoming?clientName=tom%20my scope:client:incoming?clientName=bil%20ly"
+  end
+
+  test ".token supports RTC tokens" do
+    capability =
+      ExTwilio.Capability.new
+      |> ExTwilio.Capability.allow_rtc("identity")
+      
+    assert decoded_token(capability).claims["grants"] == %{
+      "identity" => "identity",
+      "rtc" => %{
+        "configuration_profile_sid" => Config.rtc_profile_id
+      }
+    }
   end
 
   defp decoded_token(capability) do

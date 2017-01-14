@@ -26,7 +26,8 @@ defmodule ExTwilio.Capability do
     ttl: nil,
     start_time: nil,
     auth_token: nil,
-    account_sid: nil
+    account_sid: nil,
+    grants: nil
   ]
 
   @type outgoing_client_app :: {String.t, map}
@@ -37,7 +38,8 @@ defmodule ExTwilio.Capability do
     ttl: non_neg_integer | nil,
     start_time: non_neg_integer | nil,
     auth_token: String.t | nil,
-    account_sid: String.t | nil
+    account_sid: String.t | nil,
+    grants: nil
   }
 
   @doc """
@@ -112,6 +114,38 @@ defmodule ExTwilio.Capability do
   @spec allow_client_outgoing(t, String.t, map) :: t
   def allow_client_outgoing(capability_struct = %__MODULE__{}, app_sid, app_params = %{}) do
     %{capability_struct | outgoing_client_app: {app_sid, app_params}}
+  end
+
+  @doc """
+  Gives the token RTC capabilities.
+
+  You must configure your RTC profile ID:
+
+      config :ex_twilio, rtc_profile_id: {:system, "TWILIO_RTC_PROFILE_ID"}
+
+  ## Example
+  
+  Build a new capability token with just this authorization:
+
+      ExTwilio.Capability.allow_rtc(identity)
+
+  Append to an existing capability.
+
+      ExTwilio.Capability.new
+      |> ExTwilio.Capability.allow_rtc(identity)
+      
+  """
+  @spec allow_rtc(String.t) :: t
+  def allow_rtc(identity), do: allow_rtc(new(), identity)
+
+  @spec allow_rtc(t, String.t) :: t
+  def allow_rtc(capability_struct = %__MODULE__{}, identity) do
+    grants = 
+      capability_struct.grants || %{}
+      |> Map.put(:identity, identity)
+      |> Map.put(:rtc, %{})
+      |> put_in([:rtc, :configuration_profile_sid], Config.rtc_profile_id)
+    %{capability_struct | grants: grants}
   end
 
   @doc """
@@ -192,11 +226,12 @@ defmodule ExTwilio.Capability do
     account_sid: account_sid,
     start_time: start_time,
     ttl: ttl,
+    grants: grants,
     auth_token: auth_token}) do
     capability_struct
-    |> capabilities
+    |> capabilities()
     |> as_jwt_scope
-    |> jwt_payload(account_sid, expiration_time(start_time, ttl))
+    |> jwt_payload(account_sid, grants, expiration_time(start_time, ttl))
     |> generate_jwt(auth_token)
   end
 
@@ -237,12 +272,19 @@ defmodule ExTwilio.Capability do
     start_time + ttl
   end
 
-  defp jwt_payload(scope, issuer, expiration_time) do
-    %{
-      "scope" => scope,
-      "iss" => issuer,
-      "exp" => expiration_time,
-    }
+  defp jwt_payload(scope, issuer, grants, expiration_time) do
+    base =
+      %{
+        "scope" => scope,
+        "iss" => issuer,
+        "exp" => expiration_time,
+      }
+
+    if grants do
+      Map.put(base, "grants", grants)
+    else
+      base
+    end
   end
 
   defp generate_jwt(payload, secret) do

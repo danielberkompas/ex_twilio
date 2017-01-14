@@ -37,6 +37,13 @@ defmodule ExTwilio.Config do
   def api_version, do: from_env(:ex_twilio, :api_version, "2010-04-01")
 
   @doc """
+  Returns the RTC profile ID.
+
+      config :ex_twilio, rtc_profile_id: "..."
+  """
+  def rtc_profile_id, do: from_env(:ex_twilio, :rtc_profile_id)
+
+  @doc """
   Return the combined base URL of the Twilio API, using the configuration
   settings given.
   """
