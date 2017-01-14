@@ -1,6 +1,8 @@
 defmodule ExTwilio.CapabilityTest do
   use ExUnit.Case
 
+  alias ExTwilio.Config
+
   test ".new sets the TTL to one hour" do
 
     assert ExTwilio.Capability.new.ttl == 3600
@@ -13,12 +15,12 @@ defmodule ExTwilio.CapabilityTest do
 
   test ".new sets the account sid from the config" do
 
-    assert ExTwilio.Capability.new.account_sid == "account_sid"
+    assert ExTwilio.Capability.new.account_sid == Config.account_sid
   end
 
   test ".new sets the auth token from the config" do
 
-    assert ExTwilio.Capability.new.auth_token == "auth_token"
+    assert ExTwilio.Capability.new.auth_token == Config.auth_token
   end
 
   test ".allow_client_incoming sets the client name" do
@@ -90,7 +92,7 @@ defmodule ExTwilio.CapabilityTest do
 
   test ".token sets the issuer to the account sid" do
 
-    assert decoded_token(ExTwilio.Capability.new).claims["iss"] == "account_sid"
+    assert decoded_token(ExTwilio.Capability.new).claims["iss"] == Config.account_sid
   end
 
   test ".token sets the outgoing scope when no parameters specified" do
@@ -122,7 +124,7 @@ defmodule ExTwilio.CapabilityTest do
     capability
     |> ExTwilio.Capability.token
     |> Joken.token
-    |> Joken.verify(Joken.hs256("auth_token"))
+    |> Joken.verify(Joken.hs256(Config.auth_token))
   end
 
   doctest ExTwilio.Capability

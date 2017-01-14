@@ -98,7 +98,7 @@ defmodule ExTwilio.Resource do
       @spec children :: list
       def children, do: []
 
-      defoverridable Module.definitions_in(__MODULE__)
+      defoverridable Module.definitions_in(__MODULE__, :def)
     end
   end
 end
