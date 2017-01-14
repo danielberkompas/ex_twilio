@@ -34,7 +34,7 @@ defmodule ExTwilio.Config do
 
       config :ex_twilio, api_version: "2015-05-06"
   """
-  def api_version, do: from_env(:ex_twilio, :api_version, "2011-04-01")
+  def api_version, do: from_env(:ex_twilio, :api_version, "2010-04-01")
 
   @doc """
   Return the combined base URL of the Twilio API, using the configuration
