@@ -8,20 +8,20 @@ defmodule ExTwilio.Mixfile do
      name: "ExTwilio",
      description: "Twilio API library for Elixir",
      source_url: "https://github.com/danielberkompas/ex_twilio",
-     package: package,
-     docs: docs,
+     package: package(),
+     docs: docs(),
      dialyzer: [
-       plt_file: "#{System.get_env("HOME")}/#{plt_filename}",
+       plt_file: "#{System.get_env("HOME")}/#{plt_filename()}",
        flags: ["--no_native", "-Wno_match", "-Wno_return"]
      ],
-     deps: deps]
+     deps: deps()]
   end
 
   # Configuration for the OTP application
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger, :httpoison, :inflex, :poison]]
+    [applications: [:logger, :httpoison, :inflex, :poison, :joken]]
   end
 
   # Dependencies can be Hex packages:
@@ -54,7 +54,7 @@ defmodule ExTwilio.Mixfile do
   end
 
   defp plt_filename do
-    "elixir-#{System.version}_#{otp_release}.plt"
+    "elixir-#{System.version}_#{otp_release()}.plt"
   end
 
   defp otp_release do
