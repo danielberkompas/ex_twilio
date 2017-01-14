@@ -83,12 +83,12 @@ defmodule ExTwilio.Parser do
   @spec parse_list(response, module, key) :: success_list | error
   def parse_list(response, module, key) do
     result = handle_errors response, fn(body) ->
-      as = Dict.put(%{}, key, [target(module)])
+      as = Map.put(%{}, key, [target(module)])
       Poison.decode!(body, as: as)
     end
 
     case result do
-      {:ok, list} -> {:ok, list[key], Dict.drop(list, [key])}
+      {:ok, list} -> {:ok, list[key], Map.drop(list, [key])}
       error       -> error
     end
   end

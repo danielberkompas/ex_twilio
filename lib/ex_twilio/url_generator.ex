@@ -36,6 +36,7 @@ defmodule ExTwilio.UrlGenerator do
 
       iex> build_url(Resource, 1, sip_ip_access_control_list: "list", account: "account_sid")
       "#{Config.base_url}/Accounts/account_sid/SIP/IpAccessControlLists/list/Resources/1.json"
+
   """
   @spec build_url(atom, String.t | nil, list) :: String.t
   def build_url(module, id \\ nil, options \\ []) do
@@ -57,7 +58,7 @@ defmodule ExTwilio.UrlGenerator do
     url = url <> ".json"
 
     # Append querystring
-    if Dict.has_key?(options, :query) do
+    if Keyword.has_key?(options, :query) do
       url <> options[:query]
     else
       url <> build_query(module, options)
@@ -118,7 +119,7 @@ defmodule ExTwilio.UrlGenerator do
     if module == ExTwilio.Account and options[:account] == nil do
       options
     else
-      Dict.put_new(options, :account, Config.account_sid)
+      Keyword.put_new(options, :account, Config.account_sid)
     end
   end
 

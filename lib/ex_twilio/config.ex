@@ -41,7 +41,7 @@ defmodule ExTwilio.Config do
   settings given.
   """
   def base_url do
-    "https://#{api_domain}/#{api_version}"
+    "https://#{api_domain()}/#{api_version()}"
   end
 
   @doc """

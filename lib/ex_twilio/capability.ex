@@ -71,7 +71,7 @@ defmodule ExTwilio.Capability do
       ExTwilio.Capability.allow_client_incoming("tommy")
   """
   @spec allow_client_incoming(String.t) :: t
-  def allow_client_incoming(client_name), do: allow_client_incoming(new, client_name)
+  def allow_client_incoming(client_name), do: allow_client_incoming(new(), client_name)
 
   @spec allow_client_incoming(t, String.t) :: t
   def allow_client_incoming(capability_struct = %__MODULE__{incoming_client_names: client_names}, client_name) do
@@ -97,11 +97,11 @@ defmodule ExTwilio.Capability do
       ExTwilio.Capability.allow_client_outgoing("APabe7650f654fc34655fc81ae71caa3ff")
   """
   @spec allow_client_outgoing(String.t) :: t
-  def allow_client_outgoing(app_sid), do: allow_client_outgoing(new, app_sid)
+  def allow_client_outgoing(app_sid), do: allow_client_outgoing(new(), app_sid)
 
   @spec allow_client_outgoing(String.t, map) :: t
   def allow_client_outgoing(app_sid, app_params = %{}) when is_binary(app_sid) do
-    allow_client_outgoing(new, app_sid, app_params)
+    allow_client_outgoing(new(), app_sid, app_params)
   end
 
   @spec allow_client_outgoing(t, String.t) :: t
