@@ -1,6 +1,6 @@
 defmodule ExTwilio.TaskRouter.Worker do
   @moduledoc """
-  Repersents a worker resource who preforms tasks.
+  Represents a worker resource who preforms tasks.
 
   - [Twilio docs](https://www.twilio.com/docs/api/taskrouter/workers)
   """

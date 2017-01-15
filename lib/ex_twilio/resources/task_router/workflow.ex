@@ -1,6 +1,6 @@
 defmodule ExTwilio.TaskRouter.Workflow do
   @moduledoc """
-  Repersents a workflow that controls how tasks will be prioritized and routed into queues.
+  Represents a workflow that controls how tasks will be prioritized and routed into queues.
 
   - [Twilio docs](https://www.twilio.com/docs/api/taskrouter/workflows)
   """

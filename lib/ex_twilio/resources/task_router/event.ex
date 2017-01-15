@@ -1,6 +1,6 @@
 defmodule ExTwilio.TaskRouter.Event do
   @moduledoc """
-  Repersents the Event logs Twilio keeps track of.
+  Represents the Event logs Twilio keeps track of.
 
   - [Twilio docs](https://www.twilio.com/docs/api/taskrouter/events)
   """

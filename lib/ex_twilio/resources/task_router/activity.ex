@@ -1,6 +1,6 @@
 defmodule ExTwilio.TaskRouter.Activity do
   @moduledoc """
-  Repersents the current status of your workers. Workers can only have a single activity at a time.
+  Represents the current status of your workers. Workers can only have a single activity at a time.
 
   - [Twilio docs](https://www.twilio.com/docs/api/taskrouter/activities)
   """

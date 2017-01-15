@@ -104,7 +104,7 @@ defmodule ExTwilio.WorkerCapability do
 
   ## Example
 
-  Sets the auth token to be XXX
+  Sets the worker sid to be XXX
 
       ExTwilio.WorkerCapability.with_worker_sid('XXX')
   """
@@ -118,7 +118,7 @@ defmodule ExTwilio.WorkerCapability do
 
   ## Example
 
-  Sets the auth token to be XXX
+  Sets the workspace sid to be XXX
 
       ExTwilio.WorkerCapability.with_workspace_sid('XXX')
   """
@@ -145,7 +145,9 @@ defmodule ExTwilio.WorkerCapability do
   end
 
   def allow_activity_updates(capability_struct = %__MODULE__{policies: policies, worker_sid: worker_sid, workspace_sid: workspace_sid}) do
-    policy = add_policy(worker_reservation_url(workspace_sid, worker_sid), "POST", true, nil, %{"ActivitySid" => %{required: true}})
+    policy = add_policy(worker_reservation_url(
+      workspace_sid, worker_sid), "POST", true, nil, %{"ActivitySid" => %{required: true}})
+
     Map.put(capability_struct, :policies, [policy | policies])
   end
 

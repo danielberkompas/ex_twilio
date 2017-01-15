@@ -1,6 +1,5 @@
 use Mix.Config
 
-config :ex_twilio,
-  account_sid: System.get_env("TWILIO_ACCOUNT_SID"),
-  auth_token:  System.get_env("TWILIO_AUTH_TOKEN"),
-  workspace_sid: System.get_env("TWILIO_WORKSPACE_SID")
+config :ex_twilio, account_sid:   {:system, "TWILIO_ACCOUNT_SID"},
+                   auth_token:    {:system, "TWILIO_AUTH_TOKEN"},
+                   workspace_sid: {:system, "TWILIO_WORKSPACE_SID"}
