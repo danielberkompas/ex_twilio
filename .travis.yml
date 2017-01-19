@@ -8,6 +8,9 @@ otp_release:
   - 19.0
 before_script:
   - export MIX_HOME=$HOME/.mix
+  - export TWILIO_TEST_ACCOUNT_SID=account_sid		
+  - export TWILIO_TEST_AUTH_TOKEN=auth_token		
+  - export TWILIO_TEST_WORKSPACE_SID=workspace_sid
   - mix local.hex --force
   - mix deps.get --only test
 script:
