@@ -31,18 +31,21 @@ defmodule ExTwilio.Config do
   @doc """
   Returns the version of the API that ExTwilio is going to talk to. Set it in
   `mix.exs`:
-
       config :ex_twilio, api_version: "2015-05-06"
   """
-  def api_version, do: from_env(:ex_twilio, :api_version, "2010-04-01")
+  def api_version, do: Application.get_env(:ex_twilio, :api_version) || "2010-04-01"
+
+  def workspace_sid, do: Application.get_env(:ex_twilio, :workspace_sid) || "12345"
 
   @doc """
   Return the combined base URL of the Twilio API, using the configuration
   settings given.
   """
-  def base_url do
-    "https://#{api_domain()}/#{api_version()}"
-  end
+  def base_url(), do: "https://#{api_domain()}/#{api_version()}"
+
+  def task_router_url(), do: "https://taskrouter.twilio.com/v1"
+
+  def task_router_websocket_base_url(), do: "https://event-bridge.twilio.com/v1/wschannels"
 
   @doc """
   A light wrapper around `Application.get_env/2`, providing automatic support for

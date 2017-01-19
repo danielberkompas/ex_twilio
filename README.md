@@ -39,8 +39,9 @@ You will need to set the following configuration variables in your
 ```elixir
 use Mix.Config
 
-config :ex_twilio, account_sid: {:system, "TWILIO_ACCOUNT_SID"},
-                   auth_token:  {:system, "TWILIO_AUTH_TOKEN"}
+config :ex_twilio, account_sid:   {:system, "TWILIO_ACCOUNT_SID"},
+                   auth_token:    {:system, "TWILIO_AUTH_TOKEN"},
+                   workspace_sid: {:system, "TWILIO_WORKSPACE_SID"} # optional
 ```
 
 For security, I recommend that you use environment variables rather than hard
@@ -51,6 +52,7 @@ following content:
 ```bash
 export TWILIO_ACCOUNT_SID=<account sid here>
 export TWILIO_AUTH_TOKEN=<auth token>
+export TWILIO_WORKSPACE_SID=<workspace sid here> #optional
 ```
 
 Then, just be sure to run `source .env` in your shell before compiling your
@@ -126,9 +128,31 @@ ExTwilio currently supports the following Twilio endpoints:
 - [SipIPAccessControlList](https://www.twilio.com/docs/api/2010-04-01/rest/ip-access-control-list)
     - [SipIpAddress](https://www.twilio.com/docs/api/rest/ip-access-control-list#subresources)
 
-As well as Twilio's Lookup Rest API:
+Twilio's Lookup Rest API:
 
 - [Lookup](https://www.twilio.com/docs/api/lookups)
+
+Twilio's TaskRouter API:
+
+- [Overview](https://www.twilio.com/docs/api/taskrouter/rest-api)
+- [Activites](https://www.twilio.com/docs/api/taskrouter/activities)
+- [Events](https://www.twilio.com/docs/api/taskrouter/events)
+- [Task Channels](https://www.twilio.com/docs/api/taskrouter/rest-api-task-channel)
+- [Tasks](https://www.twilio.com/docs/api/taskrouter/tasks)
+    - [Reservations](https://www.twilio.com/docs/api/taskrouter/reservations)
+- [TaskQueues](https://www.twilio.com/docs/api/taskrouter/taskqueues)
+    - [Statistics](https://www.twilio.com/docs/api/taskrouter/taskqueue-statistics)
+- [Workers](https://www.twilio.com/docs/api/taskrouter/workers)
+    - [Channels](https://www.twilio.com/docs/api/taskrouter/rest-api-workerchannel)
+    - [Statistics](https://www.twilio.com/docs/api/taskrouter/worker-statistics)
+- [Workflows](https://www.twilio.com/docs/api/taskrouter/workflows)
+    - [Statistics](https://www.twilio.com/docs/api/taskrouter/workflow-statistics)
+- [Workspaces](https://www.twilio.com/docs/api/taskrouter/workspaces)
+    - [Statistics](https://www.twilio.com/docs/api/taskrouter/workspace-statistics)
+
+Twilio Capability Tokens:
+- [Worker](https://www.twilio.com/docs/api/taskrouter/worker-js)
+- [Calling](https://www.twilio.com/docs/api/client/capability-tokens)
 
 ### Example
 

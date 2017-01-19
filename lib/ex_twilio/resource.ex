@@ -35,8 +35,8 @@ defmodule ExTwilio.Resource do
       end
 
       @spec do_new(%__MODULE__{}, list) :: %__MODULE__{}
-      defp do_new(struct, []), do: struct
-      defp do_new(struct, [{key, val}|tail]) do
+      def do_new(struct, []), do: struct
+      def do_new(struct, [{key, val}|tail]) do
         do_new Map.put(struct, key, val), tail
       end
 
