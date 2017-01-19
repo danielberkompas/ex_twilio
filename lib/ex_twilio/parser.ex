@@ -7,7 +7,6 @@ defmodule ExTwilio.Parser do
   @type metadata         :: map
   @type http_status_code :: number
   @type key              :: String.t
-  @type response         :: %{body: String.t, status_code: number}
   @type success          :: {:ok, [map]}
   @type success_list     :: {:ok, [map], metadata}
   @type success_delete   :: :ok
@@ -41,7 +40,7 @@ defmodule ExTwilio.Parser do
       ...> ExTwilio.Parser.parse(response, %{})
       {:ok, %{"sid" => "AD34123"}}
   """
-  @spec parse(response, module) :: success | error
+  @spec parse(HTTPoison.Response.t, module) :: success | error
   def parse(response, module) do
     handle_errors response, fn(body) ->
       Poison.decode!(body, as: target(module))
@@ -77,10 +76,10 @@ defmodule ExTwilio.Parser do
 
   You can parse the the JSON like this:
 
-      ExTwilio.Parser.parse_list(Resource, json, "resources")
+      ExTwilio.Parser.parse_list(json, Resource, "resources")
       {:ok, [%Resource{sid: "first"}, %Resource{sid: "second"}], %{"next_page" => 10}}
   """
-  @spec parse_list(response, module, key) :: success_list | error
+  @spec parse_list(HTTPoison.Response.t, module, key) :: success_list | error
   def parse_list(response, module, key) do
     result = handle_errors response, fn(body) ->
       as = Map.put(%{}, key, [target(module)])
@@ -93,7 +92,7 @@ defmodule ExTwilio.Parser do
     end
   end
 
-  @spec handle_errors(response, ((String.t) -> any)) :: success | success_delete | error
+  # @spec handle_errors(response, ((String.t) -> any)) :: success | success_delete | error
   defp handle_errors(response, fun) do
     case response do
       %{body: body, status_code: status} when status in [200, 201] ->

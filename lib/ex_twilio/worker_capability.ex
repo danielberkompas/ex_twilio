@@ -213,7 +213,10 @@ defmodule ExTwilio.WorkerCapability do
     }
   end
 
-  defp add_policy(url, method, allowed \\ true, query_filters \\ %{}, post_filters \\ %{}) do
+  defp add_policy(url, method) do
+    add_policy(url, method, true, %{}, %{})
+  end
+  defp add_policy(url, method, allowed, query_filters, post_filters) do
     %{
       "url" => url,
       "post_filter" => post_filters,

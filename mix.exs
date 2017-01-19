@@ -10,10 +10,6 @@ defmodule ExTwilio.Mixfile do
      source_url: "https://github.com/danielberkompas/ex_twilio",
      package: package(),
      docs: docs(),
-     dialyzer: [
-       plt_file: "#{System.get_env("HOME")}/#{plt_filename()}",
-       flags: ["--no_native", "-Wno_match", "-Wno_return"]
-     ],
      deps: deps()]
   end
 
@@ -39,6 +35,7 @@ defmodule ExTwilio.Mixfile do
       {:poison, "~> 2.2"},
       {:inflex, "~> 1.0"},
       {:joken, "~> 1.3.1"},
+      {:dialyze, "~> 0.2.0", only: [:dev, :test]},
       {:credo, "~> 0.5.1", only: [:dev, :test]},
       {:mock, "~> 0.2.0", only: :test},
       {:ex_doc, ">= 0.0.0", only: :dev},
@@ -51,17 +48,6 @@ defmodule ExTwilio.Mixfile do
       readme: "README.md",
       main: ExTwilio
     ]
-  end
-
-  defp plt_filename do
-    "elixir-#{System.version}_#{otp_release()}.plt"
-  end
-
-  defp otp_release do
-    case System.get_env("TRAVIS_OTP_RELEASE") do
-      nil     -> :erlang.system_info(:otp_release)
-      release -> release
-    end
   end
 
   defp package do
