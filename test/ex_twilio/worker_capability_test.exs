@@ -1,6 +1,8 @@
 defmodule ExTwilio.WorkerCapabilityTest do
   use ExUnit.Case
 
+  alias ExTwilio.Config
+
   test ".new sets the worker capability to one hour" do
     assert ExTwilio.WorkerCapability.new("worker_sid", "workspace_sid").ttl == 3600
   end
@@ -10,11 +12,11 @@ defmodule ExTwilio.WorkerCapabilityTest do
   end
 
   test ".new sets the account sid from the config" do
-    assert ExTwilio.WorkerCapability.new("worker_sid", "workspace_sid").account_sid == "account_sid"
+    assert ExTwilio.WorkerCapability.new("worker_sid", "workspace_sid").account_sid == Config.account_sid()
   end
 
   test ".new sets the auth token from the config" do
-    assert ExTwilio.WorkerCapability.new("worker_sid", "workspace_sid").auth_token == "auth_token"
+    assert ExTwilio.WorkerCapability.new("worker_sid", "workspace_sid").auth_token == Config.auth_token()
   end
 
   test ".new sets the worker sid" do
@@ -26,7 +28,7 @@ defmodule ExTwilio.WorkerCapabilityTest do
   end
 
   test ".token sets the issuer to the account sid" do
-    assert decoded_token(ExTwilio.WorkerCapability.new("worker_sid", "workspace_sid")).claims["iss"] == "account_sid"
+    assert decoded_token(ExTwilio.WorkerCapability.new("worker_sid", "workspace_sid")).claims["iss"] == Config.account_sid()
   end
 
   test ".token sets 9 policies" do
@@ -41,6 +43,6 @@ defmodule ExTwilio.WorkerCapabilityTest do
     capability
     |> ExTwilio.WorkerCapability.token
     |> Joken.token
-    |> Joken.verify(Joken.hs256("auth_token"))
+    |> Joken.verify(Joken.hs256(Config.auth_token()))
   end
 end

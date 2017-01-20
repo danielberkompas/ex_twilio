@@ -11,12 +11,8 @@ before_script:
   - export TWILIO_TEST_ACCOUNT_SID=account_sid		
   - export TWILIO_TEST_AUTH_TOKEN=auth_token		
   - export TWILIO_TEST_WORKSPACE_SID=workspace_sid
-  - mix local.hex --force
-  - mix deps.get --only test
+  - export MIX_ENV=test
 script:
-  - mix credo --strict
-  - mix test
-  - mix dialyze --no-return # TODO: remove --no-return flag after https://github.com/bryanjos/joken/pull/161 is merged
+  - bin/setup
 after_script:
-  - MIX_ENV=docs mix deps.get
-  - MIX_ENV=docs mix inch.report
+  - mix inch.report

@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+#
+# Continuous Integration Script
+#
+# This script contains all the test commands for this app, and should be run on
+# your continuous integration server. Developers can then run it locally to see
+# if their changes will pass on the CI server, before pushing.
+#
+# It also allows the build settings to be changed by anyone with write access to
+# the project repo, making them easier to manage.
+
+function no_credentials() {
+  echo "Twilio credentials not set up. You should:"
+  echo ""
+  echo "$ cp .env.sample .env"
+  echo "$ vim .env"
+  echo "$ source .env"
+  exit 1
+}
+
+if [ ! $TWILIO_TEST_ACCOUNT_SID ]; then
+  echo 'TWILIO_TEST_ACCOUNT_SID'
+  no_credentials
+fi
+
+if [ ! $TWILIO_TEST_AUTH_TOKEN ]; then
+  echo 'TWILIO_TEST_AUTH_TOKEN'
+  no_credentials
+fi
+
+if [ ! $TWILIO_TEST_WORKSPACE_SID ]; then
+  echo 'TWILIO_TEST_WORKSPACE_SID'
+  no_credentials
+fi
+
+echo "-------------------------------"
+echo "Installing dependencies..."
+echo "-------------------------------"
+
+mix local.hex --force || { echo "Could not install Hex!"; exit 1; }
+mix deps.get --only test || { echo "Could not install dependencies!"; exit 1;}
+
+echo "-------------------------------"
+echo "Running tests..."
+echo "-------------------------------"
+
+bin/ci || { exit 1; }

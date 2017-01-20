@@ -40,20 +40,17 @@ defmodule ExTwilio.UrlGenerator do
   """
   @spec build_url(atom, String.t | nil, list) :: String.t
   def build_url(module, id \\ nil, options \\ []) do
-    url =
+    {url, options} =
       case Module.split(module) do
-        ["ExTwilio", "TaskRouter", _] ->
+        ["ExTwilio", "TaskRouter" | _] ->
           options = add_workspace_to_options(module, options)
-
-          Config.task_router_url() |> add_segments(module, id, options)
+          url = add_segments(Config.task_router_url(), module, id, options)
+          {url, options}
         _ ->
           # Add Account SID segment if not already present
           options = add_account_to_options(module, options)
-
-          url = Config.base_url() |> add_segments(module, id, options)
-
-           # Append .json
-          url <> ".json"
+          url = add_segments(Config.base_url(), module, id, options) <> ".json"
+          {url, options}
       end
 
     # Append querystring
@@ -135,7 +132,7 @@ defmodule ExTwilio.UrlGenerator do
 
   @spec add_workspace_to_options(atom, list) :: list
   defp add_workspace_to_options(_module, options) do
-    Dict.put_new(options, :workspace, "WS5129855a41766bf529b76052885f3ce0")
+    Keyword.put_new(options, :workspace, "WS5129855a41766bf529b76052885f3ce0")
   end
 
   @spec build_query(atom, list) :: String.t

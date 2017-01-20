@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#
+# Continuous Integration Script
+#
+# This script contains all the test commands for this app, and should be run on
+# your continuous integration server. Developers can then run it locally to see
+# if their changes will pass on the CI server, before pushing.
+#
+# It also allows the build settings to be changed by anyone with write access to
+# the project repo, making them easier to manage.
+
+MIX_ENV=test mix compile --warnings-as-errors --force || { echo 'Please fix all compiler warnings.'; exit 1; }
+
+MIX_ENV=test mix credo --strict --ignore design,consistency || { echo 'Elixir code failed Credo linting. See warnings above.'; exit 1; }
+
+MIX_ENV=test mix docs  || { echo 'Elixir HTML docs were not generated!'; exit 1; }
+
+mix test || { echo 'Elixir tests failed!'; exit 1; }
+
+# TODO: remove --no-return flag after https://github.com/bryanjos/joken/pull/161 is merged
+MIX_ENV=test mix dialyze --no-return || { echo 'Dialyzer failed!'; exit 1; }
+  - mix dialyze --no-return 
+
+echo 'All tests succeeded!'
+exit 0
