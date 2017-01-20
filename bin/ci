@@ -19,7 +19,6 @@ mix test || { echo 'Elixir tests failed!'; exit 1; }
 
 # TODO: remove --no-return flag after https://github.com/bryanjos/joken/pull/161 is merged
 MIX_ENV=test mix dialyze --no-return || { echo 'Dialyzer failed!'; exit 1; }
-  - mix dialyze --no-return 
 
 echo 'All tests succeeded!'
 exit 0
