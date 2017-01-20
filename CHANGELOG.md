@@ -1,5 +1,25 @@
 # Change Log
 
+## [Unreleased](https://github.com/danielberkompas/ex_twilio/tree/HEAD)
+
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.2.1...HEAD)
+
+**Closed issues:**
+
+- Configure accound\_sid and auth\_token in run time [\#65](https://github.com/danielberkompas/ex_twilio/issues/65)
+- protocol String.Chars not implemented for %{"mms" =\> false, "sms" =\> false, "voice" =\> true} [\#57](https://github.com/danielberkompas/ex_twilio/issues/57)
+- problem with lib [\#52](https://github.com/danielberkompas/ex_twilio/issues/52)
+- Notifications API url broken [\#46](https://github.com/danielberkompas/ex_twilio/issues/46)
+
+**Merged pull requests:**
+
+- \[\#65\] Allow runtime config with {:system} tuples [\#66](https://github.com/danielberkompas/ex_twilio/pull/66) ([danielberkompas](https://github.com/danielberkompas))
+- typo: correct link to the documentation [\#64](https://github.com/danielberkompas/ex_twilio/pull/64) ([gliush](https://github.com/gliush))
+- Add specifying outgoing client capability params [\#62](https://github.com/danielberkompas/ex_twilio/pull/62) ([brain-geek](https://github.com/brain-geek))
+- Add caller\_name field to lookup [\#61](https://github.com/danielberkompas/ex_twilio/pull/61) ([he9lin](https://github.com/he9lin))
+- Bump elixir version [\#60](https://github.com/danielberkompas/ex_twilio/pull/60) ([enilsen16](https://github.com/enilsen16))
+- Implement Task Router API [\#55](https://github.com/danielberkompas/ex_twilio/pull/55) ([enilsen16](https://github.com/enilsen16))
+
 ## [v0.2.1](https://github.com/danielberkompas/ex_twilio/tree/v0.2.1) (2016-10-31)
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.2.0...v0.2.1)
 
