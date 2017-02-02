@@ -23,6 +23,7 @@ defmodule ExTwilio.Mixfile do
       {:poison, "~> 2.2"},
       {:inflex, "~> 1.0"},
       {:joken, "~> 1.3.1"},
+      {:plug, "~> 1.3.0", runtime: false},
       {:dialyze, "~> 0.2.0", only: [:dev, :test]},
       {:credo, "~> 0.5.1", only: [:dev, :test]},
       {:mock, "~> 0.2.0", only: :test},
