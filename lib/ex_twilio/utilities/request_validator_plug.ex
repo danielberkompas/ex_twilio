@@ -36,7 +36,7 @@ defmodule ExTwilio.Utilities.RequestValidatorPlug do
       signature -> conn
                    |> url_from_conn
                    |> RequestValidator.validate(conn.params, signature)
-                   |> if(do: conn, else: conn |> send_resp(401, "Not authroized") |> halt)
+                   |> if(do: conn, else: conn |> send_resp(401, "Not authorized") |> halt)
     end
   end
 
