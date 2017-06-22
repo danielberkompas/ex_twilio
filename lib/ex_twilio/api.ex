@@ -47,7 +47,7 @@ defmodule ExTwilio.Api do
   def find(module, sid, options \\ []) do
     module
     |> Url.build_url(sid, options)
-    |> Api.get!
+    |> Api.get!()
     |> Parser.parse(module)
   end
 
@@ -116,6 +116,54 @@ defmodule ExTwilio.Api do
     |> Parser.parse(module)
   end
 
+
+  @doc """
+  Builds custom auth header for subaccounts
+  
+    iex> ExTwilio.Api.auth_header([account: 123, token: 123])
+    ["Authorization": "Basic MTIzOjEyMw=="]
+
+  Missing credential pair
+
+    iex> ExTwilio.Api.auth_header([], {nil, 2})
+    []
+
+  """
+  @spec auth_header(options :: list) :: list
+  def auth_header(options)  do
+    auth_header([], {options[:account], options[:token]})
+  end
+
+
+  @doc """
+  Builds custom auth header for subaccounts
+  handles master account case if :"Authorization"
+  custom header isn't present
+
+  Without header defined
+
+    iex> ExTwilio.Api.auth_header([], {123, 123})
+    ["Authorization": "Basic MTIzOjEyMw=="]
+
+  With header defined
+
+    iex> ExTwilio.Api.auth_header(["Authorization": "Basic BASE64=="], {123, 123})
+    ["Authorization": "Basic BASE64=="]
+  """
+  @spec auth_header(headers :: list, auth :: tuple) :: list
+  def auth_header(headers, {sid, token}) when not is_nil(sid) and not is_nil(token) do 
+    case Keyword.has_key?(headers, :"Authorization") do
+      true -> headers
+      false -> 
+        auth = Base.encode64("#{sid}:#{token}")
+        
+        headers  
+        |> Keyword.put(:"Authorization", "Basic #{auth}")
+    end
+  end
+
+  def auth_header(headers, _), do: headers
+
   ###
   # HTTPotion API
   ###
@@ -125,10 +173,9 @@ defmodule ExTwilio.Api do
   """
   @spec process_request_headers(list) :: list
   def process_request_headers(headers \\ []) do
-    auth = Base.encode64("#{Config.account_sid}:#{Config.auth_token}")
     headers
     |> Keyword.put(:"Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
-    |> Keyword.put(:"Authorization", "Basic #{auth}")
+    |> auth_header({Config.account_sid, Config.auth_token})
   end
 
   @spec format_data(data) :: binary
@@ -140,5 +187,7 @@ defmodule ExTwilio.Api do
   def format_data(data) when is_list(data) do
     Url.to_query_string(data)
   end
+  
   def format_data(data), do: data
+
 end
