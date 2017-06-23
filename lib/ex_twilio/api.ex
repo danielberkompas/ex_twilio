@@ -119,11 +119,10 @@ defmodule ExTwilio.Api do
 
   @doc """
   Builds custom auth header for subaccounts
-  
+
+  ## Examples
     iex> ExTwilio.Api.auth_header([account: 123, token: 123])
     ["Authorization": "Basic MTIzOjEyMw=="]
-
-  Missing credential pair
 
     iex> ExTwilio.Api.auth_header([], {nil, 2})
     []
@@ -140,24 +139,22 @@ defmodule ExTwilio.Api do
   handles master account case if :"Authorization"
   custom header isn't present
 
-  Without header defined
+  ## Examples
 
     iex> ExTwilio.Api.auth_header([], {123, 123})
     ["Authorization": "Basic MTIzOjEyMw=="]
 
-  With header defined
-
     iex> ExTwilio.Api.auth_header(["Authorization": "Basic BASE64=="], {123, 123})
     ["Authorization": "Basic BASE64=="]
+
   """
   @spec auth_header(headers :: list, auth :: tuple) :: list
-  def auth_header(headers, {sid, token}) when not is_nil(sid) and not is_nil(token) do 
+  def auth_header(headers, {sid, token}) when not is_nil(sid) and not is_nil(token) do
     case Keyword.has_key?(headers, :"Authorization") do
       true -> headers
-      false -> 
+      false ->
         auth = Base.encode64("#{sid}:#{token}")
-        
-        headers  
+        headers
         |> Keyword.put(:"Authorization", "Basic #{auth}")
     end
   end
@@ -187,7 +184,6 @@ defmodule ExTwilio.Api do
   def format_data(data) when is_list(data) do
     Url.to_query_string(data)
   end
-  
   def format_data(data), do: data
 
 end
