@@ -137,7 +137,7 @@ defmodule ExTwilio.UrlGenerator do
 
   @spec build_query(atom, list) :: String.t
   defp build_query(module, options) do
-    special = module.parents ++ module.children
+    special = module.parents ++ module.children ++ [:token]
     query =
       options
       |> Enum.reject(fn({key, _val}) -> key in special end)
