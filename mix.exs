@@ -20,9 +20,9 @@ defmodule ExTwilio.Mixfile do
   defp deps do
     [
       {:httpoison, ">= 0.9.0"},
-      {:poison, "~> 2.2"},
+      {:poison, "~> 3.0"},
       {:inflex, "~> 1.0"},
-      {:joken, "~> 1.4"},
+      {:joken, "~> 1.5"},
       {:dialyze, "~> 0.2.0", only: [:dev, :test]},
       {:credo, "~> 0.5.1", only: [:dev, :test]},
       {:mock, "~> 0.2.0", only: :test},
