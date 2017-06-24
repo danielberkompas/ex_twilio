@@ -47,7 +47,7 @@ defmodule ExTwilio.Api do
   def find(module, sid, options \\ []) do
     module
     |> Url.build_url(sid, options)
-    |> Api.get!()
+    |> Api.get!(auth_header(options))
     |> Parser.parse(module)
   end
 
@@ -67,7 +67,7 @@ defmodule ExTwilio.Api do
     data = format_data(data)
     module
     |> Url.build_url(nil, options)
-    |> Api.post!(data)
+    |> Api.post!(data, auth_header(options))
     |> Parser.parse(module)
   end
 
@@ -90,7 +90,7 @@ defmodule ExTwilio.Api do
     data = format_data(data)
     module
     |> Url.build_url(sid, options)
-    |> Api.post!(data)
+    |> Api.post!(data, auth_header(options))
     |> Parser.parse(module)
   end
 
@@ -112,7 +112,7 @@ defmodule ExTwilio.Api do
   defp do_destroy(module, sid, options) do
     module
     |> Url.build_url(sid, options)
-    |> Api.delete!
+    |> Api.delete!(auth_header(options))
     |> Parser.parse(module)
   end
 
@@ -129,8 +129,8 @@ defmodule ExTwilio.Api do
 
   """
   @spec auth_header(options :: list) :: list
-  def auth_header(options)  do
-    auth_header([], {options[:account], options[:token]})
+  def auth_header(options \\ [])  do
+    auth_header([], { options[:account], options[:token] })
   end
 
 
