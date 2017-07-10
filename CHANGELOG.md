@@ -1,5 +1,23 @@
 # Change Log
 
+## [Unreleased](https://github.com/danielberkompas/ex_twilio/tree/HEAD)
+
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.3.0...HEAD)
+
+**Closed issues:**
+
+- Subaccounts support [\#76](https://github.com/danielberkompas/ex_twilio/issues/76)
+- Add messaging\_service\_sid to the Message Resource [\#75](https://github.com/danielberkompas/ex_twilio/issues/75)
+- Setting MaxPrice on message [\#70](https://github.com/danielberkompas/ex_twilio/issues/70)
+- Error while creating sms [\#69](https://github.com/danielberkompas/ex_twilio/issues/69)
+
+**Merged pull requests:**
+
+- 76 - Subaccounts handling [\#78](https://github.com/danielberkompas/ex_twilio/pull/78) ([andrewshatnyy](https://github.com/andrewshatnyy))
+- Upgrade Joken to 1.4.1 [\#74](https://github.com/danielberkompas/ex_twilio/pull/74) ([joshuafleck](https://github.com/joshuafleck))
+- Replace 'accound' with 'account' in capability.ex [\#73](https://github.com/danielberkompas/ex_twilio/pull/73) ([SherSpock](https://github.com/SherSpock))
+- Adds Update API action to Conference resource. [\#71](https://github.com/danielberkompas/ex_twilio/pull/71) ([m4ttsch](https://github.com/m4ttsch))
+
 ## [v0.3.0](https://github.com/danielberkompas/ex_twilio/tree/v0.3.0) (2017-01-20)
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.2.1...v0.3.0)
 
