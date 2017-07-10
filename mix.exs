@@ -3,7 +3,7 @@ defmodule ExTwilio.Mixfile do
 
   def project do
     [app: :ex_twilio,
-     version: "0.3.0",
+     version: "0.4.0",
      elixir: "~> 1.2",
      name: "ExTwilio",
      description: "Twilio API library for Elixir",
