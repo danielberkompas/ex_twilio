@@ -135,7 +135,7 @@ defmodule ExTwilio.UrlGenerator do
 
   @spec add_workspace_to_options(atom, list) :: list
   defp add_workspace_to_options(_module, options) do
-    Keyword.put_new(options, :workspace, "WS5129855a41766bf529b76052885f3ce0")
+    Keyword.put_new(options, :workspace, Config.workspace_sid)
   end
 
   @spec build_query(atom, list) :: String.t
