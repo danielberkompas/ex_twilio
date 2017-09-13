@@ -78,7 +78,7 @@ defmodule ExTwilio.Resource do
       Delegates the real work to `ExTwilio.Api.resource_collection_name/1` by
       default.
 
-      Override in your module before `use ExTwilio.Resource` if you need
+      Override in your module after `use ExTwilio.Resource` if you need
       something different.
       """
       def resource_collection_name, do: Url.resource_collection_name(__MODULE__)
@@ -87,14 +87,31 @@ defmodule ExTwilio.Resource do
       CamelCase resource name as it would be used in Twilio's API. Delegates
       the real work to `ExTwilio.Api.resource_name/1` by default.
 
-      Override in your module before `use ExTwilio.Resource` if you need
+      Override in your module after `use ExTwilio.Resource` if you need
       something different.
       """
       def resource_name, do: Url.resource_name(__MODULE__)
 
+      @doc """
+      Parents represent path segments that precede the current resource. For example,
+      in the path `/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users` "Services" is
+      a parent.  Parents will always have a key in the next segment.  If your parent is under a
+      submodule of `ExTwilio`, specify your parent using the `ExTwilio.Parent` struct.
+
+      Override this method in your resource to specify parents in the order that they will appear
+      in the path.
+      """
       @spec parents :: list
       def parents, do: []
 
+      @doc """
+      Children represent path segments that come after the current resource. For example,
+      in the path `/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/Active` "Active" is
+      a child.  Children may or may not have a key in the next segment.
+
+      Override this method in your resource to specify children in the order that they will appear
+      in the path.
+      """
       @spec children :: list
       def children, do: []
 

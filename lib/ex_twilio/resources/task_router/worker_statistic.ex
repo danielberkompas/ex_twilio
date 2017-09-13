@@ -13,6 +13,9 @@ defmodule ExTwilio.TaskRouter.WorkerStatistic do
 
   use ExTwilio.Resource, import: [:stream, :all, :find]
 
-  def parents, do: [:workspace, :workers]
+  def parents, do: [
+    %ExTwilio.Parent{module: ExTwilio.TaskRouter.Workspace, key: :workspace},
+    %ExTwilio.Parent{module: ExTwilio.TaskRouter.Worker, key: :workers}
+  ]
   def children, do: [:minutes, :friendly_name, :start_date, :end_date, :task_queue_name, :task_queue_sid]
 end

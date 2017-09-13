@@ -150,6 +150,17 @@ Twilio's TaskRouter API:
 - [Workspaces](https://www.twilio.com/docs/api/taskrouter/workspaces)
     - [Statistics](https://www.twilio.com/docs/api/taskrouter/workspace-statistics)
 
+Twilio's ProgrammableChat API:
+
+- [Overview](https://www.twilio.com/docs/api/chat/rest)
+- [Services](https://www.twilio.com/docs/api/chat/rest/services)
+  - [Channels](https://www.twilio.com/docs/api/chat/rest/channels)
+    - [Members](https://www.twilio.com/docs/api/chat/rest/members)
+  - [Users](https://www.twilio.com/docs/api/chat/rest/users)
+    - [UserChannels](https://www.twilio.com/docs/api/chat/rest/user-channels)
+  - [Roles](https://www.twilio.com/docs/api/chat/rest/user-channels)
+- [Credentials](https://www.twilio.com/docs/api/chat/rest/credentials)
+
 Twilio Capability Tokens:
 - [Worker](https://www.twilio.com/docs/api/taskrouter/worker-js)
 - [Calling](https://www.twilio.com/docs/api/client/capability-tokens)

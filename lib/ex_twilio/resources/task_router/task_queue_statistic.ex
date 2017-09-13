@@ -13,6 +13,9 @@ defmodule ExTwilio.TaskRouter.TaskQueueStatistic do
 
   use ExTwilio.Resource, import: [:stream, :all]
 
-  def parents, do: [:workspace, :task_queues]
+  def parents, do: [
+    %ExTwilio.Parent{module: ExTwilio.TaskRouter.Workspace, key: :workspace},
+    %ExTwilio.Parent{module: ExTwilio.TaskRouter.TaskQueue, key: :task_queues}
+  ]
   def children, do: [:minutes, :friendly_name, :start_date, :end_date]
 end
