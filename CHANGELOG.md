@@ -1,5 +1,19 @@
 # Change Log
 
+## [Unreleased](https://github.com/danielberkompas/ex_twilio/tree/HEAD)
+
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.4.0...HEAD)
+
+**Closed issues:**
+
+- Update to Poison \>= 3 [\#72](https://github.com/danielberkompas/ex_twilio/issues/72)
+
+**Merged pull requests:**
+
+- Add all endpoints for the programmable chat api. [\#81](https://github.com/danielberkompas/ex_twilio/pull/81) ([4141done](https://github.com/4141done))
+- Remove someone's hardcoded workspace sid from the url\_builder [\#80](https://github.com/danielberkompas/ex_twilio/pull/80) ([4141done](https://github.com/4141done))
+- Handle query string encoding of list values for the param map. [\#79](https://github.com/danielberkompas/ex_twilio/pull/79) ([m4ttsch](https://github.com/m4ttsch))
+
 ## [v0.4.0](https://github.com/danielberkompas/ex_twilio/tree/v0.4.0) (2017-07-10)
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.3.0...v0.4.0)
 
