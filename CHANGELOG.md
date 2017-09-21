@@ -1,8 +1,7 @@
 # Change Log
 
-## [Unreleased](https://github.com/danielberkompas/ex_twilio/tree/HEAD)
-
-[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.4.0...HEAD)
+## [v0.5.0](https://github.com/danielberkompas/ex_twilio/tree/v0.5.0) (2017-09-21)
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.4.0...v0.5.0)
 
 **Closed issues:**
 
