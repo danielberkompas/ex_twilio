@@ -21,3 +21,4 @@ defmodule ExTwilio.Member do
 
   def parents, do: [:account, :queue]
 end
+

@@ -23,7 +23,7 @@ defmodule ExTwilio.TaskRouter.Event do
 
   use ExTwilio.Resource, import: [:stream, :all, :find]
 
-  def parents, do: [:workspace]
+  def parents, do: [%ExTwilio.Parent{module: ExTwilio.TaskRouter.Workspace, key: :workspace}]
   def children, do: [:minutes, :start_date, :end_date, :event_type, :worker_sid,
                      :task_queue_sid, :workflow_sid, :task_sid, :reservation_sid]
 end

@@ -21,7 +21,7 @@ defmodule ExTwilio.TaskRouter.Worker do
 
   use ExTwilio.Resource, import: [:stream, :all, :find, :create, :update, :delete]
 
-  def parents, do: [:workspace]
+  def parents, do: [%ExTwilio.Parent{module: ExTwilio.TaskRouter.Workspace, key: :workspace}]
   def children do
     [
       :friendly_name,

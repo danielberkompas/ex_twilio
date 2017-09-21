@@ -21,6 +21,9 @@ defmodule ExTwilio.TaskRouter.Reservation do
 
   use ExTwilio.Resource, import: [:stream, :all, :find, :update]
 
-  def parents, do: [:workspace, :task]
+  def parents, do: [
+    %ExTwilio.Parent{module: ExTwilio.TaskRouter.Workspace, key: :workspace},
+    %ExTwilio.Parent{module: ExTwilio.TaskRouter.Task, key: :task}
+  ]
   def children, do: [:worker_sid, :reservation_status]
 end

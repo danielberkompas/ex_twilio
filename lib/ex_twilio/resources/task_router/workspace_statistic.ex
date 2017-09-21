@@ -13,6 +13,6 @@ defmodule ExTwilio.TaskRouter.WorkspaceStatistic do
 
   use ExTwilio.Resource, import: [:stream, :all]
 
-  def parents, do: [:workspace]
+  def parents, do: [%ExTwilio.Parent{module: ExTwilio.TaskRouter.Workspace, key: :workspace}]
   def children, do: [:minutes, :start_date, :end_date]
 end

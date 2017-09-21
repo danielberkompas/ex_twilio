@@ -46,13 +46,18 @@ defmodule ExTwilio.UrlGenerator do
           options = add_workspace_to_options(module, options)
           url = add_segments(Config.task_router_url(), module, id, options)
           {url, options}
+
+        ["ExTwilio", "ProgrammableChat" | _] ->
+          url = add_segments(Config.programmable_chat_url(), module, id, options)
+          {url, options}
+
         _ ->
           # Add Account SID segment if not already present
           options = add_account_to_options(module, options)
           url = add_segments(Config.base_url(), module, id, options) <> ".json"
           {url, options}
       end
-
+      IO.puts ">> Built url: #{url}"
     # Append querystring
     if Keyword.has_key?(options, :query) do
       url <> options[:query]
@@ -63,7 +68,7 @@ defmodule ExTwilio.UrlGenerator do
 
   defp add_segments(url, module, id, options) do
     # Append parents
-    url = url <> build_segments(:parent, module.parents, options)
+    url = url <> build_segments(:parent, normalize_parents(module.parents), options)
 
     # Append module segment
     url = url <> segment(:main, {module.resource_name, id})
@@ -138,45 +143,56 @@ defmodule ExTwilio.UrlGenerator do
     Keyword.put_new(options, :workspace, Config.workspace_sid)
   end
 
+  @spec normalize_parents(list) :: list
+  defp normalize_parents(parents) do
+    parents
+    |> Enum.map(fn
+      key when is_atom(key) ->
+        %ExTwilio.Parent{module: Module.concat(ExTwilio, camelize(key)), key: key}
+      key ->
+        key
+    end)
+  end
+
   @spec build_query(atom, list) :: String.t
   defp build_query(module, options) do
-    special = module.parents ++ module.children ++ [:token]
+    special = module.parents
+              |> normalize_parents()
+              |> Enum.map(fn parent -> parent.key end)
+              |> Enum.concat(module.children)
+              |> Enum.concat([:token])
+
     query =
       options
-      |> Enum.reject(fn({key, _val}) -> key in special end)
+      |> Enum.reject(fn {key, _val} -> key in special end)
       |> to_query_string
 
     if String.length(query) > 0, do: "?" <> query, else: ""
   end
 
   @spec build_segments(atom, list, list) :: String.t
+  defp build_segments(:parent, allowed_keys, list) do
+    for %ExTwilio.Parent{module: module, key: key} <- allowed_keys,
+      into: "", do: segment(:parent, {%ExTwilio.Parent{module: module, key: key}, list[key]})
+  end
   defp build_segments(type, allowed_keys, list) do
     for key <- allowed_keys, into: "", do: segment(type, {key, list[key]})
   end
 
-  @spec segment(atom, {atom, any}) :: String.t
+  @spec segment(atom, {any, any}) :: String.t
   defp segment(type, segment)
   defp segment(type, {_key, nil}) when type in [:parent, :child], do: ""
   defp segment(:child, {_key, value}), do: "/" <> to_string(value)
   defp segment(:main, {key, nil}),     do: "/" <> inflect(key)
-  defp segment(type, {key, value}) when type in [:main, :parent] and is_atom(key) do
-    "/#{infer_module(key).resource_name}/#{value}"
-  end
-  defp segment(type, {key, value}) when type in [:main, :parent] and is_binary(key) do
-    "/#{inflect(key)}/#{value}"
+  defp segment(:main, {key, value}),   do: "/#{inflect(key)}/#{value}"
+  defp segment(:parent, {%ExTwilio.Parent{module: module, key: _key}, value}) do
+    "/#{module.resource_name}/#{value}"
   end
 
   @spec inflect(String.t | atom) :: String.t
   defp inflect(string) when is_binary(string), do: string
   defp inflect(atom) when is_atom(atom) do
     atom |> camelize |> Inflex.pluralize
-  end
-
-  @spec infer_module(atom) :: atom
-  defp infer_module(:workspace), do: ExTwilio.TaskRouter.Workspace
-  defp infer_module(:task), do: ExTwilio.TaskRouter.Task
-  defp infer_module(atom) do
-    Module.concat(ExTwilio, camelize(atom))
   end
 
   @spec camelize(String.t | atom) :: String.t
