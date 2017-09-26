@@ -39,9 +39,9 @@ You will need to set the following configuration variables in your
 ```elixir
 use Mix.Config
 
-config :ex_twilio, account_sid:   {:system, "TWILIO_ACCOUNT_SID"},
-                   auth_token:    {:system, "TWILIO_AUTH_TOKEN"},
-                   workspace_sid: {:system, "TWILIO_WORKSPACE_SID"} # optional
+config :ex_twilio, account_sid:   "TWILIO_ACCOUNT_SID",
+                   auth_token:    "TWILIO_AUTH_TOKEN",
+                   workspace_sid: "TWILIO_WORKSPACE_SID" # optional
 ```
 
 For security, I recommend that you use environment variables rather than hard
