@@ -57,7 +57,6 @@ defmodule ExTwilio.UrlGenerator do
           url = add_segments(Config.base_url(), module, id, options) <> ".json"
           {url, options}
       end
-      IO.puts ">> Built url: #{url}"
     # Append querystring
     if Keyword.has_key?(options, :query) do
       url <> options[:query]
