@@ -5,3 +5,4 @@ erl_crash.dump
 .env
 .DS_Store
 doc/
+.elixir_ls

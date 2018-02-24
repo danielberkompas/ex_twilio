@@ -2,15 +2,17 @@ defmodule ExTwilio.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :ex_twilio,
-     version: "0.5.0",
-     elixir: "~> 1.2",
-     name: "ExTwilio",
-     description: "Twilio API library for Elixir",
-     source_url: "https://github.com/danielberkompas/ex_twilio",
-     package: package(),
-     docs: docs(),
-     deps: deps()]
+    [
+      app: :ex_twilio,
+      version: "0.5.1",
+      elixir: "~> 1.2",
+      name: "ExTwilio",
+      description: "Twilio API library for Elixir",
+      source_url: "https://github.com/danielberkompas/ex_twilio",
+      package: package(),
+      docs: docs(),
+      deps: deps()
+    ]
   end
 
   def application do
