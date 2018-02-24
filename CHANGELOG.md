@@ -1,5 +1,19 @@
 # Change Log
 
+## [Unreleased](https://github.com/danielberkompas/ex_twilio/tree/HEAD)
+
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.5.0...HEAD)
+
+**Closed issues:**
+
+- Retrieving A Programmable Chat User. [\#85](https://github.com/danielberkompas/ex_twilio/issues/85)
+
+**Merged pull requests:**
+
+- Refactor ExTwilio.ResultStream to simplify streaming code [\#87](https://github.com/danielberkompas/ex_twilio/pull/87) ([scarfacedeb](https://github.com/scarfacedeb))
+- Remove puts that could not be muted [\#86](https://github.com/danielberkompas/ex_twilio/pull/86) ([john-griffin](https://github.com/john-griffin))
+- Config does not need system [\#82](https://github.com/danielberkompas/ex_twilio/pull/82) ([mahcloud](https://github.com/mahcloud))
+
 ## [v0.5.0](https://github.com/danielberkompas/ex_twilio/tree/v0.5.0) (2017-09-21)
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.4.0...v0.5.0)
 
