@@ -17,28 +17,28 @@ defmodule ExTwilio.UrlGenerator do
   # Examples
 
       iex> build_url(Resource)
-      "#{Config.base_url}/Accounts/#{Config.account_sid}/Resources.json"
+      "#{Config.base_url()}/Accounts/#{Config.account_sid()}/Resources.json"
 
       iex> build_url(Resource, nil, account: 2)
-      "#{Config.base_url}/Accounts/2/Resources.json"
+      "#{Config.base_url()}/Accounts/2/Resources.json"
 
       iex> build_url(Resource, 1, account: 2)
-      "#{Config.base_url}/Accounts/2/Resources/1.json"
+      "#{Config.base_url()}/Accounts/2/Resources/1.json"
 
       iex> build_url(Resource, 1)
-      "#{Config.base_url}/Accounts/#{Config.account_sid}/Resources/1.json"
+      "#{Config.base_url()}/Accounts/#{Config.account_sid()}/Resources/1.json"
 
       iex> build_url(Resource, nil, page: 20)
-      "#{Config.base_url}/Accounts/#{Config.account_sid}/Resources.json?Page=20"
+      "#{Config.base_url()}/Accounts/#{Config.account_sid()}/Resources.json?Page=20"
 
       iex> build_url(Resource, nil, iso_country_code: "US", type: "Mobile", page: 20)
-      "#{Config.base_url}/Accounts/#{Config.account_sid}/Resources/US/Mobile.json?Page=20"
+      "#{Config.base_url()}/Accounts/#{Config.account_sid()}/Resources/US/Mobile.json?Page=20"
 
       iex> build_url(Resource, 1, sip_ip_access_control_list: "list", account: "account_sid")
-      "#{Config.base_url}/Accounts/account_sid/SIP/IpAccessControlLists/list/Resources/1.json"
+      "#{Config.base_url()}/Accounts/account_sid/SIP/IpAccessControlLists/list/Resources/1.json"
 
   """
-  @spec build_url(atom, String.t | nil, list) :: String.t
+  @spec build_url(atom, String.t() | nil, list) :: String.t()
   def build_url(module, id \\ nil, options \\ []) do
     {url, options} =
       case Module.split(module) do
@@ -57,6 +57,7 @@ defmodule ExTwilio.UrlGenerator do
           url = add_segments(Config.base_url(), module, id, options) <> ".json"
           {url, options}
       end
+
     # Append querystring
     if Keyword.has_key?(options, :query) do
       url <> options[:query]
@@ -84,14 +85,14 @@ defmodule ExTwilio.UrlGenerator do
       iex> ExTwilio.UrlGenerator.to_query_string([hello: "world", how_are: "you"])
       "Hello=world&HowAre=you"
   """
-  @spec to_query_string(list) :: String.t
+  @spec to_query_string(list) :: String.t()
   def to_query_string(list) do
     list
     |> Enum.flat_map(fn
-      {key, value} when is_list(value) -> Enum.map(value, &({camelize(key), &1}))
+      {key, value} when is_list(value) -> Enum.map(value, &{camelize(key), &1})
       {key, value} -> [{camelize(key), value}]
     end)
-    |> URI.encode_query
+    |> URI.encode_query()
   end
 
   @doc """
@@ -106,7 +107,7 @@ defmodule ExTwilio.UrlGenerator do
       iex> ExTwilio.UrlGenerator.resource_name(:"ExTwilio.Resources.Call")
       "Calls"
   """
-  @spec resource_name(atom | String.t) :: String.t
+  @spec resource_name(atom | String.t()) :: String.t()
   def resource_name(module) do
     name = to_string(module)
     [[name]] = Regex.scan(~r/[a-z]+$/i, name)
@@ -121,11 +122,11 @@ defmodule ExTwilio.UrlGenerator do
       iex> ExTwilio.UrlGenerator.resource_collection_name(Resource)
       "resources"
   """
-  @spec resource_collection_name(atom) :: String.t
+  @spec resource_collection_name(atom) :: String.t()
   def resource_collection_name(module) do
     module
     |> resource_name
-    |> Macro.underscore
+    |> Macro.underscore()
   end
 
   @spec add_account_to_options(atom, list) :: list
@@ -133,13 +134,13 @@ defmodule ExTwilio.UrlGenerator do
     if module == ExTwilio.Account and options[:account] == nil do
       options
     else
-      Keyword.put_new(options, :account, Config.account_sid)
+      Keyword.put_new(options, :account, Config.account_sid())
     end
   end
 
   @spec add_workspace_to_options(atom, list) :: list
   defp add_workspace_to_options(_module, options) do
-    Keyword.put_new(options, :workspace, Config.workspace_sid)
+    Keyword.put_new(options, :workspace, Config.workspace_sid())
   end
 
   @spec normalize_parents(list) :: list
@@ -148,18 +149,20 @@ defmodule ExTwilio.UrlGenerator do
     |> Enum.map(fn
       key when is_atom(key) ->
         %ExTwilio.Parent{module: Module.concat(ExTwilio, camelize(key)), key: key}
+
       key ->
         key
     end)
   end
 
-  @spec build_query(atom, list) :: String.t
+  @spec build_query(atom, list) :: String.t()
   defp build_query(module, options) do
-    special = module.parents
-              |> normalize_parents()
-              |> Enum.map(fn parent -> parent.key end)
-              |> Enum.concat(module.children)
-              |> Enum.concat([:token])
+    special =
+      module.parents
+      |> normalize_parents()
+      |> Enum.map(fn parent -> parent.key end)
+      |> Enum.concat(module.children)
+      |> Enum.concat([:token])
 
     query =
       options
@@ -169,33 +172,37 @@ defmodule ExTwilio.UrlGenerator do
     if String.length(query) > 0, do: "?" <> query, else: ""
   end
 
-  @spec build_segments(atom, list, list) :: String.t
+  @spec build_segments(atom, list, list) :: String.t()
   defp build_segments(:parent, allowed_keys, list) do
     for %ExTwilio.Parent{module: module, key: key} <- allowed_keys,
-      into: "", do: segment(:parent, {%ExTwilio.Parent{module: module, key: key}, list[key]})
+        into: "",
+        do: segment(:parent, {%ExTwilio.Parent{module: module, key: key}, list[key]})
   end
+
   defp build_segments(type, allowed_keys, list) do
     for key <- allowed_keys, into: "", do: segment(type, {key, list[key]})
   end
 
-  @spec segment(atom, {any, any}) :: String.t
+  @spec segment(atom, {any, any}) :: String.t()
   defp segment(type, segment)
   defp segment(type, {_key, nil}) when type in [:parent, :child], do: ""
   defp segment(:child, {_key, value}), do: "/" <> to_string(value)
-  defp segment(:main, {key, nil}),     do: "/" <> inflect(key)
-  defp segment(:main, {key, value}),   do: "/#{inflect(key)}/#{value}"
+  defp segment(:main, {key, nil}), do: "/" <> inflect(key)
+  defp segment(:main, {key, value}), do: "/#{inflect(key)}/#{value}"
+
   defp segment(:parent, {%ExTwilio.Parent{module: module, key: _key}, value}) do
     "/#{module.resource_name}/#{value}"
   end
 
-  @spec inflect(String.t | atom) :: String.t
+  @spec inflect(String.t() | atom) :: String.t()
   defp inflect(string) when is_binary(string), do: string
+
   defp inflect(atom) when is_atom(atom) do
-    atom |> camelize |> Inflex.pluralize
+    atom |> camelize |> Inflex.pluralize()
   end
 
-  @spec camelize(String.t | atom) :: String.t
+  @spec camelize(String.t() | atom) :: String.t()
   defp camelize(name) do
-    name |> to_string |> Macro.camelize
+    name |> to_string |> Macro.camelize()
   end
 end

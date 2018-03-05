@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 #
-# Continuous Integration Script
-#
-# This script contains all the test commands for this app, and should be run on
-# your continuous integration server. Developers can then run it locally to see
-# if their changes will pass on the CI server, before pushing.
-#
-# It also allows the build settings to be changed by anyone with write access to
-# the project repo, making them easier to manage.
+# This script sets up your local machine for development on ExTwilio.
 
 function no_credentials() {
   echo "Twilio credentials not set up. You should:"
@@ -44,4 +37,4 @@ echo "-------------------------------"
 echo "Running tests..."
 echo "-------------------------------"
 
-bin/ci || { exit 1; }
+bin/test || { exit 1; }

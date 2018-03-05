@@ -41,19 +41,20 @@ defmodule ExTwilio.Config do
   Return the combined base URL of the Twilio API, using the configuration
   settings given.
   """
-  def base_url(), do: "https://#{api_domain()}/#{api_version()}"
+  def base_url, do: "https://#{api_domain()}/#{api_version()}"
 
-  def task_router_url(), do: "https://taskrouter.twilio.com/v1"
+  def task_router_url, do: "https://taskrouter.twilio.com/v1"
 
-  def task_router_websocket_base_url(), do: "https://event-bridge.twilio.com/v1/wschannels"
+  def task_router_websocket_base_url, do: "https://event-bridge.twilio.com/v1/wschannels"
 
-  def programmable_chat_url(), do: "https://chat.twilio.com/v2"
+  def programmable_chat_url, do: "https://chat.twilio.com/v2"
 
   @doc """
   A light wrapper around `Application.get_env/2`, providing automatic support for
   `{:system, "VAR"}` tuples.
   """
   def from_env(otp_app, key, default \\ nil)
+
   def from_env(otp_app, key, default) do
     otp_app
     |> Application.get_env(key, default)

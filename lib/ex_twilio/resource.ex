@@ -19,7 +19,8 @@ defmodule ExTwilio.Resource do
 
   @doc false
   defmacro __using__(options) do
-    import_functions  = options[:import] || []
+    import_functions = options[:import] || []
+
     quote bind_quoted: [import_functions: import_functions] do
       alias ExTwilio.Api
       alias ExTwilio.Parser
@@ -31,13 +32,14 @@ defmodule ExTwilio.Resource do
 
       @spec new(list) :: %__MODULE__{}
       def new(attrs) do
-        do_new %__MODULE__{}, attrs
+        do_new(%__MODULE__{}, attrs)
       end
 
       @spec do_new(%__MODULE__{}, list) :: %__MODULE__{}
       def do_new(struct, []), do: struct
-      def do_new(struct, [{key, val}|tail]) do
-        do_new Map.put(struct, key, val), tail
+
+      def do_new(struct, [{key, val} | tail]) do
+        do_new(Map.put(struct, key, val), tail)
       end
 
       if :stream in import_functions do
@@ -54,22 +56,22 @@ defmodule ExTwilio.Resource do
       end
 
       if :find in import_functions do
-        @spec find(String.t | nil, list) :: Parser.parsed_list_response
+        @spec find(String.t() | nil, list) :: Parser.parsed_list_response()
         def find(sid, options \\ []), do: Api.find(__MODULE__, sid, options)
       end
 
       if :create in import_functions do
-        @spec create(Api.data, list) :: Parser.parsed_response
+        @spec create(Api.data(), list) :: Parser.parsed_response()
         def create(data, options \\ []), do: Api.create(__MODULE__, data, options)
       end
 
       if :update in import_functions do
-        @spec update(String.t, Api.data, list) :: Parser.parsed_response
+        @spec update(String.t(), Api.data(), list) :: Parser.parsed_response()
         def update(sid, data, options \\ []), do: Api.update(__MODULE__, sid, data, options)
       end
 
       if :destroy in import_functions do
-        @spec destroy(String.t, list) :: Parser.success_delete | Parser.error
+        @spec destroy(String.t(), list) :: Parser.success_delete() | Parser.error()
         def destroy(sid, options \\ []), do: Api.destroy(__MODULE__, sid, options)
       end
 

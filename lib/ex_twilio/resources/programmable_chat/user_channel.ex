@@ -13,14 +13,17 @@ defmodule ExTwilio.ProgrammableChat.UserChannel do
             channel: nil,
             member: nil
 
-  use ExTwilio.Resource, import: [
-    :stream,
-    :all
-  ]
+  use ExTwilio.Resource,
+    import: [
+      :stream,
+      :all
+    ]
 
   def resource_name, do: "Channels"
-  def parents, do: [
-    %ExTwilio.Parent{module: ExTwilio.ProgrammableChat.Service, key: :service},
-    %ExTwilio.Parent{module: ExTwilio.ProgrammableChat.User, key: :user}
-  ]
+
+  def parents,
+    do: [
+      %ExTwilio.Parent{module: ExTwilio.ProgrammableChat.Service, key: :service},
+      %ExTwilio.Parent{module: ExTwilio.ProgrammableChat.User, key: :user}
+    ]
 end

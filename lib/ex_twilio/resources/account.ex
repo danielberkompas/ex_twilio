@@ -45,9 +45,9 @@ defmodule ExTwilio.Account do
       {:ok, account} = ExTwilio.Account.find("<sid>")
       ExTwilio.Account.suspend(account)
   """
-  @spec suspend(map | String.t) :: Parser.success | Parser.error
+  @spec suspend(map | String.t()) :: Parser.success() | Parser.error()
   def suspend(%{sid: sid}), do: suspend(sid)
-  def suspend(sid),         do: update(sid, status: "suspended")
+  def suspend(sid), do: update(sid, status: "suspended")
 
   @doc """
   Reactivate a suspended Account by updating its status to "active".
@@ -59,9 +59,9 @@ defmodule ExTwilio.Account do
       {:ok, account} = ExTwilio.Account.find("<sid>")
       ExTwilio.Account.reactivate(account)
   """
-  @spec reactivate(map | String.t) :: Parser.success | Parser.error
+  @spec reactivate(map | String.t()) :: Parser.success() | Parser.error()
   def reactivate(%{sid: sid}), do: reactivate(sid)
-  def reactivate(sid),         do: update(sid, status: "active")
+  def reactivate(sid), do: update(sid, status: "active")
 
   @doc """
   Permanently close an Account by updating its status to "closed". This cannot
@@ -74,9 +74,9 @@ defmodule ExTwilio.Account do
       {:ok, account} = ExTwilio.Account.find("<sid>")
       ExTwilio.Account.close(account)
   """
-  @spec close(map | String.t) :: Parser.success | Parser.error
+  @spec close(map | String.t()) :: Parser.success() | Parser.error()
   def close(%{sid: sid}), do: close(sid)
-  def close(sid),         do: update(sid, status: "closed")
+  def close(sid), do: update(sid, status: "closed")
 
   def parents, do: [:account]
 end

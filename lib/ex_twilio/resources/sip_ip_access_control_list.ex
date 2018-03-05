@@ -12,14 +12,15 @@ defmodule ExTwilio.SipIpAccessControlList do
             date_updated: nil,
             uri: nil
 
-  use ExTwilio.Resource, import: [
-    :stream,
-    :all,
-    :find,
-    :create,
-    :update,
-    :destroy
-  ]
+  use ExTwilio.Resource,
+    import: [
+      :stream,
+      :all,
+      :find,
+      :create,
+      :update,
+      :destroy
+    ]
 
   def resource_name, do: "SIP/IpAccessControlLists"
   def resource_collection_name, do: "ip_access_control_lists"

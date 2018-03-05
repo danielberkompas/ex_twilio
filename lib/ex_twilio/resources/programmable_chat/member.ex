@@ -17,17 +17,19 @@ defmodule ExTwilio.ProgrammableChat.Member do
             last_consumption_timestamp: nil,
             url: nil
 
-  use ExTwilio.Resource, import: [
-    :stream,
-    :all,
-    :find,
-    :create,
-    :update,
-    :destroy
-  ]
+  use ExTwilio.Resource,
+    import: [
+      :stream,
+      :all,
+      :find,
+      :create,
+      :update,
+      :destroy
+    ]
 
-  def parents, do: [
-    %ExTwilio.Parent{module: ExTwilio.ProgrammableChat.Service, key: :service},
-    %ExTwilio.Parent{module: ExTwilio.ProgrammableChat.Channel, key: :channel}
-  ]
+  def parents,
+    do: [
+      %ExTwilio.Parent{module: ExTwilio.ProgrammableChat.Service, key: :service},
+      %ExTwilio.Parent{module: ExTwilio.ProgrammableChat.Channel, key: :channel}
+    ]
 end

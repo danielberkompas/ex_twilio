@@ -14,12 +14,13 @@ defmodule ExTwilio.ProgrammableChat.Credential do
             date_updated: nil,
             url: nil
 
-  use ExTwilio.Resource, import: [
-    :stream,
-    :all,
-    :find,
-    :create,
-    :update,
-    :destroy
-  ]
+  use ExTwilio.Resource,
+    import: [
+      :stream,
+      :all,
+      :find,
+      :create,
+      :update,
+      :destroy
+    ]
 end

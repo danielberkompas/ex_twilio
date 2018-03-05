@@ -17,7 +17,7 @@ defmodule ExTwilio.ResultStream do
   alias ExTwilio.UrlGenerator
   alias ExTwilio.Config
 
-  @type url :: String.t
+  @type url :: String.t()
 
   @doc """
   Create a new Stream.
@@ -33,22 +33,19 @@ defmodule ExTwilio.ResultStream do
   def new(module, options \\ []) do
     url = UrlGenerator.build_url(module, nil, options)
 
-    Stream.resource(
-      fn -> {url, module, options} end,
-      &process_page/1,
-      fn _ -> nil end
-    )
+    Stream.resource(fn -> {url, module, options} end, &process_page/1, fn _ -> nil end)
   end
 
-  @spec fetch_page(url, module, options::list) :: {list, {url, module, options::list}}
+  @spec fetch_page(url, module, options :: list) :: {list, {url, module, options :: list}}
   defp fetch_page(url, module, options) do
     results = Api.get!(url, Api.auth_header(options))
     {:ok, items, meta} = Parser.parse_list(results, module, module.resource_collection_name)
     {items, {meta["next_page_uri"], module, options}}
   end
 
-  @spec process_page({url | nil, module, options :: list}) :: {:halt, nil} |
-                                                         {list, {url, module}}
+  @spec process_page({url | nil, module, options :: list}) ::
+          {:halt, nil}
+          | {list, {url, module}}
   defp process_page({nil, _module, _options}), do: {:halt, nil}
 
   defp process_page({next_page_uri, module, options}) do
@@ -57,5 +54,5 @@ defmodule ExTwilio.ResultStream do
     |> fetch_page(module, options)
   end
 
-  defp next_page_url(uri), do: "https://#{Config.api_domain}" <> uri
+  defp next_page_url(uri), do: "https://#{Config.api_domain()}" <> uri
 end

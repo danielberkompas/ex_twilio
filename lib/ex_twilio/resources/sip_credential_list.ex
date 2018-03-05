@@ -12,14 +12,15 @@ defmodule ExTwilio.SipCredentialList do
             date_updated: nil,
             uri: nil
 
-  use ExTwilio.Resource, import: [
-    :stream,
-    :all,
-    :find,
-    :create,
-    :update,
-    :destroy
-  ]
+  use ExTwilio.Resource,
+    import: [
+      :stream,
+      :all,
+      :find,
+      :create,
+      :update,
+      :destroy
+    ]
 
   def resource_name, do: "SIP/CredentialLists"
   def resource_collection_name, do: "credential_lists"

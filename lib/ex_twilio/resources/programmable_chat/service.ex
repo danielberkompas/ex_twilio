@@ -25,12 +25,13 @@ defmodule ExTwilio.ProgrammableChat.Service do
             url: nil,
             links: nil
 
-  use ExTwilio.Resource, import: [
-    :stream,
-    :all,
-    :find,
-    :create,
-    :update,
-    :destroy
-  ]
+  use ExTwilio.Resource,
+    import: [
+      :stream,
+      :all,
+      :find,
+      :create,
+      :update,
+      :destroy
+    ]
 end

@@ -3,9 +3,9 @@ cache:
   directories:
     - $HOME/.mix
 elixir:
-  - 1.4.0
+  - 1.6.2
 otp_release:
-  - 19.2
+  - 20.1
 before_script:
   - export MIX_HOME=$HOME/.mix
   - export TWILIO_TEST_ACCOUNT_SID=account_sid		

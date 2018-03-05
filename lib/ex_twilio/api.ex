@@ -21,7 +21,8 @@ defmodule ExTwilio.Api do
   alias ExTwilio.Config
   alias ExTwilio.Parser
   alias ExTwilio.UrlGenerator, as: Url
-  alias __MODULE__ # Necessary for mocks in tests
+  # Necessary for mocks in tests
+  alias __MODULE__
 
   @type data :: map | list
 
@@ -43,7 +44,7 @@ defmodule ExTwilio.Api do
       ExTwilio.Api.find(ExTwilio.Call, "nonexistent sid")
       {:error, "The requested resource couldn't be found...", 404}
   """
-  @spec find(atom, String.t | nil, list) :: Parser.success | Parser.error
+  @spec find(atom, String.t() | nil, list) :: Parser.success() | Parser.error()
   def find(module, sid, options \\ []) do
     module
     |> Url.build_url(sid, options)
@@ -62,7 +63,7 @@ defmodule ExTwilio.Api do
       ExTwilio.Api.create(ExTwilio.Call, [])
       {:error, "No 'To' number is specified", 400}
   """
-  @spec create(atom, data, list) :: Parser.success | Parser.error
+  @spec create(atom, data, list) :: Parser.success() | Parser.error()
   def create(module, data, options \\ []) do
     data = format_data(data)
 
@@ -83,12 +84,17 @@ defmodule ExTwilio.Api do
       ExTwilio.Api.update(ExTwilio.Call, "nonexistent", [status: "complete"])
       {:error, "The requested resource ... was not found", 404}
   """
-  @spec update(atom, String.t, data, list) :: Parser.success | Parser.error
+  @spec update(atom, String.t(), data, list) :: Parser.success() | Parser.error()
   def update(module, sid, data, options \\ [])
-  def update(module, sid, data, options) when is_binary(sid), do: do_update(module, sid, data, options)
+
+  def update(module, sid, data, options) when is_binary(sid),
+    do: do_update(module, sid, data, options)
+
   def update(module, %{sid: sid}, data, options), do: do_update(module, sid, data, options)
+
   defp do_update(module, sid, data, options) do
     data = format_data(data)
+
     module
     |> Url.build_url(sid, options)
     |> Api.post!(data, auth_header(options))
@@ -106,17 +112,17 @@ defmodule ExTwilio.Api do
       ExTwilio.Api.destroy(ExTwilio.Call, "nonexistent")
       {:error, "The requested resource ... was not found", 404}
   """
-  @spec destroy(atom, String.t) :: Parser.success_delete | Parser.error
+  @spec destroy(atom, String.t()) :: Parser.success_delete() | Parser.error()
   def destroy(module, sid, options \\ [])
   def destroy(module, sid, options) when is_binary(sid), do: do_destroy(module, sid, options)
   def destroy(module, %{sid: sid}, options), do: do_destroy(module, sid, options)
+
   defp do_destroy(module, sid, options) do
     module
     |> Url.build_url(sid, options)
     |> Api.delete!(auth_header(options))
     |> Parser.parse(module)
   end
-
 
   @doc """
   Builds custom auth header for subaccounts
@@ -130,10 +136,9 @@ defmodule ExTwilio.Api do
 
   """
   @spec auth_header(options :: list) :: list
-  def auth_header(options \\ [])  do
+  def auth_header(options \\ []) do
     auth_header([], {options[:account], options[:token]})
   end
-
 
   @doc """
   Builds custom auth header for subaccounts
@@ -151,12 +156,15 @@ defmodule ExTwilio.Api do
   """
   @spec auth_header(headers :: list, auth :: tuple) :: list
   def auth_header(headers, {sid, token}) when not is_nil(sid) and not is_nil(token) do
-    case Keyword.has_key?(headers, :"Authorization") do
-      true -> headers
+    case Keyword.has_key?(headers, :Authorization) do
+      true ->
+        headers
+
       false ->
         auth = Base.encode64("#{sid}:#{token}")
+
         headers
-        |> Keyword.put(:"Authorization", "Basic #{auth}")
+        |> Keyword.put(:Authorization, "Basic #{auth}")
     end
   end
 
@@ -173,18 +181,19 @@ defmodule ExTwilio.Api do
   def process_request_headers(headers \\ []) do
     headers
     |> Keyword.put(:"Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
-    |> auth_header({Config.account_sid, Config.auth_token})
+    |> auth_header({Config.account_sid(), Config.auth_token()})
   end
 
   @spec format_data(data) :: binary
   def format_data(data) when is_map(data) do
     data
-    |> Map.to_list
-    |> Url.to_query_string
+    |> Map.to_list()
+    |> Url.to_query_string()
   end
+
   def format_data(data) when is_list(data) do
     Url.to_query_string(data)
   end
-  def format_data(data), do: data
 
+  def format_data(data), do: data
 end

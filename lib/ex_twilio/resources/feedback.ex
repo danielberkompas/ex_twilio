@@ -27,9 +27,9 @@ defmodule ExTwilio.Feedback do
       ExTwilio.Feedback.find(call: "sid")
       %ExTwilio.Feedback{issues: [], quality_score: 5}
   """
-  @spec find([call: String.t]) :: Parser.success | Parser.error
-  def find([call: sid]) do
-    Api.find(__MODULE__, nil, [call: sid])
+  @spec find(call: String.t()) :: Parser.success() | Parser.error()
+  def find(call: sid) do
+    Api.find(__MODULE__, nil, call: sid)
   end
 
   def parents, do: [:account, :call]

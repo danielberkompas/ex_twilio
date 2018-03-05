@@ -34,14 +34,14 @@ defmodule ExTwilio.UrlGeneratorTest do
         status_callback_event: ["ringing", "answered", "completed"]
       ]
 
-      assert ExTwilio.UrlGenerator.to_query_string(params) == "StatusCallback=http%3A%2F%2Fexample.com%2Fstatus_callback&StatusCallbackEvent=ringing&StatusCallbackEvent=answered&StatusCallbackEvent=completed"
+      assert ExTwilio.UrlGenerator.to_query_string(params) ==
+               "StatusCallback=http%3A%2F%2Fexample.com%2Fstatus_callback&StatusCallbackEvent=ringing&StatusCallbackEvent=answered&StatusCallbackEvent=completed"
     end
 
     test "ignores parent keys at the root module level" do
       options = [account: "1234"]
       refute ExTwilio.UrlGenerator.build_url(Submodule.Child, nil, options) =~ "Account=1234"
     end
-
 
     test "ignores parent keys when parent in submodule" do
       options = [parent: "1234"]
@@ -52,8 +52,9 @@ defmodule ExTwilio.UrlGeneratorTest do
   describe "building urls for modules with parent in submodule" do
     test "builds a correct url for parent in a submodule" do
       options = [account: 43, parent: 4551]
+
       assert ExTwilio.UrlGenerator.build_url(Submodule.Child, nil, options) ==
-        "https://api.twilio.com/2010-04-01/Accounts/43/Parents/4551/Children.json"
+               "https://api.twilio.com/2010-04-01/Accounts/43/Parents/4551/Children.json"
     end
   end
 

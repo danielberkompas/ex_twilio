@@ -15,14 +15,15 @@ defmodule ExTwilio.OutgoingCallerId do
             call_sid: nil,
             uri: nil
 
-  use ExTwilio.Resource, import: [
-    :stream,
-    :all,
-    :find,
-    :create,
-    :update,
-    :destroy
-  ]
+  use ExTwilio.Resource,
+    import: [
+      :stream,
+      :all,
+      :find,
+      :create,
+      :update,
+      :destroy
+    ]
 
   def parents, do: [:account]
 end

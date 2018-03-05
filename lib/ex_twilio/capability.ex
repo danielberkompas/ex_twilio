@@ -20,25 +20,23 @@ defmodule ExTwilio.Capability do
 
   alias ExTwilio.Config
 
-  defstruct [
-    incoming_client_names: [],
-    outgoing_client_app: nil,
-    ttl: nil,
-    start_time: nil,
-    auth_token: nil,
-    account_sid: nil
-  ]
+  defstruct incoming_client_names: [],
+            outgoing_client_app: nil,
+            ttl: nil,
+            start_time: nil,
+            auth_token: nil,
+            account_sid: nil
 
-  @type outgoing_client_app :: {String.t, map}
+  @type outgoing_client_app :: {String.t(), map}
 
   @type t :: %__MODULE__{
-    incoming_client_names: list,
-    outgoing_client_app: outgoing_client_app | nil,
-    ttl: non_neg_integer | nil,
-    start_time: non_neg_integer | nil,
-    auth_token: String.t | nil,
-    account_sid: String.t | nil
-  }
+          incoming_client_names: list,
+          outgoing_client_app: outgoing_client_app | nil,
+          ttl: non_neg_integer | nil,
+          start_time: non_neg_integer | nil,
+          auth_token: String.t() | nil,
+          account_sid: String.t() | nil
+        }
 
   @doc """
   Initialises a new capability specification with a TTL of one hour,
@@ -53,8 +51,8 @@ defmodule ExTwilio.Capability do
     %__MODULE__{}
     |> starting_at(:erlang.system_time(:seconds))
     |> with_ttl(3600)
-    |> with_account_sid(Config.account_sid)
-    |> with_auth_token(Config.auth_token)
+    |> with_account_sid(Config.account_sid())
+    |> with_auth_token(Config.auth_token())
   end
 
   @doc """
@@ -70,14 +68,17 @@ defmodule ExTwilio.Capability do
 
       ExTwilio.Capability.allow_client_incoming("tommy")
   """
-  @spec allow_client_incoming(String.t) :: t
+  @spec allow_client_incoming(String.t()) :: t
   def allow_client_incoming(client_name), do: allow_client_incoming(new(), client_name)
 
-  @spec allow_client_incoming(t, String.t) :: t
-  def allow_client_incoming(capability_struct = %__MODULE__{incoming_client_names: client_names}, client_name) do
+  @spec allow_client_incoming(t, String.t()) :: t
+  def allow_client_incoming(
+        capability_struct = %__MODULE__{incoming_client_names: client_names},
+        client_name
+      ) do
     %{
-      capability_struct |
-      incoming_client_names: client_names ++ [client_name]
+      capability_struct
+      | incoming_client_names: client_names ++ [client_name]
     }
   end
 
@@ -96,20 +97,20 @@ defmodule ExTwilio.Capability do
 
       ExTwilio.Capability.allow_client_outgoing("APabe7650f654fc34655fc81ae71caa3ff")
   """
-  @spec allow_client_outgoing(String.t) :: t
+  @spec allow_client_outgoing(String.t()) :: t
   def allow_client_outgoing(app_sid), do: allow_client_outgoing(new(), app_sid)
 
-  @spec allow_client_outgoing(String.t, map) :: t
+  @spec allow_client_outgoing(String.t(), map) :: t
   def allow_client_outgoing(app_sid, app_params = %{}) when is_binary(app_sid) do
     allow_client_outgoing(new(), app_sid, app_params)
   end
 
-  @spec allow_client_outgoing(t, String.t) :: t
+  @spec allow_client_outgoing(t, String.t()) :: t
   def allow_client_outgoing(capability_struct = %__MODULE__{}, app_sid) when is_binary(app_sid) do
     allow_client_outgoing(capability_struct, app_sid, %{})
   end
 
-  @spec allow_client_outgoing(t, String.t, map) :: t
+  @spec allow_client_outgoing(t, String.t(), map) :: t
   def allow_client_outgoing(capability_struct = %__MODULE__{}, app_sid, app_params = %{}) do
     %{capability_struct | outgoing_client_app: {app_sid, app_params}}
   end
@@ -137,7 +138,7 @@ defmodule ExTwilio.Capability do
 
       ExTwilio.Capability.with_account_sid('XXX')
   """
-  @spec with_account_sid(t, String.t) :: t
+  @spec with_account_sid(t, String.t()) :: t
   def with_account_sid(capability_struct = %__MODULE__{}, account_sid) do
     %{capability_struct | account_sid: account_sid}
   end
@@ -151,7 +152,7 @@ defmodule ExTwilio.Capability do
 
       ExTwilio.Capability.with_auth_token('XXX')
   """
-  @spec with_auth_token(t, String.t) :: t
+  @spec with_auth_token(t, String.t()) :: t
   def with_auth_token(capability_struct = %__MODULE__{}, auth_token) do
     %{capability_struct | auth_token: auth_token}
   end
@@ -187,12 +188,15 @@ defmodule ExTwilio.Capability do
 
       ExTwilio.Capability.token
   """
-  @spec token(t) :: String.t
-  def token(capability_struct = %__MODULE__{
-    account_sid: account_sid,
-    start_time: start_time,
-    ttl: ttl,
-    auth_token: auth_token}) do
+  @spec token(t) :: String.t()
+  def token(
+        capability_struct = %__MODULE__{
+          account_sid: account_sid,
+          start_time: start_time,
+          ttl: ttl,
+          auth_token: auth_token
+        }
+      ) do
     capability_struct
     |> capabilities
     |> as_jwt_scope
@@ -201,23 +205,26 @@ defmodule ExTwilio.Capability do
   end
 
   defp capabilities(capability_struct = %__MODULE__{}) do
-    incoming_capabililities(capability_struct) ++
-    outgoing_capabilities(capability_struct)
+    incoming_capabililities(capability_struct) ++ outgoing_capabilities(capability_struct)
   end
 
   defp outgoing_capabilities(%__MODULE__{outgoing_client_app: nil}) do
     []
   end
 
-  defp outgoing_capabilities(%__MODULE__{outgoing_client_app: {app_sid, app_params}}) when app_params == %{} do
+  defp outgoing_capabilities(%__MODULE__{outgoing_client_app: {app_sid, app_params}})
+       when app_params == %{} do
     ["scope:client:outgoing?appSid=#{URI.encode(app_sid)}"]
   end
 
   defp outgoing_capabilities(%__MODULE__{outgoing_client_app: {app_sid, app_params}}) do
     app_sid = URI.encode(app_sid)
-    app_params = app_params |>
-      URI.encode_query |>
-      URI.encode(&(!URI.char_reserved?(&1)))
+
+    app_params =
+      app_params
+      |> URI.encode_query()
+      |> URI.encode(&(!URI.char_reserved?(&1)))
+
     ["scope:client:outgoing?appSid=#{app_sid}&appParams=#{app_params}"]
   end
 
@@ -241,15 +248,15 @@ defmodule ExTwilio.Capability do
     %{
       "scope" => scope,
       "iss" => issuer,
-      "exp" => expiration_time,
+      "exp" => expiration_time
     }
   end
 
   defp generate_jwt(payload, secret) do
     payload
-    |> Joken.token
+    |> Joken.token()
     |> Joken.with_signer(Joken.hs256(secret))
-    |> Joken.sign
-    |> Joken.get_compact
+    |> Joken.sign()
+    |> Joken.get_compact()
   end
 end

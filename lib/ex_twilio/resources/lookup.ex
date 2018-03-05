@@ -27,11 +27,11 @@ defmodule ExTwilio.Lookup do
     {:ok, info} = ExTwilio.Lookup.retrieve("12345678910", [Type: carrier])
   """
   def retrieve(phone_number, query \\ []) do
-    auth = [basic_auth: {Config.account_sid, Config.auth_token}]
+    auth = [basic_auth: {Config.account_sid(), Config.auth_token()}]
     query_string = "?" <> Url.to_query_string(query)
 
     "#{@base_url}#{phone_number}#{query_string}"
-    |> HTTPoison.get!([], [hackney: auth])
+    |> HTTPoison.get!([], hackney: auth)
     |> Parser.parse(PhoneNumber)
   end
 end

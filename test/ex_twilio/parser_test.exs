@@ -34,6 +34,7 @@ defmodule ExTwilio.ParserTest do
       "next_page": 10
     }
     """
+
     response = %{body: json, status_code: 200}
     expected = [%Resource{sid: "first"}, %Resource{sid: "second"}]
     metadata = %{"next_page" => 10}

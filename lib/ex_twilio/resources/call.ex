@@ -24,14 +24,15 @@ defmodule ExTwilio.Call do
             caller_name: nil,
             uri: nil
 
-  use ExTwilio.Resource, import: [
-    :stream,
-    :all,
-    :find,
-    :create,
-    :update,
-    :destroy
-  ]
+  use ExTwilio.Resource,
+    import: [
+      :stream,
+      :all,
+      :find,
+      :create,
+      :update,
+      :destroy
+    ]
 
   def cancel(%{sid: sid}), do: cancel(sid)
   def cancel(sid), do: update(sid, status: "canceled")

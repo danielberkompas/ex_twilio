@@ -18,25 +18,23 @@ defmodule ExTwilio.WorkerCapability do
 
   alias ExTwilio.Config
 
-  defstruct [
-    account_sid: nil,
-    auth_token: nil,
-    policies: [],
-    start_time: nil,
-    ttl: nil,
-    worker_sid: nil,
-    workspace_sid: nil
-  ]
+  defstruct account_sid: nil,
+            auth_token: nil,
+            policies: [],
+            start_time: nil,
+            ttl: nil,
+            worker_sid: nil,
+            workspace_sid: nil
 
   @type t :: %__MODULE__{
-    account_sid: String.t | nil,
-    auth_token: String.t | nil,
-    policies: list,
-    start_time: non_neg_integer | nil,
-    ttl: non_neg_integer | nil,
-    worker_sid: String.t | nil,
-    workspace_sid: String.t | nil
-  }
+          account_sid: String.t() | nil,
+          auth_token: String.t() | nil,
+          policies: list,
+          start_time: non_neg_integer | nil,
+          ttl: non_neg_integer | nil,
+          worker_sid: String.t() | nil,
+          workspace_sid: String.t() | nil
+        }
 
   @doc """
   Initialises a new capability specification with a TTL of one hour,
@@ -46,13 +44,13 @@ defmodule ExTwilio.WorkerCapability do
 
       ExTwilio.WorkerCapability.new
   """
-  @spec new(String.t, String.t) :: t
+  @spec new(String.t(), String.t()) :: t
   def new(worker_sid, workspace_sid) do
     %__MODULE__{}
     |> starting_at(:erlang.system_time(:seconds))
     |> with_ttl(3600)
-    |> with_account_sid(Config.account_sid)
-    |> with_auth_token(Config.auth_token)
+    |> with_account_sid(Config.account_sid())
+    |> with_auth_token(Config.auth_token())
     |> with_worker_sid(worker_sid)
     |> with_workspace_sid(workspace_sid)
   end
@@ -80,7 +78,7 @@ defmodule ExTwilio.WorkerCapability do
 
       ExTwilio.WorkerCapability.with_account_sid('XXX')
   """
-  @spec with_account_sid(t, String.t) :: t
+  @spec with_account_sid(t, String.t()) :: t
   def with_account_sid(capability_struct = %__MODULE__{}, account_sid) do
     %{capability_struct | account_sid: account_sid}
   end
@@ -94,7 +92,7 @@ defmodule ExTwilio.WorkerCapability do
 
       ExTwilio.WorkerCapability.with_auth_token('XXX')
   """
-  @spec with_auth_token(t, String.t) :: t
+  @spec with_auth_token(t, String.t()) :: t
   def with_auth_token(capability_struct = %__MODULE__{}, auth_token) do
     %{capability_struct | auth_token: auth_token}
   end
@@ -108,7 +106,7 @@ defmodule ExTwilio.WorkerCapability do
 
       ExTwilio.WorkerCapability.with_worker_sid('XXX')
   """
-  @spec with_worker_sid(t, String.t) :: t
+  @spec with_worker_sid(t, String.t()) :: t
   def with_worker_sid(capability_struct = %__MODULE__{}, worker_sid) do
     %{capability_struct | worker_sid: worker_sid}
   end
@@ -122,7 +120,7 @@ defmodule ExTwilio.WorkerCapability do
 
       ExTwilio.WorkerCapability.with_workspace_sid('XXX')
   """
-  @spec with_workspace_sid(t, String.t) :: t
+  @spec with_workspace_sid(t, String.t()) :: t
   def with_workspace_sid(capability_struct = %__MODULE__{}, workspace_sid) do
     %{capability_struct | workspace_sid: workspace_sid}
   end
@@ -144,14 +142,28 @@ defmodule ExTwilio.WorkerCapability do
     %{capability_struct | ttl: ttl}
   end
 
-  def allow_activity_updates(capability_struct = %__MODULE__{policies: policies, worker_sid: worker_sid, workspace_sid: workspace_sid}) do
-    policy = add_policy(worker_reservation_url(
-      workspace_sid, worker_sid), "POST", true, nil, %{"ActivitySid" => %{required: true}})
+  def allow_activity_updates(
+        capability_struct = %__MODULE__{
+          policies: policies,
+          worker_sid: worker_sid,
+          workspace_sid: workspace_sid
+        }
+      ) do
+    policy =
+      add_policy(worker_reservation_url(workspace_sid, worker_sid), "POST", true, nil, %{
+        "ActivitySid" => %{required: true}
+      })
 
     Map.put(capability_struct, :policies, [policy | policies])
   end
 
-  def allow_reservation_updates(capability_struct = %__MODULE__{policies: policies, worker_sid: worker_sid, workspace_sid: workspace_sid}) do
+  def allow_reservation_updates(
+        capability_struct = %__MODULE__{
+          policies: policies,
+          worker_sid: worker_sid,
+          workspace_sid: workspace_sid
+        }
+      ) do
     policies = allow(policies, task_url(workspace_sid), "POST")
     policy = add_policy(worker_reservation_url(workspace_sid, worker_sid), "POST")
     Map.put(capability_struct, :policies, [policy | policies])
@@ -166,15 +178,16 @@ defmodule ExTwilio.WorkerCapability do
 
       ExTwilio.WorkerCapability.token
   """
-  @spec token(t) :: String.t
+  @spec token(t) :: String.t()
   def token(%__MODULE__{
-    account_sid: account_sid,
-    auth_token: auth_token,
-    policies: policies,
-    start_time: start_time,
-    ttl: ttl,
-    worker_sid: worker_sid,
-    workspace_sid: workspace_sid}) do
+        account_sid: account_sid,
+        auth_token: auth_token,
+        policies: policies,
+        start_time: start_time,
+        ttl: ttl,
+        worker_sid: worker_sid,
+        workspace_sid: workspace_sid
+      }) do
     policies
     |> allow(websocket_requests_url(worker_sid, account_sid), "GET")
     |> allow(websocket_requests_url(worker_sid, account_sid), "POST")
@@ -216,6 +229,7 @@ defmodule ExTwilio.WorkerCapability do
   defp add_policy(url, method) do
     add_policy(url, method, true, %{}, %{})
   end
+
   defp add_policy(url, method, allowed, query_filters, post_filters) do
     %{
       "url" => url,
@@ -228,10 +242,10 @@ defmodule ExTwilio.WorkerCapability do
 
   defp generate_jwt(payload, secret) do
     payload
-    |> Joken.token
+    |> Joken.token()
     |> Joken.with_signer(Joken.hs256(secret))
-    |> Joken.sign
-    |> Joken.get_compact
+    |> Joken.sign()
+    |> Joken.get_compact()
   end
 
   defp workspaces_base_url(workspace_sid) do

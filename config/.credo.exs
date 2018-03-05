@@ -61,7 +61,6 @@
         # set this value to 0 (zero).
         {Credo.Check.Design.TagTODO, exit_status: 2},
         {Credo.Check.Design.TagFIXME},
-
         {Credo.Check.Readability.FunctionNames},
         {Credo.Check.Readability.LargeNumbers},
         {Credo.Check.Readability.MaxLineLength, priority: :low, max_length: 100},
@@ -73,7 +72,6 @@
         {Credo.Check.Readability.TrailingBlankLine},
         {Credo.Check.Readability.TrailingWhiteSpace},
         {Credo.Check.Readability.VariableNames},
-
         {Credo.Check.Refactor.ABCSize},
         # {Credo.Check.Refactor.CaseTrivialMatches}, # deprecated in 0.4.0
         {Credo.Check.Refactor.CondStatements},
@@ -85,13 +83,8 @@
         {Credo.Check.Refactor.NegatedConditionsWithElse},
         {Credo.Check.Refactor.Nesting},
         {Credo.Check.Refactor.UnlessWithElse},
-
         {Credo.Check.Warning.IExPry},
         {Credo.Check.Warning.IoInspect},
-        {Credo.Check.Warning.NameRedeclarationByAssignment},
-        {Credo.Check.Warning.NameRedeclarationByCase},
-        {Credo.Check.Warning.NameRedeclarationByDef},
-        {Credo.Check.Warning.NameRedeclarationByFn},
         {Credo.Check.Warning.OperationOnSameValues},
         {Credo.Check.Warning.BoolOperationOnSameValues},
         {Credo.Check.Warning.UnusedEnumOperation},
@@ -99,7 +92,7 @@
         {Credo.Check.Warning.UnusedListOperation},
         {Credo.Check.Warning.UnusedStringOperation},
         {Credo.Check.Warning.UnusedTupleOperation},
-        {Credo.Check.Warning.OperationWithConstantResult},
+        {Credo.Check.Warning.OperationWithConstantResult}
 
         # Custom checks can be created using `mix credo.gen.check`.
         #
