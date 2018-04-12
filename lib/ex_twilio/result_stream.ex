@@ -52,5 +52,6 @@ defmodule ExTwilio.ResultStream do
     fetch_page(next_page_uri, module, options)
   end
 
+  defp next_page_url(nil), do: nil
   defp next_page_url(uri), do: "https://#{Config.api_domain()}" <> uri
 end
