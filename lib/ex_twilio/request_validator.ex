@@ -23,6 +23,7 @@ defmodule ExTwilio.RequestValidator do
   end
 
   defp data_for(url, params), do: url <> combine(params)
+
   defp combine(params) do
     params
     |> Map.keys()
