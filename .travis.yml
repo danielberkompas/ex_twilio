@@ -3,7 +3,7 @@ cache:
   directories:
     - $HOME/.mix
 elixir:
-  - 1.6.2
+  - 1.6.3
 otp_release:
   - 20.1
 before_script:

@@ -1,0 +1,86 @@
+defmodule ExTwilio.JWT.AccessTokenTest do
+  use ExUnit.Case, async: true
+
+  alias ExTwilio.JWT.AccessToken
+
+  describe ".new/1" do
+    test "accepts all struct keys" do
+      assert AccessToken.new(
+               token_identifier: "id",
+               account_sid: "sid",
+               api_key: "sid",
+               api_secret: "secret",
+               identity: "user@email.com",
+               grants: [AccessToken.ChatGrant.new(service_sid: "sid")],
+               expires_in: 86_400
+             ) == %AccessToken{
+               token_identifier: "id",
+               account_sid: "sid",
+               api_key: "sid",
+               api_secret: "secret",
+               identity: "user@email.com",
+               grants: [%AccessToken.ChatGrant{service_sid: "sid"}],
+               expires_in: 86_400
+             }
+    end
+  end
+
+  describe ".to_jwt!/1" do
+    test "produces a valid Twilio JWT" do
+      token =
+        AccessToken.new(
+          account_sid: "sid",
+          api_key: "sid",
+          api_secret: "secret",
+          identity: "user@email.com",
+          grants: [AccessToken.ChatGrant.new(service_sid: "sid")],
+          expires_in: 86_400
+        )
+        |> AccessToken.to_jwt!()
+        |> Joken.token()
+
+      assert {:ok, claims} = Joken.verify!(token, Joken.hs256("secret"))
+      assert_in_delta unix_now(), claims["iat"], 10
+      assert_in_delta unix_now(), claims["nbf"], 10
+      assert_in_delta unix_now(), claims["exp"], 86_400
+
+      assert claims["grants"] == %{
+               "chat" => %{"endpoint_id" => nil, "service_sid" => "sid"},
+               "identity" => "user@email.com"
+             }
+    end
+
+    test "validates binary keys" do
+      for invalid <- [123, 'sid', nil, false],
+          field <- [:account_sid, :api_key, :api_secret, :identity] do
+        assert_raise ArgumentError, fn ->
+          [{field, invalid}]
+          |> AccessToken.new()
+          |> AccessToken.to_jwt!()
+        end
+      end
+    end
+
+    test "validates :grants" do
+      assert_raise ArgumentError, fn ->
+        [grants: [%{}]]
+        |> AccessToken.new()
+        |> AccessToken.to_jwt!()
+      end
+    end
+
+    test "validates :expires_in" do
+      for invalid <- [nil, false, "1 hour"] do
+        assert_raise ArgumentError, fn ->
+          [expires_in: invalid]
+          |> AccessToken.new()
+          |> AccessToken.to_jwt!()
+        end
+      end
+    end
+  end
+
+  defp unix_now do
+    DateTime.utc_now() |> DateTime.to_unix()
+  end
+end
