@@ -34,19 +34,21 @@ defmodule ExTwilio.JWT.AccessToken.ChatGrantTest do
     assert Grant.type(%ChatGrant{service_sid: "sid"}) == "chat"
 
     assert Grant.attrs(%ChatGrant{service_sid: "sid"}) == %{
+             "service_sid" => "sid"
+           }
+
+    assert Grant.attrs(%ChatGrant{service_sid: "sid", endpoint_id: "id"}) == %{
              "service_sid" => "sid",
-             "endpoint_id" => nil
+             "endpoint_id" => "id"
            }
 
     assert Grant.attrs(%ChatGrant{service_sid: "sid", deployment_role_sid: "sid"}) == %{
              "service_sid" => "sid",
-             "endpoint_id" => nil,
              "deployment_role_sid" => "sid"
            }
 
     assert Grant.attrs(%ChatGrant{service_sid: "sid", push_credential_sid: "sid"}) == %{
              "service_sid" => "sid",
-             "endpoint_id" => nil,
              "push_credential_sid" => "sid"
            }
   end

@@ -45,7 +45,7 @@ defmodule ExTwilio.JWT.AccessTokenTest do
       assert_in_delta unix_now(), claims["exp"], 86_400
 
       assert claims["grants"] == %{
-               "chat" => %{"endpoint_id" => nil, "service_sid" => "sid"},
+               "chat" => %{"service_sid" => "sid"},
                "identity" => "user@email.com"
              }
     end

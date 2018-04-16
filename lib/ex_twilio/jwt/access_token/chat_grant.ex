@@ -35,7 +35,8 @@ defmodule ExTwilio.JWT.AccessToken.ChatGrant do
     def type(_grant), do: "chat"
 
     def attrs(grant) do
-      %{"service_sid" => grant.service_sid, "endpoint_id" => grant.endpoint_id}
+      %{"service_sid" => grant.service_sid}
+      |> Ext.Map.put_if("endpoint_id", grant.endpoint_id)
       |> Ext.Map.put_if("deployment_role_sid", grant.deployment_role_sid)
       |> Ext.Map.put_if("push_credential_sid", grant.push_credential_sid)
     end
