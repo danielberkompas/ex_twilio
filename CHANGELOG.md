@@ -2,7 +2,21 @@
 
 ## [Unreleased](https://github.com/danielberkompas/ex_twilio/tree/HEAD)
 
-[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.5.0...HEAD)
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.5.1...HEAD)
+
+**Closed issues:**
+
+- HTTPoison.Error :nxdomain in lib/ex\_twilio/api.ex:19 [\#88](https://github.com/danielberkompas/ex_twilio/issues/88)
+
+**Merged pull requests:**
+
+- Add JWT support [\#92](https://github.com/danielberkompas/ex_twilio/pull/92) ([danielberkompas](https://github.com/danielberkompas))
+- fix next\_page\_url generation & run mix format [\#91](https://github.com/danielberkompas/ex_twilio/pull/91) ([techgaun](https://github.com/techgaun))
+- feat\(RequestValidator\): Adds a module that handles validating request… [\#90](https://github.com/danielberkompas/ex_twilio/pull/90) ([tomciopp](https://github.com/tomciopp))
+- chore\(docs\): Default to reading from system environment variables [\#89](https://github.com/danielberkompas/ex_twilio/pull/89) ([tomciopp](https://github.com/tomciopp))
+
+## [v0.5.1](https://github.com/danielberkompas/ex_twilio/tree/v0.5.1) (2018-02-24)
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.5.0...v0.5.1)
 
 **Closed issues:**
 
