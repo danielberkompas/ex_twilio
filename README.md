@@ -11,7 +11,7 @@ ExTwilio is currently beta software. You can install it from Hex:
 
 ```elixir
 def deps do
-  [{:ex_twilio, "~> 0.5.1"}]
+  [{:ex_twilio, "~> 0.6.0"}]
 end
 ```
 
