@@ -40,6 +40,7 @@ defmodule ExTwilio.JWT.AccessTokenTest do
         |> Joken.token()
 
       assert {:ok, claims} = Joken.verify!(token, Joken.hs256("secret"))
+      assert claims["iss"] == "sid"
       assert claims["sub"] == "sid"
       assert_in_delta unix_now(), claims["iat"], 10
       assert_in_delta unix_now(), claims["nbf"], 10
