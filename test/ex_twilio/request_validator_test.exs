@@ -34,12 +34,13 @@ defmodule ExTwilio.RequestValidatorTest do
         "ApplicationSid" => "AP44efecad51364e80b133bb7c07eb8204"
       }
 
-      {:ok, [
-        params: params,
-        signature: "oVb2kXoVy8GEfwBDjR8bk/ZZ6eA=",
-        token: "2bd9e9638872de601313dc77410d3b23",
-        url: "http://twiliotests.heroku.com/validate/voice"
-      ]}
+      {:ok,
+       [
+         params: params,
+         signature: "oVb2kXoVy8GEfwBDjR8bk/ZZ6eA=",
+         token: "2bd9e9638872de601313dc77410d3b23",
+         url: "http://twiliotests.heroku.com/validate/voice"
+       ]}
     end
 
     test "validating a correct voice request", context do
@@ -83,15 +84,16 @@ defmodule ExTwilio.RequestValidatorTest do
         "ToZip" => "94105",
         "ToCountry" => "US",
         "ApiVersion" => "2010-04-01",
-        "SmsSid" => "SM2003cbd5e6a3701999aa3e5f20ff2787",
+        "SmsSid" => "SM2003cbd5e6a3701999aa3e5f20ff2787"
       }
 
-      {:ok, [
-        params: params,
-        signature: "mxeiv65lEe0b8L6LdVw2jgJi8yw=",
-        token: "2bd9e9638872de601313dc77410d3b23",
-        url: "http://twiliotests.heroku.com/validate/sms"
-      ]}
+      {:ok,
+       [
+         params: params,
+         signature: "mxeiv65lEe0b8L6LdVw2jgJi8yw=",
+         token: "2bd9e9638872de601313dc77410d3b23",
+         url: "http://twiliotests.heroku.com/validate/sms"
+       ]}
     end
 
     test "validating a correct sms request", context do
