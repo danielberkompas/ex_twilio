@@ -7,7 +7,7 @@ defmodule ExTwilio.Parser do
   @type metadata :: map
   @type http_status_code :: number
   @type key :: String.t()
-  @type success :: {:ok, [map]}
+  @type success :: {:ok, map}
   @type success_list :: {:ok, [map], metadata}
   @type success_delete :: :ok
   @type error :: {:error, String.t(), http_status_code}
