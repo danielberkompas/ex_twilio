@@ -23,6 +23,11 @@ defmodule ExTwilio.ParserTest do
     assert :ok == parse(response, Resource)
   end
 
+  test ".parse should return :ok when response is 202 'Accepted'" do
+    response = %{body: "", status_code: 202}
+    assert :ok == parse(response, Resource)
+  end
+
   test ".parse_list should decode into a list of named structs" do
     json = """
     {
