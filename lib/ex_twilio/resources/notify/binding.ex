@@ -1,4 +1,4 @@
-defmodule ExTwilio.Notify.Bindings do
+defmodule ExTwilio.Notify.Binding do
   @moduledoc """
   Represents a Binding resource in the Twilio Notify.
 
