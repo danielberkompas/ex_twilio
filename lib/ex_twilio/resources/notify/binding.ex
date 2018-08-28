@@ -51,7 +51,6 @@ defmodule ExTwilio.Notify.Binding do
 
   def parents,
     do: [
-      %ExTwilio.Parent{module: ExTwilio.Notify.Service, key: :service},
-      %ExTwilio.Parent{module: ExTwilio.Notify.Credential, key: :service}
+      %ExTwilio.Parent{module: ExTwilio.Notify.Service, key: :service}
     ]
 end
