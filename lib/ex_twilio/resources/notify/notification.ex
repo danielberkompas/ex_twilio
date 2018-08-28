@@ -130,4 +130,9 @@ defmodule ExTwilio.Notify.Notification do
     import: [
       :create
     ]
+
+  def parents,
+    do: [
+      %ExTwilio.Parent{module: ExTwilio.Notify.Service, key: :service}
+    ]
 end
