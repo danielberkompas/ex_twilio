@@ -1,5 +1,19 @@
 # Change Log
 
+## [Unreleased](https://github.com/danielberkompas/ex_twilio/tree/HEAD)
+
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.6.0...HEAD)
+
+**Closed issues:**
+
+- Support for :create on Participant Resource [\#102](https://github.com/danielberkompas/ex_twilio/issues/102)
+- Utilizing subaccounts / credentials [\#95](https://github.com/danielberkompas/ex_twilio/issues/95)
+
+**Merged pull requests:**
+
+- Adds create to participant. [\#103](https://github.com/danielberkompas/ex_twilio/pull/103) ([jip1080](https://github.com/jip1080))
+- add messaging\_service\_sid to the message resource [\#94](https://github.com/danielberkompas/ex_twilio/pull/94) ([swelham](https://github.com/swelham))
+
 ## [v0.6.0](https://github.com/danielberkompas/ex_twilio/tree/v0.6.0) (2018-04-16)
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.5.1...v0.6.0)
 
