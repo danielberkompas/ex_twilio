@@ -11,7 +11,7 @@ ExTwilio is currently beta software. You can install it from Hex:
 
 ```elixir
 def deps do
-  [{:ex_twilio, "~> 0.6.0"}]
+  [{:ex_twilio, "~> 0.6.1"}]
 end
 ```
 
@@ -84,7 +84,7 @@ on what the underlying API supports, a resource module may have the following
 methods:
 
 | Method      | Description                                                       |
-|:------------|:------------------------------------------------------------------|
+|-------------|-------------------------------------------------------------------|
 | **all**     | Eager load all of the resource items on all pages. Use with care! |
 | **stream**  | Create a Stream of all the items. Use like any Stream.            |
 | **find**    | Find a resource given its SID.                                    |
