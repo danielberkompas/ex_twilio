@@ -38,11 +38,11 @@ defmodule ExTwilio.Api do
       {:ok, %Call{ ... }}
 
   If the resource could not be loaded, `find/2` will return a 3-element tuple
-  in this format, `{:error, message, code}`. The `code` is the HTTP status code
+  in this format, `{:error, error_body, code}`. The `code` is the HTTP status code
   returned by the Twilio API, for example, 404.
 
       ExTwilio.Api.find(ExTwilio.Call, "nonexistent sid")
-      {:error, "The requested resource couldn't be found...", 404}
+      {:error, %{"message" => The requested resource couldn't be found..."}, 404}
   """
   @spec find(atom, String.t() | nil, list) :: Parser.success() | Parser.error()
   def find(module, sid, options \\ []) do
@@ -61,7 +61,7 @@ defmodule ExTwilio.Api do
       {:ok, %Call{ ... }}
 
       ExTwilio.Api.create(ExTwilio.Call, [])
-      {:error, "No 'To' number is specified", 400}
+      {:error, %{"message" => "No 'To' number is specified"}, 400}
   """
   @spec create(atom, data, list) :: Parser.success() | Parser.error()
   def create(module, data, options \\ []) do
@@ -82,7 +82,7 @@ defmodule ExTwilio.Api do
       {:ok, %Call{ status: "canceled" ... }}
 
       ExTwilio.Api.update(ExTwilio.Call, "nonexistent", [status: "complete"])
-      {:error, "The requested resource ... was not found", 404}
+      {:error, %{"message" => "The requested resource ... was not found"}, 404}
   """
   @spec update(atom, String.t(), data, list) :: Parser.success() | Parser.error()
   def update(module, sid, data, options \\ [])
@@ -110,7 +110,7 @@ defmodule ExTwilio.Api do
       :ok
 
       ExTwilio.Api.destroy(ExTwilio.Call, "nonexistent")
-      {:error, "The requested resource ... was not found", 404}
+      {:error, %{"message" => The requested resource ... was not found"}, 404}
   """
   @spec destroy(atom, String.t()) :: Parser.success_delete() | Parser.error()
   def destroy(module, sid, options \\ [])
