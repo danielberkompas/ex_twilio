@@ -99,7 +99,7 @@ defmodule ExTwilio.Parser do
       %{body: body, status_code: status} when status in [200, 201] ->
         {:ok, fun.(body)}
 
-      %{body: _, status_code: 204} ->
+      %{body: _, status_code: status} when status in [202, 204] ->
         :ok
 
       %{body: body, status_code: status} ->
