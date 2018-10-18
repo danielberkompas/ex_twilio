@@ -3,6 +3,12 @@ defmodule ExTwilio.Message do
   Represents an Message resource in the Twilio API.
 
   - [Twilio docs](https://www.twilio.com/docs/api/rest/messages)
+
+  Here is an example of sending an SMS message:
+
+    {target_number, twilio_number_you_own, body} = {"+12223334444", "+19223334444", "Hello World"}
+
+    ExTwilio.Message.create(to: target_number, from: twilio_number_you_own, body: body)
   """
 
   defstruct sid: nil,
