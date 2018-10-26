@@ -29,6 +29,13 @@ defmodule ExTwilio.Config do
   def api_domain, do: from_env(:ex_twilio, :api_domain, "api.twilio.com")
 
   @doc """
+  Returns the protocol used for the Twilio API. The default is `"https"` for
+  interacting with the Twilio API, but when testing with Bypass, you may want
+  this to be `"http"`.
+  """
+  def protocol, do: Application.get_env(:ex_twilio, :protocol) || "https"
+
+  @doc """
   Returns the version of the API that ExTwilio is going to talk to. Set it in
   `mix.exs`:
       config :ex_twilio, api_version: "2015-05-06"
@@ -41,7 +48,7 @@ defmodule ExTwilio.Config do
   Return the combined base URL of the Twilio API, using the configuration
   settings given.
   """
-  def base_url, do: "https://#{api_domain()}/#{api_version()}"
+  def base_url, do: "#{protocol()}://#{api_domain()}/#{api_version()}"
 
   def task_router_url, do: "https://taskrouter.twilio.com/v1"
 
