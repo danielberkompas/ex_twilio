@@ -20,4 +20,6 @@ defmodule ExTwilio.Member do
   use ExTwilio.Resource, import: [:stream, :all, :find, :update]
 
   def parents, do: [:account, :queue]
+
+  def resource_collection_name(), do: Url.resource_collection_name(ExTwilio.QueueMember)
 end
