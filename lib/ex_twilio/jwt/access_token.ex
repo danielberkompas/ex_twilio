@@ -96,18 +96,6 @@ defmodule ExTwilio.JWT.AccessToken do
       })
 
     Joken.generate_and_sign!(token_config, nil, signer)
-
-    # Joken.token()
-    # |> Joken.with_claims(claims(token))
-    # |> Joken.with_sub(token.account_sid)
-    # |> Joken.with_jti(token.token_identifier || "#{token.api_key}-#{random_str()}")
-    # |> Joken.with_iss(token.api_key)
-    # |> Joken.with_nbf(DateTime.utc_now() |> DateTime.to_unix())
-    # |> Joken.with_exp(token.expires_in)
-    # |> Joken.with_header_args(%{"typ" => "JWT", "alg" => "HS256", "cty" => "twilio-fpa;v=1"})
-    # |> Joken.with_signer(Joken.hs256(token.api_secret))
-    # |> Joken.sign()
-    # |> Joken.get_compact()
   end
 
   defp list_of_grants?(grants) when is_list(grants) do
