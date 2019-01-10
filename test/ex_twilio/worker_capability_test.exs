@@ -48,9 +48,13 @@ defmodule ExTwilio.WorkerCapabilityTest do
   end
 
   defp decoded_token(capability) do
-    capability
-    |> ExTwilio.WorkerCapability.token()
-    |> Joken.token()
-    |> Joken.verify(Joken.hs256(Config.auth_token()))
+    signer = Joken.Signer.create("HS256", Config.auth_token() || "")
+
+    {:ok, verified} =
+      capability
+      |> ExTwilio.WorkerCapability.token()
+      |> Joken.verify(signer)
+
+    %{:claims => verified}
   end
 end

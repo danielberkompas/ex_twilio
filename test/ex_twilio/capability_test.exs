@@ -117,10 +117,14 @@ defmodule ExTwilio.CapabilityTest do
   end
 
   defp decoded_token(capability) do
-    capability
-    |> ExTwilio.Capability.token()
-    |> Joken.token()
-    |> Joken.verify(Joken.hs256(Config.auth_token()))
+    signer = Joken.Signer.create("HS256", Config.auth_token() || "")
+
+    {:ok, verified} =
+      capability
+      |> ExTwilio.Capability.token()
+      |> Joken.verify(signer)
+
+    %{:claims => verified}
   end
 
   doctest ExTwilio.Capability
