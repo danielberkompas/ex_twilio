@@ -243,7 +243,7 @@ defmodule ExTwilio.WorkerCapability do
 
   defp generate_jwt(payload, secret) do
     signer = Joken.Signer.create("HS256", secret || "")
-    token = Joken.generate_and_sign!(%{}, payload, signer)
+    Joken.generate_and_sign!(%{}, payload, signer)
     # payload
     # |> Joken.token()
     # |> Joken.with_signer(Joken.hs256(secret))
