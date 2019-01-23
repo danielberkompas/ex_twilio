@@ -17,6 +17,7 @@ defmodule ExTwilio.WorkerCapability do
   """
 
   alias ExTwilio.Config
+  use Joken.Config
 
   defstruct account_sid: nil,
             auth_token: nil,
@@ -241,11 +242,8 @@ defmodule ExTwilio.WorkerCapability do
   end
 
   defp generate_jwt(payload, secret) do
-    payload
-    |> Joken.token()
-    |> Joken.with_signer(Joken.hs256(secret))
-    |> Joken.sign()
-    |> Joken.get_compact()
+    signer = Joken.Signer.create("HS256", secret)
+    Joken.generate_and_sign!(%{}, payload, signer)
   end
 
   defp workspaces_base_url(workspace_sid) do

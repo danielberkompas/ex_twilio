@@ -37,9 +37,10 @@ defmodule ExTwilio.JWT.AccessTokenTest do
           expires_in: 86_400
         )
         |> AccessToken.to_jwt!()
-        |> Joken.token()
 
-      assert {:ok, claims} = Joken.verify!(token, Joken.hs256("secret"))
+      signer = Joken.Signer.create("HS256", "secret")
+
+      assert {:ok, claims} = Joken.verify(token, signer)
       assert claims["iss"] == "sid"
       assert claims["sub"] == "sid"
       assert_in_delta unix_now(), claims["iat"], 10
