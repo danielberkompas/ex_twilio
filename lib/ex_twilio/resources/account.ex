@@ -19,7 +19,7 @@ defmodule ExTwilio.Account do
   If you want to see items associated with a SubAccount, you can do so by
   passing in an `account:` option in all other ExTwilio resources. For example:
 
-      ExTwilio.Call.list(account: "subaccount_sid")
+      ExTwilio.Call.stream(account: "subaccount_sid")
   """
 
   defstruct sid: nil,
