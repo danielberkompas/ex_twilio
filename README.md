@@ -182,13 +182,6 @@ stream
 |> Enum.into([]) # Only here does any work happen.
 # => ["CAc14d7...", "CA649ea861..."]
 
-# Get the first page. The meta variable is a map of paging information
-# from Twilio.
-{:ok, calls, meta} = ExTwilio.Call.list
-
-# Get the next page
-{:ok, more_calls, _meta} = ExTwilio.Call.next_page(meta)
-
 # Find a call
 {:ok, call} = ExTwilio.Call.find("CA13a9c7f80c6f3761fabae43242b5b6c6")
 inspect(call)
