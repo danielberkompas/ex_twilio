@@ -7,6 +7,7 @@ defmodule ExTwilio.IncomingPhoneNumber do
 
   defstruct sid: nil,
             account_sid: nil,
+            identity_sid: nil,
             date_created: nil,
             date_updated: nil,
             friendly_name: nil,
@@ -16,6 +17,7 @@ defmodule ExTwilio.IncomingPhoneNumber do
             voice_url: nil,
             voice_method: nil,
             voice_fallback_url: nil,
+            status: nil,
             status_callback: nil,
             status_callback_method: nil,
             voice_application_sid: nil,
