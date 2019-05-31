@@ -164,6 +164,7 @@ Twilio's ProgrammableChat API:
 Twilio Capability Tokens:
 - [Worker](https://www.twilio.com/docs/api/taskrouter/worker-js)
 - [Calling](https://www.twilio.com/docs/api/client/capability-tokens)
+- [Video](https://www.twilio.com/docs/video/tutorials/user-identity-access-tokens#about-access-tokens)
 
 ### Example
 
