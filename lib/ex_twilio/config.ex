@@ -50,6 +50,8 @@ defmodule ExTwilio.Config do
   """
   def base_url, do: "#{protocol()}://#{api_domain()}/#{api_version()}"
 
+  def fax_url, do: "https://fax.twilio.com/v1"
+
   def task_router_url, do: "https://taskrouter.twilio.com/v1"
 
   def task_router_websocket_base_url, do: "https://event-bridge.twilio.com/v1/wschannels"
