@@ -1,5 +1,7 @@
 defmodule ExTwilio.Fax do
   @moduledoc """
+  Warning! currently in Public beta.
+
   Represents a Fax resource in the Twilio API.
 
   - [Twilio docs](https://www.twilio.com/docs/fax/api)
