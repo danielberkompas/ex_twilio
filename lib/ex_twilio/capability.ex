@@ -19,6 +19,7 @@ defmodule ExTwilio.Capability do
   """
 
   alias ExTwilio.Config
+  use Joken.Config
 
   defstruct incoming_client_names: [],
             outgoing_client_app: nil,
@@ -253,10 +254,7 @@ defmodule ExTwilio.Capability do
   end
 
   defp generate_jwt(payload, secret) do
-    payload
-    |> Joken.token()
-    |> Joken.with_signer(Joken.hs256(secret))
-    |> Joken.sign()
-    |> Joken.get_compact()
+    signer = Joken.Signer.create("HS256", secret)
+    Joken.generate_and_sign!(%{}, payload, signer)
   end
 end

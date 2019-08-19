@@ -1,5 +1,42 @@
 # Change Log
 
+## [v0.7.0](https://github.com/danielberkompas/ex_twilio/tree/v0.7.0) (2019-01-26)
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.6.1...v0.7.0)
+
+**Closed issues:**
+
+- Upgrade to Joken 2.0.0 [\#113](https://github.com/danielberkompas/ex_twilio/issues/113)
+- `ExTwilio.Member.all queue: queue\_sid` fails to parse correct response [\#111](https://github.com/danielberkompas/ex_twilio/issues/111)
+- Bypass with ExTwilio [\#109](https://github.com/danielberkompas/ex_twilio/issues/109)
+- Message.create\(\) works in v0.6.0 and broken in v0.6.1 [\#107](https://github.com/danielberkompas/ex_twilio/issues/107)
+- Requesting a release [\#106](https://github.com/danielberkompas/ex_twilio/issues/106)
+- 202 http status code is handled as error [\#97](https://github.com/danielberkompas/ex_twilio/issues/97)
+- Finding Subaccount by Friendly Name [\#93](https://github.com/danielberkompas/ex_twilio/issues/93)
+- Call vs. Messaging [\#84](https://github.com/danielberkompas/ex_twilio/issues/84)
+
+**Merged pull requests:**
+
+- Upgrade to Joken 2.0 [\#114](https://github.com/danielberkompas/ex_twilio/pull/114) ([lewisf](https://github.com/lewisf))
+- fixing wrong resource\_collection\_name in ExTwilio.Memeber resource [\#112](https://github.com/danielberkompas/ex_twilio/pull/112) ([mjaric](https://github.com/mjaric))
+- add protocol option for testing [\#110](https://github.com/danielberkompas/ex_twilio/pull/110) ([BenMorganIO](https://github.com/BenMorganIO))
+- Create Notify resource [\#105](https://github.com/danielberkompas/ex_twilio/pull/105) ([MortadaAK](https://github.com/MortadaAK))
+- Add docs around sending an SMS message. [\#104](https://github.com/danielberkompas/ex_twilio/pull/104) ([pdgonzalez872](https://github.com/pdgonzalez872))
+- Parser: Return full error JSON [\#100](https://github.com/danielberkompas/ex_twilio/pull/100) ([xtian](https://github.com/xtian))
+- Parser to handle 202 http status [\#98](https://github.com/danielberkompas/ex_twilio/pull/98) ([ins429](https://github.com/ins429))
+
+## [v0.6.1](https://github.com/danielberkompas/ex_twilio/tree/v0.6.1) (2018-10-03)
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.6.0...v0.6.1)
+
+**Closed issues:**
+
+- Support for :create on Participant Resource [\#102](https://github.com/danielberkompas/ex_twilio/issues/102)
+- Utilizing subaccounts / credentials [\#95](https://github.com/danielberkompas/ex_twilio/issues/95)
+
+**Merged pull requests:**
+
+- Adds create to participant. [\#103](https://github.com/danielberkompas/ex_twilio/pull/103) ([jip1080](https://github.com/jip1080))
+- add messaging\_service\_sid to the message resource [\#94](https://github.com/danielberkompas/ex_twilio/pull/94) ([swelham](https://github.com/swelham))
+
 ## [v0.6.0](https://github.com/danielberkompas/ex_twilio/tree/v0.6.0) (2018-04-16)
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.5.1...v0.6.0)
 

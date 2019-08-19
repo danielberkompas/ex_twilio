@@ -7,6 +7,7 @@ defmodule ExTwilio.JWT.AccessToken do
 
   alias ExTwilio.JWT.Grant
   alias ExTwilio.Ext
+  use Joken.Config
 
   @enforce_keys [:account_sid, :api_key, :api_secret, :identity, :grants, :expires_in]
 
@@ -77,17 +78,24 @@ defmodule ExTwilio.JWT.AccessToken do
       |> Ext.Map.validate!(:grants, &list_of_grants?/1, "must be a list of grants")
       |> Ext.Map.validate!(:expires_in, &is_integer/1, "must be an integer")
 
-    Joken.token()
-    |> Joken.with_claims(claims(token))
-    |> Joken.with_sub(token.account_sid)
-    |> Joken.with_jti(token.token_identifier || "#{token.api_key}-#{random_str()}")
-    |> Joken.with_iss(token.api_key)
-    |> Joken.with_nbf(DateTime.utc_now() |> DateTime.to_unix())
-    |> Joken.with_exp(token.expires_in)
-    |> Joken.with_header_args(%{"typ" => "JWT", "alg" => "HS256", "cty" => "twilio-fpa;v=1"})
-    |> Joken.with_signer(Joken.hs256(token.api_secret))
-    |> Joken.sign()
-    |> Joken.get_compact()
+    token_config =
+      %{}
+      |> add_claim("grants", fn -> grants(token) end)
+      |> add_claim("sub", fn -> token.account_sid end)
+      |> add_claim("jti", fn -> token.token_identifier || "#{token.api_key}-#{random_str()}" end)
+      |> add_claim("iss", fn -> token.api_key end)
+      |> add_claim("nbf", fn -> DateTime.utc_now() |> DateTime.to_unix() end)
+      |> add_claim("exp", fn -> (DateTime.utc_now() |> DateTime.to_unix()) + token.expires_in end)
+      |> add_claim("iat", fn -> DateTime.utc_now() |> DateTime.to_unix() end)
+
+    signer =
+      Joken.Signer.create("HS256", token.api_secret, %{
+        "typ" => "JWT",
+        "alg" => "HS256",
+        "cty" => "twilio-fpa;v=1"
+      })
+
+    Joken.generate_and_sign!(token_config, nil, signer)
   end
 
   defp list_of_grants?(grants) when is_list(grants) do
@@ -96,13 +104,13 @@ defmodule ExTwilio.JWT.AccessToken do
 
   defp list_of_grants?(_other), do: false
 
-  defp claims(token) do
+  defp grants(token) do
     grants =
       Enum.reduce(token.grants, %{"identity" => token.identity}, fn grant, acc ->
         Map.put(acc, Grant.type(grant), Grant.attrs(grant))
       end)
 
-    %{"grants" => grants}
+    grants
   end
 
   defp random_str do

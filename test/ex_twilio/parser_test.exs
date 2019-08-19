@@ -15,11 +15,16 @@ defmodule ExTwilio.ParserTest do
 
   test ".parse should return an error when response is 400" do
     response = %{body: "{ \"message\": \"Error message\" }", status_code: 400}
-    assert {:error, "Error message", 400} == parse(response, Resource)
+    assert {:error, %{"message" => "Error message"}, 400} == parse(response, Resource)
   end
 
   test ".parse should return :ok when response is 204 'No Content'" do
     response = %{body: "", status_code: 204}
+    assert :ok == parse(response, Resource)
+  end
+
+  test ".parse should return :ok when response is 202 'Accepted'" do
+    response = %{body: "", status_code: 202}
     assert :ok == parse(response, Resource)
   end
 

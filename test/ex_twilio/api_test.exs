@@ -28,7 +28,7 @@ defmodule ExTwilio.ApiTest do
     json = json_response(%{message: "Error message"}, 404)
 
     with_fixture(:get!, json, fn ->
-      assert {:error, "Error message", 404} == Api.find(Resource, "id")
+      assert {:error, %{"message" => "Error message"}, 404} == Api.find(Resource, "id")
     end)
   end
 
@@ -45,7 +45,7 @@ defmodule ExTwilio.ApiTest do
     json = json_response(%{message: "Resource couldn't be created."}, 500)
 
     with_fixture(:post!, json, fn ->
-      assert {:error, "Resource couldn't be created.", 500} ==
+      assert {:error, %{"message" => "Resource couldn't be created."}, 500} ==
                Api.create(Resource, field: "value")
     end)
   end
@@ -67,7 +67,7 @@ defmodule ExTwilio.ApiTest do
     json = json_response(%{message: "The requested resource could not be found."}, 404)
 
     with_fixture(:post!, json, fn ->
-      expected = {:error, "The requested resource could not be found.", 404}
+      expected = {:error, %{"message" => "The requested resource could not be found."}, 404}
       assert expected == Api.update(Resource, "nonexistent", name: "Hello, World!")
     end)
   end
@@ -83,7 +83,7 @@ defmodule ExTwilio.ApiTest do
     json = json_response(%{message: "not found"}, 404)
 
     with_fixture(:delete!, json, fn ->
-      assert {:error, "not found", 404} == Api.destroy(Resource, "id")
+      assert {:error, %{"message" => "not found"}, 404} == Api.destroy(Resource, "id")
     end)
   end
 

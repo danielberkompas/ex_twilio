@@ -11,7 +11,7 @@ ExTwilio is currently beta software. You can install it from Hex:
 
 ```elixir
 def deps do
-  [{:ex_twilio, "~> 0.6.0"}]
+  [{:ex_twilio, "~> 0.7.0"}]
 end
 ```
 
@@ -84,7 +84,7 @@ on what the underlying API supports, a resource module may have the following
 methods:
 
 | Method      | Description                                                       |
-|:------------|:------------------------------------------------------------------|
+|-------------|-------------------------------------------------------------------|
 | **all**     | Eager load all of the resource items on all pages. Use with care! |
 | **stream**  | Create a Stream of all the items. Use like any Stream.            |
 | **find**    | Find a resource given its SID.                                    |
@@ -164,6 +164,7 @@ Twilio's ProgrammableChat API:
 Twilio Capability Tokens:
 - [Worker](https://www.twilio.com/docs/api/taskrouter/worker-js)
 - [Calling](https://www.twilio.com/docs/api/client/capability-tokens)
+- [Video](https://www.twilio.com/docs/video/tutorials/user-identity-access-tokens#about-access-tokens)
 
 ### Example
 
@@ -181,13 +182,6 @@ stream
 |> Stream.map(fn(call) -> call.sid end)
 |> Enum.into([]) # Only here does any work happen.
 # => ["CAc14d7...", "CA649ea861..."]
-
-# Get the first page. The meta variable is a map of paging information
-# from Twilio.
-{:ok, calls, meta} = ExTwilio.Call.list
-
-# Get the next page
-{:ok, more_calls, _meta} = ExTwilio.Call.next_page(meta)
 
 # Find a call
 {:ok, call} = ExTwilio.Call.find("CA13a9c7f80c6f3761fabae43242b5b6c6")
@@ -230,6 +224,11 @@ For more in-depth documentation, see the generated docs for each module.
 
 See the [CALLING_TUTORIAL.md](CALLING_TUTORIAL.md) file for instructions on
 making and receiving calls from the browser with ExTwilio.
+
+
+### Sending SMS messages
+
+Please look at `ExTwilio.Message`
 
 ## Contributing
 

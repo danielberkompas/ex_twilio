@@ -10,7 +10,7 @@ defmodule ExTwilio.Parser do
   @type success :: {:ok, map}
   @type success_list :: {:ok, [map], metadata}
   @type success_delete :: :ok
-  @type error :: {:error, String.t(), http_status_code}
+  @type error :: {:error, map, http_status_code}
 
   @type parsed_response :: success | error
   @type parsed_list_response :: success_list | error
@@ -99,12 +99,12 @@ defmodule ExTwilio.Parser do
       %{body: body, status_code: status} when status in [200, 201] ->
         {:ok, fun.(body)}
 
-      %{body: _, status_code: 204} ->
+      %{body: _, status_code: status} when status in [202, 204] ->
         :ok
 
       %{body: body, status_code: status} ->
         {:ok, json} = Poison.decode(body)
-        {:error, json["message"], status}
+        {:error, json, status}
     end
   end
 end

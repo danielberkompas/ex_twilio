@@ -9,7 +9,7 @@ defmodule ExTwilio.Participant do
   Since Participants belong to Conferences in the Twilio API, you must pass a
   conference to each function in this module. For example:
 
-      ExTwilio.Participant.list(conference: "conference_sid")
+      ExTwilio.Participant.all(conference: "conference_sid")
   """
 
   defstruct call_sid: nil,
