@@ -23,7 +23,7 @@ defmodule ExTwilio.IncomingPhoneNumber do
             sms_fallback_url: nil,
             sms_method: nil,
             sms_url: nil,
-            status: nil, # no longer used
+            status: nil,
             status_callback: nil,
             status_callback_method: nil,
             trunk_sid: nil,
