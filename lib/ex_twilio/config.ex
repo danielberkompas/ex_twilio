@@ -60,6 +60,8 @@ defmodule ExTwilio.Config do
 
   def notify_url, do: "https://notify.twilio.com/v1"
 
+  def studio_url, do: "https://studio.twilio.com/v1"
+
   @doc """
   A light wrapper around `Application.get_env/2`, providing automatic support for
   `{:system, "VAR"}` tuples.

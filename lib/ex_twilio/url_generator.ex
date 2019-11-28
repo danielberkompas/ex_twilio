@@ -59,6 +59,11 @@ defmodule ExTwilio.UrlGenerator do
           url = add_segments(Config.fax_url(), module, id, options)
           {url, options}
 
+        ["ExTwilio", "Studio" | _] ->
+          options = add_flow_to_options(module, options)
+          url = add_segments(Config.studio_url(), module, id, options)
+          {url, options}
+
         _ ->
           # Add Account SID segment if not already present
           options = add_account_to_options(module, options)
@@ -144,6 +149,11 @@ defmodule ExTwilio.UrlGenerator do
     else
       Keyword.put_new(options, :account, Config.account_sid())
     end
+  end
+
+  @spec add_account_to_options(atom, list) :: list
+  defp add_flow_to_options(_module, options) do
+    Keyword.put_new(options, :flow, Keyword.get(options, :flow_sid))
   end
 
   @spec add_workspace_to_options(atom, list) :: list
