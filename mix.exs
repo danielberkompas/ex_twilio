@@ -4,7 +4,7 @@ defmodule ExTwilio.Mixfile do
   def project do
     [
       app: :ex_twilio,
-      version: "0.7.0",
+      version: "0.8.0",
       elixir: "~> 1.2",
       name: "ExTwilio",
       description: "Twilio API library for Elixir",
@@ -22,7 +22,7 @@ defmodule ExTwilio.Mixfile do
   defp deps do
     [
       {:httpoison, ">= 0.9.0"},
-      {:poison, "~> 3.0 or ~> 4.0"},
+      {:poison, ">= 3.0.0"},
       {:inflex, "~> 2.0"},
       {:joken, "~> 2.0"},
       {:dialyze, "~> 0.2.0", only: [:dev, :test]},
