@@ -1,6 +1,27 @@
-# Change Log
+# Changelog
+
+## [v0.8.0](https://github.com/danielberkompas/ex_twilio/tree/v0.8.0) (2019-11-27)
+
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.7.0...v0.8.0)
+
+**Closed issues:**
+
+- SMS opt-out [\#127](https://github.com/danielberkompas/ex_twilio/issues/127)
+- No status callbacks for sms [\#120](https://github.com/danielberkompas/ex_twilio/issues/120)
+
+**Merged pull requests:**
+
+- chore\(JSON\): Allow people to use the most recent version of Poison, r… [\#129](https://github.com/danielberkompas/ex_twilio/pull/129) ([tomciopp](https://github.com/tomciopp))
+- Add Studio Flow Execution + Step [\#125](https://github.com/danielberkompas/ex_twilio/pull/125) ([jc00ke](https://github.com/jc00ke))
+- Bump Inflex to 2.0 [\#123](https://github.com/danielberkompas/ex_twilio/pull/123) ([kiere](https://github.com/kiere))
+- Add new fields to incoming phone number resources [\#122](https://github.com/danielberkompas/ex_twilio/pull/122) ([ferd](https://github.com/ferd))
+- Add Fax resource [\#119](https://github.com/danielberkompas/ex_twilio/pull/119) ([schneiderderek](https://github.com/schneiderderek))
+- Add support for Video Grants in Access tokens [\#117](https://github.com/danielberkompas/ex_twilio/pull/117) ([arielo](https://github.com/arielo))
+- Add status, identity\_sid to IncomingPhoneNumber fields [\#116](https://github.com/danielberkompas/ex_twilio/pull/116) ([novaugust](https://github.com/novaugust))
+- remove "list" function mentions [\#115](https://github.com/danielberkompas/ex_twilio/pull/115) ([gliush](https://github.com/gliush))
 
 ## [v0.7.0](https://github.com/danielberkompas/ex_twilio/tree/v0.7.0) (2019-01-26)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.6.1...v0.7.0)
 
 **Closed issues:**
@@ -25,6 +46,7 @@
 - Parser to handle 202 http status [\#98](https://github.com/danielberkompas/ex_twilio/pull/98) ([ins429](https://github.com/ins429))
 
 ## [v0.6.1](https://github.com/danielberkompas/ex_twilio/tree/v0.6.1) (2018-10-03)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.6.0...v0.6.1)
 
 **Closed issues:**
@@ -38,6 +60,7 @@
 - add messaging\_service\_sid to the message resource [\#94](https://github.com/danielberkompas/ex_twilio/pull/94) ([swelham](https://github.com/swelham))
 
 ## [v0.6.0](https://github.com/danielberkompas/ex_twilio/tree/v0.6.0) (2018-04-16)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.5.1...v0.6.0)
 
 **Closed issues:**
@@ -52,6 +75,7 @@
 - chore\(docs\): Default to reading from system environment variables [\#89](https://github.com/danielberkompas/ex_twilio/pull/89) ([tomciopp](https://github.com/tomciopp))
 
 ## [v0.5.1](https://github.com/danielberkompas/ex_twilio/tree/v0.5.1) (2018-02-24)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.5.0...v0.5.1)
 
 **Closed issues:**
@@ -65,6 +89,7 @@
 - Config does not need system [\#82](https://github.com/danielberkompas/ex_twilio/pull/82) ([mahcloud](https://github.com/mahcloud))
 
 ## [v0.5.0](https://github.com/danielberkompas/ex_twilio/tree/v0.5.0) (2017-09-21)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.4.0...v0.5.0)
 
 **Closed issues:**
@@ -78,6 +103,7 @@
 - Handle query string encoding of list values for the param map. [\#79](https://github.com/danielberkompas/ex_twilio/pull/79) ([m4ttsch](https://github.com/m4ttsch))
 
 ## [v0.4.0](https://github.com/danielberkompas/ex_twilio/tree/v0.4.0) (2017-07-10)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.3.0...v0.4.0)
 
 **Closed issues:**
@@ -95,6 +121,7 @@
 - Adds Update API action to Conference resource. [\#71](https://github.com/danielberkompas/ex_twilio/pull/71) ([m4ttsch](https://github.com/m4ttsch))
 
 ## [v0.3.0](https://github.com/danielberkompas/ex_twilio/tree/v0.3.0) (2017-01-20)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.2.1...v0.3.0)
 
 **Closed issues:**
@@ -114,6 +141,7 @@
 - Implement Task Router API [\#55](https://github.com/danielberkompas/ex_twilio/pull/55) ([enilsen16](https://github.com/enilsen16))
 
 ## [v0.2.1](https://github.com/danielberkompas/ex_twilio/tree/v0.2.1) (2016-10-31)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.2.0...v0.2.1)
 
 **Closed issues:**
@@ -130,6 +158,7 @@
 - Update notifications url \#46 [\#47](https://github.com/danielberkompas/ex_twilio/pull/47) ([Devinsuit](https://github.com/Devinsuit))
 
 ## [v0.2.0](https://github.com/danielberkompas/ex_twilio/tree/v0.2.0) (2016-07-20)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.9...v0.2.0)
 
 **Merged pull requests:**
@@ -138,6 +167,7 @@
 - Switch to HTTPoison [\#44](https://github.com/danielberkompas/ex_twilio/pull/44) ([danielberkompas](https://github.com/danielberkompas))
 
 ## [v0.1.9](https://github.com/danielberkompas/ex_twilio/tree/v0.1.9) (2016-07-02)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.8...v0.1.9)
 
 **Closed issues:**
@@ -152,6 +182,7 @@
 - This makes ex\_twilio compatible with elixir 1.3 [\#41](https://github.com/danielberkompas/ex_twilio/pull/41) ([tokafish](https://github.com/tokafish))
 
 ## [v0.1.8](https://github.com/danielberkompas/ex_twilio/tree/v0.1.8) (2016-06-06)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.7...v0.1.8)
 
 **Closed issues:**
@@ -168,6 +199,7 @@
 - Remove unnecessary Utils module and replace its usages with Macro [\#35](https://github.com/danielberkompas/ex_twilio/pull/35) ([AvaelKross](https://github.com/AvaelKross))
 
 ## [v0.1.7](https://github.com/danielberkompas/ex_twilio/tree/v0.1.7) (2016-04-16)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.6...v0.1.7)
 
 **Merged pull requests:**
@@ -175,12 +207,15 @@
 - Fix Parser for Poison 2.0 [\#31](https://github.com/danielberkompas/ex_twilio/pull/31) ([danielberkompas](https://github.com/danielberkompas))
 
 ## [v0.1.6](https://github.com/danielberkompas/ex_twilio/tree/v0.1.6) (2016-04-16)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.5...v0.1.6)
 
 ## [v0.1.5](https://github.com/danielberkompas/ex_twilio/tree/v0.1.5) (2016-04-16)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.4...v0.1.5)
 
 ## [v0.1.4](https://github.com/danielberkompas/ex_twilio/tree/v0.1.4) (2016-03-29)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.3...v0.1.4)
 
 **Closed issues:**
@@ -198,6 +233,7 @@
 - Remove deleted functions from README [\#24](https://github.com/danielberkompas/ex_twilio/pull/24) ([danielberkompas](https://github.com/danielberkompas))
 
 ## [v0.1.3](https://github.com/danielberkompas/ex_twilio/tree/v0.1.3) (2015-10-08)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.2...v0.1.3)
 
 **Closed issues:**
@@ -210,6 +246,7 @@
 - Add missing applications to app template [\#20](https://github.com/danielberkompas/ex_twilio/pull/20) ([michalmuskala](https://github.com/michalmuskala))
 
 ## [v0.1.2](https://github.com/danielberkompas/ex_twilio/tree/v0.1.2) (2015-09-20)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.1...v0.1.2)
 
 **Implemented enhancements:**
@@ -224,9 +261,11 @@
 - Upgrade ibrowse dependency for R18 support [\#15](https://github.com/danielberkompas/ex_twilio/pull/15) ([nickcampbell18](https://github.com/nickcampbell18))
 
 ## [v0.1.1](https://github.com/danielberkompas/ex_twilio/tree/v0.1.1) (2015-05-22)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.1.0...v0.1.1)
 
 ## [v0.1.0](https://github.com/danielberkompas/ex_twilio/tree/v0.1.0) (2015-04-11)
+
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.0.1...v0.1.0)
 
 **Implemented enhancements:**
@@ -248,6 +287,9 @@
 - Run Dialyzer on Travis CI [\#6](https://github.com/danielberkompas/ex_twilio/pull/6) ([danielberkompas](https://github.com/danielberkompas))
 
 ## [v0.0.1](https://github.com/danielberkompas/ex_twilio/tree/v0.0.1) (2015-03-31)
+
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/2f7ff5b721700c53eb86c5b83c63dd655d042f31...v0.0.1)
+
 **Closed issues:**
 
 - Update all inline documentation [\#1](https://github.com/danielberkompas/ex_twilio/issues/1)
@@ -258,4 +300,4 @@
 
 
 
-\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
+\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*
