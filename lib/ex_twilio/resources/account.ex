@@ -2,7 +2,7 @@ defmodule ExTwilio.Account do
   @moduledoc """
   Represents an Account or Subaccount resource.
 
-  - [Account docs](https://www.twilio.com/docs/api/rest/accounts)
+  - [Account docs](https://www.twilio.com/docs/iam/api/account)
   - [Subaccount docs](https://www.twilio.com/docs/api/rest/subaccounts)
 
   ## Examples
