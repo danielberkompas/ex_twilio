@@ -2,7 +2,7 @@ defmodule ExTwilio.ConnectApp do
   @moduledoc """
   Represents an ConnectApp resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/connect-apps)
+  - [Twilio docs](https://www.twilio.com/docs/iam/connect-apps/api)
   """
 
   defstruct sid: nil,
