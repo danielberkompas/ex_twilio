@@ -2,7 +2,7 @@ defmodule ExTwilio.Recording do
   @moduledoc """
   Represents an Recording resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/recordings)
+  - [Twilio docs](https://www.twilio.com/docs/voice/api/recording)
   """
 
   defstruct sid: nil,
