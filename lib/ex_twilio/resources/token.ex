@@ -2,7 +2,7 @@ defmodule ExTwilio.Token do
   @moduledoc """
   Represents an Token resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/tokens)
+  - [Twilio docs](https://www.twilio.com/docs/iam/access-tokens)
   """
 
   defstruct username: nil,
