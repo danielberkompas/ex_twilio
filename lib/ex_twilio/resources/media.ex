@@ -2,7 +2,7 @@ defmodule ExTwilio.Media do
   @moduledoc """
   Represents an Media resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/media)
+  - [Twilio docs](https://www.twilio.com/docs/sms/api/media-resource)
 
   ## Examples
 
