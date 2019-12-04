@@ -2,7 +2,7 @@ defmodule ExTwilio.Participant do
   @moduledoc """
   Represents an Participant resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/participants)
+  - [Twilio docs](https://www.twilio.com/docs/voice/api/conference-participant-resource)
 
   ## Examples
 
