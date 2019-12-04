@@ -2,7 +2,7 @@ defmodule ExTwilio.Message do
   @moduledoc """
   Represents an Message resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/messages)
+  - [Twilio docs](https://www.twilio.com/docs/sms/api/message-resource)
 
   Here is an example of sending an SMS message:
 
