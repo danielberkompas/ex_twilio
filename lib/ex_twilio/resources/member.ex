@@ -2,7 +2,7 @@ defmodule ExTwilio.Member do
   @moduledoc """
   Represents an Member resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/members)
+  - [Twilio docs](https://www.twilio.com/docs/chat/rest/member-resource)
 
   ## Examples
 
