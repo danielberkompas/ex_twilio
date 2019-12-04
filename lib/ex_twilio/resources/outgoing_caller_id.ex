@@ -2,7 +2,7 @@ defmodule ExTwilio.OutgoingCallerId do
   @moduledoc """
   Represents an OutgoingCallerId resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/outgoing-caller-ids)
+  - [Twilio docs](https://www.twilio.com/docs/voice/api/outgoing-caller-ids)
   """
 
   defstruct sid: nil,
