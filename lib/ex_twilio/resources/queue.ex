@@ -2,7 +2,7 @@ defmodule ExTwilio.Queue do
   @moduledoc """
   Represents an Queue resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/queues)
+  - [Twilio docs](https://www.twilio.com/docs/voice/api/queue-resource)
   """
 
   defstruct sid: nil,
