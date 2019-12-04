@@ -2,7 +2,7 @@ defmodule ExTwilio.AuthorizedConnectApp do
   @moduledoc """
   Represents an AuthorizedConnectApp resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/authorized-connect-apps)
+  - [Twilio docs](https://www.twilio.com/docs/iam/authorized-connect-apps/api)
   """
 
   defstruct date_created: nil,
