@@ -2,7 +2,7 @@ defmodule ExTwilio.Feedback do
   @moduledoc """
   Represents a Call Feedback resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/call-feedback)
+  - [Twilio docs](https://www.twilio.com/docs/voice/api/feedback-resource)
 
   ## Examples
 
