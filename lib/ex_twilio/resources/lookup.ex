@@ -2,7 +2,7 @@ defmodule ExTwilio.Lookup do
   @moduledoc """
     Represents the Lookup Api provided by Twilio
 
-    - [Twilio docs](https://www.twilio.com/docs/lookup/api)
+    - [Twilio docs](https://www.twilio.com/docs/api/lookups)
   """
   alias ExTwilio.{Parser, Config}
   alias ExTwilio.UrlGenerator, as: Url
