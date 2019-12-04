@@ -2,7 +2,7 @@ defmodule ExTwilio.Call do
   @moduledoc """
   Represents an Call resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/calls)
+  - [Twilio docs](https://www.twilio.com/docs/voice/api/call-resource)
   """
   defstruct sid: nil,
             parent_call_sid: nil,
