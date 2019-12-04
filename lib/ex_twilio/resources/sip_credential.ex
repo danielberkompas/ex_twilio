@@ -2,7 +2,7 @@ defmodule ExTwilio.SipCredential do
   @moduledoc """
   Represents an SIP Credential in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/credential-list#subresources)
+  - [Twilio docs](https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource#subresources)
   """
 
   defstruct sid: nil,
