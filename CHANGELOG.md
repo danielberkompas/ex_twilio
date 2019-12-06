@@ -1,6 +1,14 @@
 # Changelog
 
-## [v0.8.0](https://github.com/danielberkompas/ex_twilio/tree/v0.8.0) (2019-11-27)
+## [v0.8.1](https://github.com/danielberkompas/ex_twilio/tree/v0.8.1) (2019-12-05)
+
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.8.0...v0.8.1)
+
+**Merged pull requests:**
+
+- Update broken and redirected links [\#131](https://github.com/danielberkompas/ex_twilio/pull/131) ([dikaio](https://github.com/dikaio))
+
+## [v0.8.0](https://github.com/danielberkompas/ex_twilio/tree/v0.8.0) (2019-11-28)
 
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.7.0...v0.8.0)
 
