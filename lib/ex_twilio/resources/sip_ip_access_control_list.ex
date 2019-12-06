@@ -2,7 +2,7 @@ defmodule ExTwilio.SipIpAccessControlList do
   @moduledoc """
   Represents an SIP IPAccessControlList in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/ip-access-control-list)
+  - [Twilio docs](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource)
   """
 
   defstruct sid: nil,

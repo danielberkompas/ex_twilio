@@ -2,7 +2,7 @@ defmodule ExTwilio.Notification do
   @moduledoc """
   Represents an Notification resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/notifications)
+  - [Twilio docs](https://www.twilio.com/docs/notify/api/notification-resource)
   """
 
   defstruct sid: nil,

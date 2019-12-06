@@ -2,7 +2,7 @@ defmodule ExTwilio.Conference do
   @moduledoc """
   Represents an Conference resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/conference)
+  - [Twilio docs](https://www.twilio.com/docs/voice/api/conference-resource)
   """
 
   defstruct sid: nil,

@@ -2,7 +2,7 @@ defmodule ExTwilio.SipIpAddress do
   @moduledoc """
   Represents an SIP IpAddress in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/ip-access-control-list#subresources)
+  - [Twilio docs](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource#subresources)
   """
 
   defstruct sid: nil,

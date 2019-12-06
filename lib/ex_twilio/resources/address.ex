@@ -2,7 +2,7 @@ defmodule ExTwilio.Address do
   @moduledoc """
   Represents an Address resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/addresses)
+  - [Twilio docs](https://www.twilio.com/docs/usage/api/address)
   """
 
   defstruct sid: nil,

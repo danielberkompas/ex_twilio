@@ -2,7 +2,7 @@ defmodule ExTwilio.Application do
   @moduledoc """
   Represents an Application resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/applications)
+  - [Twilio docs](https://www.twilio.com/docs/usage/api/applications)
   """
 
   defstruct sid: nil,

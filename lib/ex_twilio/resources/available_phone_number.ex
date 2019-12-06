@@ -2,7 +2,7 @@ defmodule ExTwilio.AvailablePhoneNumber do
   @moduledoc """
   Represents an AvailablePhoneNumber resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/available-phone-numbers)
+  - [Twilio docs](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource)
   """
 
   defstruct friendly_name: nil,

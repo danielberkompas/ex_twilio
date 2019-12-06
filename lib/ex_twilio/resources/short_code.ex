@@ -2,7 +2,7 @@ defmodule ExTwilio.ShortCode do
   @moduledoc """
   Represents a ShortCode resource in the Twilio API.
 
-  - [Twilio docs](https://www.twilio.com/docs/api/rest/short-codes)
+  - [Twilio docs](https://www.twilio.com/docs/sms/api/short-code)
   """
 
   defstruct sid: nil,
