@@ -163,7 +163,11 @@ Twilio's ProgrammableChat API:
 
 Twilio Capability Tokens:
 - [Worker](https://www.twilio.com/docs/api/taskrouter/worker-js)
-- [Calling](https://www.twilio.com/docs/api/client/capability-tokens)
+- [Calling](https://www.twilio.com/docs/api/client/capability-tokens) (Deprecated, use Access Token instead)
+
+Twilio Access Token Grants:
+- [Chat](https://www.twilio.com/docs/chat/identity)
+- [Voice](https://www.twilio.com/docs/iam/access-tokens)
 - [Video](https://www.twilio.com/docs/video/tutorials/user-identity-access-tokens#about-access-tokens)
 
 ### Example

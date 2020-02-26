@@ -1,4 +1,4 @@
-defmodule ExTwilio.JWT.AccessToken.VideoGrantTest do
+defmodule ExTwilio.JWT.AccessToken.VoiceGrantTest do
   use ExUnit.Case
 
   alias ExTwilio.JWT.AccessToken.VoiceGrant
