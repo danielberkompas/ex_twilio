@@ -1,6 +1,6 @@
 defmodule ExTwilio.Transcription do
   @moduledoc """
-  Represents an Transcription resource in the Twilio API.
+  Represents a Transcription resource in the Twilio API.
 
   - [Twilio docs](https://www.twilio.com/docs/voice/api/recording-transcription)
   """

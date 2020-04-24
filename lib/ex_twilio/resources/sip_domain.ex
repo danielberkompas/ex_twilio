@@ -1,6 +1,6 @@
 defmodule ExTwilio.SipDomain do
   @moduledoc """
-  Represents a SIP Domain resource in the Twilio API.
+  Represents an SIP Domain resource in the Twilio API.
 
   - [Twilio docs](https://www.twilio.com/docs/voice/sip/api/sip-domain-resource)
   """
