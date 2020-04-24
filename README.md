@@ -78,7 +78,7 @@ can then set the `config :ex_twilio` variables differently in each file.
 
 ## Usage
 
-ExTwilio comes with module for each supported Twilio API resource. For example,
+ExTwilio comes with a module for each supported Twilio API resource. For example,
 the "Call" resource is accessible through the `ExTwilio.Call` module. Depending
 on what the underlying API supports, a resource module may have the following
 methods:
