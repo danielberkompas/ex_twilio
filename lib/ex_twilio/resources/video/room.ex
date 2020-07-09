@@ -32,9 +32,11 @@ defmodule ExTwilio.Video.Room do
       :all,
       :find,
       :create,
-      :update,
-      :destroy
+      :update
     ]
+
+  def complete(%{sid: sid}), do: complete(sid)
+  def complete(sid), do: update(sid, status: "completed")
 
   def parents, do: [:account]
 end

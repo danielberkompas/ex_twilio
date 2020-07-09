@@ -62,7 +62,7 @@ defmodule ExTwilio.Config do
 
   def studio_url, do: "https://studio.twilio.com/v1"
 
-  def video_url, do: "https://video.twilio.com"
+  def video_url, do: "https://video.twilio.com/v1"
 
   @doc """
   A light wrapper around `Application.get_env/2`, providing automatic support for
