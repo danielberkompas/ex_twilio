@@ -1,7 +1,6 @@
 defmodule ExTwilio.Video.Room do
   @moduledoc """
-  Represents a specific person's run through a Flow.
-  An execution is active while the user is in the Flow, and it is considered ended when they stop or are kicked out of the Flow.
+  Represents a programmable video Room.
 
   - [Twilio docs](https://www.twilio.com/docs/video/api/rooms-resource)
   """
