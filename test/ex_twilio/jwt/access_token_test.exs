@@ -41,7 +41,11 @@ defmodule ExTwilio.JWT.AccessTokenTest do
           identity: "user@email.com",
           grants: [
             AccessToken.ChatGrant.new(service_sid: "sid"),
-            AccessToken.VideoGrant.new(room: "room")
+            AccessToken.VideoGrant.new(room: "room"),
+            AccessToken.VoiceGrant.new(
+              outgoing_application_sid: "sid",
+              outgoing_application_params: %{key: "value"}
+            )
           ],
           expires_in: 86_400
         )
@@ -59,6 +63,9 @@ defmodule ExTwilio.JWT.AccessTokenTest do
       assert claims["grants"] == %{
                "chat" => %{"service_sid" => "sid"},
                "video" => %{"room" => "room"},
+               "voice" => %{
+                 "outgoing" => %{"application_sid" => "sid", "params" => %{"key" => "value"}}
+               },
                "identity" => "user@email.com"
              }
     end
