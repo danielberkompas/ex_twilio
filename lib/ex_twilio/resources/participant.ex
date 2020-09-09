@@ -20,7 +20,12 @@ defmodule ExTwilio.Participant do
             muted: nil,
             start_conference_on_enter: nil,
             end_conference_on_exit: nil,
-            uri: nil
+            uri: nil,
+            label: nil,
+            call_sid_to_coach: nil,
+            coaching: nil,
+            hold: nil,
+            status: nil
 
   use ExTwilio.Resource, import: [:stream, :all, :find, :update, :create, :destroy]
 
