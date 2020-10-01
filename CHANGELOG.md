@@ -1,6 +1,34 @@
 # Changelog
 
-## [v0.8.1](https://github.com/danielberkompas/ex_twilio/tree/v0.8.1) (2019-12-05)
+## [v0.8.2](https://github.com/danielberkompas/ex_twilio/tree/v0.8.2) (2020-10-01)
+
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.8.1...v0.8.2)
+
+**Fixed bugs:**
+
+- problem with AvailablePhoneNumbers.all [\#96](https://github.com/danielberkompas/ex_twilio/issues/96)
+- Getting error after creating/sending message [\#37](https://github.com/danielberkompas/ex_twilio/issues/37)
+
+**Closed issues:**
+
+- Add :enabled option to config [\#138](https://github.com/danielberkompas/ex_twilio/issues/138)
+- Where is the documentation for making the webhook receive incoming SMS messages? [\#135](https://github.com/danielberkompas/ex_twilio/issues/135)
+- RequestValidator returns false, even when the strings both match [\#133](https://github.com/danielberkompas/ex_twilio/issues/133)
+- leaking `{ssl\_closed, \_}` messages from httpoison/hackney [\#132](https://github.com/danielberkompas/ex_twilio/issues/132)
+- Thank you for building this! [\#130](https://github.com/danielberkompas/ex_twilio/issues/130)
+- Support for multiple accounts [\#126](https://github.com/danielberkompas/ex_twilio/issues/126)
+- Config question with 1.9 coming - this is not an issue, just a question. [\#118](https://github.com/danielberkompas/ex_twilio/issues/118)
+- ExTwilio.Signature for creating a "x-twilio-signiture" string [\#108](https://github.com/danielberkompas/ex_twilio/issues/108)
+- Doesn't work with Dotenv [\#63](https://github.com/danielberkompas/ex_twilio/issues/63)
+
+**Merged pull requests:**
+
+- Update participant resource [\#140](https://github.com/danielberkompas/ex_twilio/pull/140) ([rrebane](https://github.com/rrebane))
+- Add Rooms resource [\#139](https://github.com/danielberkompas/ex_twilio/pull/139) ([dshvimer2](https://github.com/dshvimer2))
+- Fix typos [\#136](https://github.com/danielberkompas/ex_twilio/pull/136) ([SherSpock](https://github.com/SherSpock))
+- Add voice grant [\#134](https://github.com/danielberkompas/ex_twilio/pull/134) ([ostap0207](https://github.com/ostap0207))
+
+## [v0.8.1](https://github.com/danielberkompas/ex_twilio/tree/v0.8.1) (2019-12-06)
 
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.8.0...v0.8.1)
 
