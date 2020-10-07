@@ -88,7 +88,7 @@ defmodule ExTwilio.ApiTest do
   end
 
   ###
-  # HTTPotion API
+  # HTTPoison API
   ###
 
   test ".process_request_headers adds the correct headers" do
@@ -96,6 +96,16 @@ defmodule ExTwilio.ApiTest do
     content = {:"Content-Type", "application/x-www-form-urlencoded; charset=UTF-8"}
     assert content in headers
     assert Keyword.keys(headers) == [:Authorization, :"Content-Type"]
+  end
+
+  test ".process_request_options adds configured options if configured" do
+    assert Api.process_request_options([]) == []
+
+    Application.put_env(:ex_twilio, :request_options, hackney: [pool: :mavis])
+    assert Api.process_request_options([]) == [hackney: [pool: :mavis]]
+    assert Api.process_request_options(bob: :sue) == [bob: :sue, hackney: [pool: :mavis]]
+  after
+    Application.delete_env(:ex_twilio, :request_options)
   end
 
   test ".format_data converts data to a query string when passed a list" do

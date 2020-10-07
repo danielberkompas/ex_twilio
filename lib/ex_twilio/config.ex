@@ -36,6 +36,11 @@ defmodule ExTwilio.Config do
   def protocol, do: Application.get_env(:ex_twilio, :protocol) || "https"
 
   @doc """
+  Options added to HTTPoison requests
+  """
+  def request_options, do: from_env(:ex_twilio, :request_options, [])
+
+  @doc """
   Returns the version of the API that ExTwilio is going to talk to. Set it in
   `mix.exs`:
       config :ex_twilio, api_version: "2015-05-06"
