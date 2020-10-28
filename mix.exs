@@ -16,13 +16,13 @@ defmodule ExTwilio.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :httpoison, :inflex, :poison, :joken]]
+    [extra_applications: [:logger]]
   end
 
   defp deps do
     [
       {:httpoison, ">= 0.9.0"},
-      {:poison, ">= 3.0.0"},
+      {:jason, "~> 1.2"},
       {:inflex, "~> 2.0"},
       {:joken, "~> 2.0"},
       {:dialyze, "~> 0.2.0", only: [:dev, :test]},
