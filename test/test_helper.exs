@@ -21,7 +21,6 @@ defmodule TestHelper do
   end
 
   def json_response(map, status) do
-    {:ok, json} = Poison.encode(map)
-    %{body: json, status_code: status}
+    %{body: Jason.encode!(map), status_code: status}
   end
 end

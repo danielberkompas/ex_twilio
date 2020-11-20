@@ -41,14 +41,15 @@ defmodule ExTwilio.Parser do
       {:ok, %{"sid" => "AD34123"}}
   """
   @spec parse(HTTPoison.Response.t(), module) :: success | error
-  def parse(response, module) do
-    handle_errors(response, fn body ->
-      Poison.decode!(body, as: target(module))
-    end)
+  def parse(response, map) when is_map(map) and not :erlang.is_map_key(:__struct__, map) do
+    handle_errors(response, fn body -> Jason.decode!(body) end)
   end
 
-  defp target(module) when is_atom(module), do: module.__struct__
-  defp target(other), do: other
+  def parse(response, module) do
+    handle_errors(response, fn body ->
+      struct(module, Jason.decode!(body, keys: :atoms))
+    end)
+  end
 
   @doc """
   Parse a response expected to contain multiple resources. If you pass in a
@@ -81,16 +82,16 @@ defmodule ExTwilio.Parser do
   """
   @spec parse_list(HTTPoison.Response.t(), module, key) :: success_list | error
   def parse_list(response, module, key) do
-    result =
-      handle_errors(response, fn body ->
-        as = Map.put(%{}, key, [target(module)])
-        Poison.decode!(body, as: as)
-      end)
-
-    case result do
-      {:ok, list} -> {:ok, list[key], Map.drop(list, [key])}
+    case handle_errors(response, fn body -> Jason.decode!(body) end) do
+      {:ok, json} -> {:ok, list_to_structs(json[key], module), Map.drop(json, [key])}
       error -> error
     end
+  end
+
+  defp list_to_structs(list, module) do
+    Enum.map(list, fn item ->
+      struct(module, Map.new(item, fn {key, value} -> {String.to_atom(key), value} end))
+    end)
   end
 
   # @spec handle_errors(response, ((String.t) -> any)) :: success | success_delete | error
@@ -103,8 +104,7 @@ defmodule ExTwilio.Parser do
         :ok
 
       %{body: body, status_code: status} ->
-        {:ok, json} = Poison.decode(body)
-        {:error, json, status}
+        {:error, Jason.decode!(body), status}
     end
   end
 end
