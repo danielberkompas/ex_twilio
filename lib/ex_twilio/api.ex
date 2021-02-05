@@ -184,6 +184,10 @@ defmodule ExTwilio.Api do
     |> auth_header({Config.account_sid(), Config.auth_token()})
   end
 
+  def process_request_options(options) do
+    Keyword.merge(options, Config.request_options())
+  end
+
   @spec format_data(data) :: binary
   def format_data(data) when is_map(data) do
     data
