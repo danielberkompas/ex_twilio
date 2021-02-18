@@ -150,6 +150,17 @@ Twilio's TaskRouter API:
 - [Workspaces](https://www.twilio.com/docs/api/taskrouter/workspaces)
     - [Statistics](https://www.twilio.com/docs/api/taskrouter/workspace-statistics)
 
+Twilio's Proxy API:
+
+- [Overview](https://www.twilio.com/docs/proxy/api)
+- [Service](https://www.twilio.com/docs/proxy/api/service)
+- [Phone Number](https://www.twilio.com/docs/proxy/api/phone-number)
+- [Short Code](https://www.twilio.com/docs/proxy/api/short-code)
+- [Session Resource](https://www.twilio.com/docs/proxy/api/session)
+- [Participant](https://www.twilio.com/docs/proxy/api/participant)
+- [Interaction](https://www.twilio.com/docs/proxy/api/interaction)
+- [Sending Messages](https://www.twilio.com/docs/proxy/api/sending-messages)
+
 Twilio's ProgrammableChat API:
 
 - [Overview](https://www.twilio.com/docs/api/chat/rest)

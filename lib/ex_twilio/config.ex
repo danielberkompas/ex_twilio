@@ -69,6 +69,8 @@ defmodule ExTwilio.Config do
 
   def video_url, do: "https://video.twilio.com/v1"
 
+  def proxy_url, do: "https://proxy.twilio.com/v1"
+
   @doc """
   A light wrapper around `Application.get_env/2`, providing automatic support for
   `{:system, "VAR"}` tuples.
