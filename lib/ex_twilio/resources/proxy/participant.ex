@@ -1,6 +1,6 @@
 defmodule ExTwilio.Proxy.Participant do
   @moduledoc """
-  Represents an Participant attached to a Session.
+  Represents a Participant attached to a Session.
 
   - [Twilio docs](https://www.twilio.com/docs/proxy/api/participant)
   """

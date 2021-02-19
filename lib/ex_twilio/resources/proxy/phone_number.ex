@@ -1,6 +1,6 @@
 defmodule ExTwilio.Proxy.PhoneNumber do
   @moduledoc """
-  Represents an Phone Number attached to a Service.
+  Represents a Phone Number attached to a Service.
 
   - [Twilio docs](https://www.twilio.com/docs/proxy/api/phone-number)
   """

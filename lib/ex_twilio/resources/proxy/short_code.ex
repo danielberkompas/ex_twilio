@@ -1,6 +1,6 @@
 defmodule ExTwilio.Proxy.ShortCode do
   @moduledoc """
-  Represents an Short Code attached to a Service.
+  Represents a Short Code attached to a Service.
 
   - [Twilio docs](https://www.twilio.com/docs/proxy/api/short-code)
   """

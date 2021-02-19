@@ -49,6 +49,8 @@ defmodule ExTwilio.Config do
 
   def workspace_sid, do: Application.get_env(:ex_twilio, :workspace_sid) || "12345"
 
+  def proxy_service_sid, do: Application.get_env(:ex_twilio, :proxy_service_sid) || "12345"
+
   @doc """
   Return the combined base URL of the Twilio API, using the configuration
   settings given.

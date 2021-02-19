@@ -1,6 +1,6 @@
 defmodule ExTwilio.Proxy.Service do
   @moduledoc """
-  A Service is a container for Proxy Sessions and Phone Numbers.
+  A Service is a container for Proxy Sessions, Phone Numbers and Short Codes.
   Each of these items exists within a single Service and will not be shared across Services.
 
   - [Twilio docs](https://www.twilio.com/docs/proxy/api/service)

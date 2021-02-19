@@ -39,9 +39,10 @@ You will need to set the following configuration variables in your
 ```elixir
 use Mix.Config
 
-config :ex_twilio, account_sid:   {:system, "TWILIO_ACCOUNT_SID"},
-                   auth_token:    {:system, "TWILIO_AUTH_TOKEN"},
-                   workspace_sid: {:system, "TWILIO_WORKSPACE_SID"} # optional
+config :ex_twilio, account_sid:       {:system, "TWILIO_ACCOUNT_SID"},
+                   auth_token:        {:system, "TWILIO_AUTH_TOKEN"},
+                   workspace_sid:     {:system, "TWILIO_WORKSPACE_SID"}, # optional
+                   proxy_service_sid: {:system, "TWILIO_PROXY_SERVICE_SID"} # optional if using proxy API
 ```
 
 For security, I recommend that you use environment variables rather than hard
@@ -53,6 +54,7 @@ following content:
 export TWILIO_ACCOUNT_SID=<account sid here>
 export TWILIO_AUTH_TOKEN=<auth token>
 export TWILIO_WORKSPACE_SID=<workspace sid here> #optional
+export TWILIO_PROXY_SERVICE_SID=<proxy service sid here> #optional
 ```
 
 Then, just be sure to run `source .env` in your shell before compiling your

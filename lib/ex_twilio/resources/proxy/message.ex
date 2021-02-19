@@ -1,6 +1,6 @@
-defmodule ExTwilio.Proxy.MessageInteraction do
+defmodule ExTwilio.Proxy.Message do
   @moduledoc """
-  Represents an Message Interaction of a Session.
+  Represents a Message Interaction of a Session.
 
   - [Twilio docs](https://www.twilio.com/docs/proxy/api/sending-messages)
   """
@@ -34,4 +34,6 @@ defmodule ExTwilio.Proxy.MessageInteraction do
       %ExTwilio.Parent{module: ExTwilio.Proxy.Session, key: :session},
       %ExTwilio.Parent{module: ExTwilio.Proxy.Participant, key: :participant}
     ]
+
+  def resource_name, do: "MessageInteractions"
 end

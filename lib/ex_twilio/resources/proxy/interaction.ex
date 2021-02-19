@@ -2,7 +2,7 @@ defmodule ExTwilio.Proxy.Interaction do
   @moduledoc """
   Represents an Interaction of a Session.
 
-  - [Twilio docs](https://www.twilio.com/docs/proxy/api/participant)
+  - [Twilio docs](https://www.twilio.com/docs/proxy/api/interaction)
   """
 
   defstruct sid: nil,
