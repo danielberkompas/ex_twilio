@@ -24,6 +24,6 @@ defmodule ExTwilio.Proxy.Participant do
   def parents,
     do: [
       %ExTwilio.Parent{module: ExTwilio.Proxy.Service, key: :service},
-      %ExTwilio.Parent{module: ExTwilio.Proxy.Session, key: :session}
+      %ExTwilio.Parent{module: ExTwilio.Proxy.SessionResource, key: :session}
     ]
 end

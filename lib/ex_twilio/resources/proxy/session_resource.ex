@@ -27,4 +27,6 @@ defmodule ExTwilio.Proxy.SessionResource do
   def parents, do: [%ExTwilio.Parent{module: ExTwilio.Proxy.Service, key: :service}]
 
   def resource_name, do: "Sessions"
+
+  def resource_collection_name, do: "sessions"
 end
