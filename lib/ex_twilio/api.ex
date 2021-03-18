@@ -15,7 +15,6 @@ defmodule ExTwilio.Api do
   Items are returned as instances of the given module's struct. For more
   details, see the documentation for each function.
   """
-
   use HTTPoison.Base
 
   alias ExTwilio.Config
@@ -170,25 +169,9 @@ defmodule ExTwilio.Api do
 
   def auth_header(headers, _), do: headers
 
-  ###
-  # HTTPotion API
-  ###
+  @spec format_data(any) :: binary
+  def format_data(data)
 
-  @doc """
-  Automatically adds the correct headers to each API request.
-  """
-  @spec process_request_headers(list) :: list
-  def process_request_headers(headers \\ []) do
-    headers
-    |> Keyword.put(:"Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
-    |> auth_header({Config.account_sid(), Config.auth_token()})
-  end
-
-  def process_request_options(options) do
-    Keyword.merge(options, Config.request_options())
-  end
-
-  @spec format_data(data) :: binary
   def format_data(data) when is_map(data) do
     data
     |> Map.to_list()
@@ -200,4 +183,18 @@ defmodule ExTwilio.Api do
   end
 
   def format_data(data), do: data
+
+  ###
+  # HTTPotion API
+  ###
+
+  def process_request_headers(headers \\ []) do
+    headers
+    |> Keyword.put(:"Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+    |> auth_header({Config.account_sid(), Config.auth_token()})
+  end
+
+  def process_request_options(options) do
+    Keyword.merge(options, Config.request_options())
+  end
 end
