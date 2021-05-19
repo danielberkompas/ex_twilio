@@ -32,7 +32,11 @@ defmodule ExTwilio.RequestValidator do
     |> Enum.join()
   end
 
-  defp compute_hmac(data, key), do: :crypto.hmac(:sha, key, data)
+  if Code.ensure_loaded?(:crypto) and function_exported?(:crypto, :mac, 4) do
+    defp compute_hmac(data, key), do: :crypto.mac(:hmac, :sha, key, data)
+  else
+    defp compute_hmac(data, key), do: :crypto.hmac(:sha, key, data)
+  end
 
   # Implementation taken from Plug.Crypto
   # https://github.com/elixir-plug/plug/blob/master/lib/plug/crypto.ex
