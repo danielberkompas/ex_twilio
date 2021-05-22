@@ -32,7 +32,14 @@ defmodule ExTwilio.RequestValidator do
     |> Enum.join()
   end
 
-  defp compute_hmac(data, key), do: :crypto.hmac(:sha, key, data)
+  defp compute_hmac(data, key), do: hmac(:sha, key, data)
+
+  # TODO: remove when we require OTP 22
+  if System.otp_release() >= "22" do
+    defp hmac(digest, key, data), do: :crypto.mac(:hmac, digest, key, data)
+  else
+    defp hmac(digest, key, data), do: :crypto.hmac(digest, key, data)
+  end
 
   # Implementation taken from Plug.Crypto
   # https://github.com/elixir-plug/plug/blob/master/lib/plug/crypto.ex
@@ -48,7 +55,7 @@ defmodule ExTwilio.RequestValidator do
   end
 
   defp secure_compare(<<x, left::binary>>, <<y, right::binary>>, acc) do
-    xorred = x ^^^ y
+    xorred = bxor(x, y)
     secure_compare(left, right, acc ||| xorred)
   end
 
