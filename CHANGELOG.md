@@ -1,6 +1,23 @@
 # Changelog
 
-## [v0.9.0](https://github.com/danielberkompas/ex_twilio/tree/v0.9.0) (2021-02-04)
+## [v0.9.1](https://github.com/danielberkompas/ex_twilio/tree/v0.9.1) (2021-06-05)
+
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.9.0...v0.9.1)
+
+**Closed issues:**
+
+- Not compatible with Erlang/OTP 24 [\#155](https://github.com/danielberkompas/ex_twilio/issues/155)
+- HTTPoison error Fatal - Unknown CA.  [\#151](https://github.com/danielberkompas/ex_twilio/issues/151)
+
+**Merged pull requests:**
+
+- Run tests against Erlang 24, Elixir 1.12 [\#156](https://github.com/danielberkompas/ex_twilio/pull/156) ([danielberkompas](https://github.com/danielberkompas))
+- fix\(deprecation\): :crypto.hmac -\> :crypto.mac, Bitwise.^^^ -\> Bitwise.bxor [\#154](https://github.com/danielberkompas/ex_twilio/pull/154) ([seantanly](https://github.com/seantanly))
+- Fix dialyzer errors [\#150](https://github.com/danielberkompas/ex_twilio/pull/150) ([drgmr](https://github.com/drgmr))
+- Documentation Clarification [\#149](https://github.com/danielberkompas/ex_twilio/pull/149) ([imrying](https://github.com/imrying))
+- Use Semaphore for CI [\#146](https://github.com/danielberkompas/ex_twilio/pull/146) ([danielberkompas](https://github.com/danielberkompas))
+
+## [v0.9.0](https://github.com/danielberkompas/ex_twilio/tree/v0.9.0) (2021-02-05)
 
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.8.2...v0.9.0)
 
