@@ -147,6 +147,8 @@ defmodule ExTwilio.UrlGenerator do
   end
 
   @spec add_account_to_options(atom, list) :: list
+  defp add_account_to_options(module, options)
+
   defp add_account_to_options(module, options) do
     if module == ExTwilio.Account and options[:account] == nil do
       options
@@ -155,7 +157,6 @@ defmodule ExTwilio.UrlGenerator do
     end
   end
 
-  @spec add_account_to_options(atom, list) :: list
   defp add_flow_to_options(_module, options) do
     Keyword.put_new(options, :flow, Keyword.get(options, :flow_sid))
   end

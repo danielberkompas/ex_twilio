@@ -95,7 +95,7 @@ defmodule ExTwilio.JWT.AccessToken do
         "cty" => "twilio-fpa;v=1"
       })
 
-    Joken.generate_and_sign!(token_config, nil, signer)
+    Joken.generate_and_sign!(token_config, %{}, signer)
   end
 
   defp list_of_grants?(grants) when is_list(grants) do
