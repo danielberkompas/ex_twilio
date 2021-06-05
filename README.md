@@ -23,7 +23,10 @@ def deps do
 end
 ```
 
-and run `mix deps.get`. Now, list the `:ex_twilio` application as your application dependency:
+and run `mix deps.get`. 
+
+
+If using elixir 1.3 or lower add `:ex_twilio` as a application dependency:
 
 ```elixir
 def application do
