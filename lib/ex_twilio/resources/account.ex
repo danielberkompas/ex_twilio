@@ -7,7 +7,7 @@ defmodule ExTwilio.Account do
 
   ## Examples
 
-  An ExTwilio.Account can represent either an Account or a SubAccount. To see
+  An `ExTwilio.Account` can represent either an Account or a SubAccount. To see
   all accounts and subaccounts that your auth_token has access to, run:
 
       ExTwilio.Account.all
@@ -20,6 +20,7 @@ defmodule ExTwilio.Account do
   passing in an `account:` option in all other ExTwilio resources. For example:
 
       ExTwilio.Call.stream(account: "subaccount_sid")
+
   """
 
   defstruct sid: nil,
@@ -40,7 +41,7 @@ defmodule ExTwilio.Account do
 
   - [Twilio Docs](https://www.twilio.com/docs/api/rest/subaccounts#suspending-subaccounts)
 
-  ## Example
+  ## Examples
 
       {:ok, account} = ExTwilio.Account.find("<sid>")
       ExTwilio.Account.suspend(account)
@@ -54,7 +55,7 @@ defmodule ExTwilio.Account do
 
   - [Twilio Docs](https://www.twilio.com/docs/api/rest/subaccounts#suspending-subaccounts)
 
-  ## Example
+  ## Examples
 
       {:ok, account} = ExTwilio.Account.find("<sid>")
       ExTwilio.Account.reactivate(account)
@@ -69,7 +70,7 @@ defmodule ExTwilio.Account do
 
   - [Twilio Docs](https://www.twilio.com/docs/api/rest/subaccounts#closing-subaccounts)
 
-  ## Example
+  ## Examples
 
       {:ok, account} = ExTwilio.Account.find("<sid>")
       ExTwilio.Account.close(account)

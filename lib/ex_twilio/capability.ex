@@ -1,21 +1,23 @@
 defmodule ExTwilio.Capability do
   @moduledoc """
   Capability tokens are used to sign communications from devices
-  to Twilio. You create a token on your server, specify what
-  capabilities you would like your device to have, then pass
-  the token to your client to use. The tokens generated are
-  JSON Web Tokens (JWT).
+  to Twilio.
+
+  You create a token on your server, specify what capabilities you would like
+  your device to have, then pass the token to your client to use. The tokens
+  generated are JSON Web Tokens (JWT).
 
   - [Capability docs](https://www.twilio.com/docs/api/client/capability-tokens)
   - [JWT docs](https://jwt.io/introduction/)
 
-  ## Example
+  ## Examples
 
       ExTwilio.Capability.new
       |> ExTwilio.Capability.allow_client_incoming("tommy")
       |> ExTwilio.Capability.allow_client_outgoing("APabe7650f654fc34655fc81ae71caa3ff")
       |> ExTwilio.Capability.token
       "xxxxx.yyyyy.zzzzz"
+
   """
 
   alias ExTwilio.Config
@@ -43,9 +45,10 @@ defmodule ExTwilio.Capability do
   Initialises a new capability specification with a TTL of one hour,
   and the account sid and auth token taken from the configuration.
 
-  ## Example
+  ## Examples
 
       ExTwilio.Capability.new
+
   """
   @spec new :: t
   def new do
@@ -60,14 +63,14 @@ defmodule ExTwilio.Capability do
   Gives the device a client name allowing incoming connections
   to the client identified by the provided `client_name`.
 
-  - [Incoming capability docs](
-  https://www.twilio.com/docs/api/client/capability-tokens#allow-incoming-connections)
+  - [Incoming capability docs](https://www.twilio.com/docs/api/client/capability-tokens#allow-incoming-connections)
 
-  ## Example
+  ## Examples
 
   A device with this token will be identified as `tommy`
 
       ExTwilio.Capability.allow_client_incoming("tommy")
+
   """
   @spec allow_client_incoming(String.t()) :: t
   def allow_client_incoming(client_name), do: allow_client_incoming(new(), client_name)
@@ -88,15 +91,15 @@ defmodule ExTwilio.Capability do
   determine the voice URL to use to handle any outgoing
   connection.
 
-  - [Outgoing capability docs](
-  https://www.twilio.com/docs/api/client/capability-tokens#allow-outgoing-connections)
+  - [Outgoing capability docs](https://www.twilio.com/docs/api/client/capability-tokens#allow-outgoing-connections)
 
-  ## Example
+  ## Examples
 
   Outgoing connections will use the Twilio application with the
   SID: `APabe7650f654fc34655fc81ae71caa3ff`
 
       ExTwilio.Capability.allow_client_outgoing("APabe7650f654fc34655fc81ae71caa3ff")
+
   """
   @spec allow_client_outgoing(String.t()) :: t
   def allow_client_outgoing(app_sid), do: allow_client_outgoing(new(), app_sid)
@@ -119,11 +122,12 @@ defmodule ExTwilio.Capability do
   @doc """
   Sets the time at which the TTL begins in seconds since epoch.
 
-  ## Example
+  ## Examples
 
   Sets the TTL to begin on 24th May, 2016
 
       ExTwilio.Capability.starting_at(1464096368)
+
   """
   @spec starting_at(t, non_neg_integer) :: t
   def starting_at(capability_struct = %__MODULE__{}, start_time) do
@@ -133,11 +137,12 @@ defmodule ExTwilio.Capability do
   @doc """
   Sets the Twilio account sid used to issue the token.
 
-  ## Example
+  ## Examples
 
   Sets the account sid to be XXX
 
       ExTwilio.Capability.with_account_sid('XXX')
+
   """
   @spec with_account_sid(t, String.t()) :: t
   def with_account_sid(capability_struct = %__MODULE__{}, account_sid) do
@@ -147,11 +152,12 @@ defmodule ExTwilio.Capability do
   @doc """
   Sets the Twilio account auth token used to sign the capability token.
 
-  ## Example
+  ## Examples
 
   Sets the auth token to be XXX
 
       ExTwilio.Capability.with_auth_token('XXX')
+
   """
   @spec with_auth_token(t, String.t()) :: t
   def with_auth_token(capability_struct = %__MODULE__{}, auth_token) do
@@ -161,14 +167,14 @@ defmodule ExTwilio.Capability do
   @doc """
   Sets the TTL of the token in seconds.
 
-  - [TTL docs](
-  https://www.twilio.com/docs/api/client/capability-tokens#token-expiration)
+  - [TTL docs](https://www.twilio.com/docs/api/client/capability-tokens#token-expiration)
 
-  ## Example
+  ## Examples
 
   Sets the TTL to one hour
 
       ExTwilio.Capability.with_ttl(3600)
+
   """
   @spec with_ttl(t, non_neg_integer) :: t
   def with_ttl(capability_struct = %__MODULE__{}, ttl) do
@@ -180,14 +186,14 @@ defmodule ExTwilio.Capability do
   that can be provided to the Twilio client. Supports clients
   with multiple capabilties.
 
-  - [Multiple capability docs](
-  https://www.twilio.com/docs/api/client/capability-tokens#multiple-capabilities)
+  - [Multiple capability docs](https://www.twilio.com/docs/api/client/capability-tokens#multiple-capabilities)
 
-  ## Example
+  ## Examples
 
   Generates and signs a token with the provided capabilities
 
       ExTwilio.Capability.token
+
   """
   @spec token(t) :: String.t()
   def token(

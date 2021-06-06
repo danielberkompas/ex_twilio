@@ -1,8 +1,8 @@
 defmodule ExTwilio.Lookup do
   @moduledoc """
-    Represents the Lookup Api provided by Twilio
+  Represents the Lookup Api provided by Twilio
 
-    - [Twilio docs](https://www.twilio.com/docs/lookup/api)
+  - [Twilio docs](https://www.twilio.com/docs/lookup/api)
   """
   alias ExTwilio.{Parser, Config}
   alias ExTwilio.UrlGenerator, as: Url
@@ -21,10 +21,12 @@ defmodule ExTwilio.Lookup do
   end
 
   @doc """
-    Retrieves information based on the inputed phone number. Supports Twilio's add-ons.
+  Retrieves information based on the inputed phone number. Supports Twilio's add-ons.
 
-    Examples -
-    {:ok, info} = ExTwilio.Lookup.retrieve("12345678910", [Type: carrier])
+  ## Examples
+
+      {:ok, info} = ExTwilio.Lookup.retrieve("12345678910", [Type: carrier])
+
   """
   def retrieve(phone_number, query \\ []) do
     auth = [basic_auth: {Config.account_sid(), Config.auth_token()}]

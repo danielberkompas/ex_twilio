@@ -11,6 +11,7 @@ defmodule ExTwilio.Feedback do
 
       ExTwilio.Feedback.create([quality_score: 5], [call: "call_sid"])
       ExTwilio.Feedback.find(call: "call_sid")
+
   """
 
   defstruct quality_score: nil,
@@ -22,7 +23,7 @@ defmodule ExTwilio.Feedback do
   Find feedback for a given call. Any options other than `[call: "sid"]` will
   result in a `FunctionClauseError`.
 
-  ## Example
+  ## Examples
 
       ExTwilio.Feedback.find(call: "sid")
       %ExTwilio.Feedback{issues: [], quality_score: 5}

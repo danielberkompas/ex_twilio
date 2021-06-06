@@ -2,13 +2,16 @@ defmodule ExTwilio.JWT.AccessToken.VoiceGrant do
   @moduledoc """
   A JWT grant to access a given Twilio voice service.
 
-    ExTwilio.JWT.AccessToken.VoiceGrant.new(
-      outgoing_application_sid: "application_sid",
-      outgoing_application: %{"key" => "value"},
-      incoming_allow: true,
-      push_credential_sid: "push_credential_sid",
-      endpoint_id: "endpoint_id"
-    )
+  ## Examples
+
+      ExTwilio.JWT.AccessToken.VoiceGrant.new(
+        outgoing_application_sid: "application_sid",
+        outgoing_application: %{"key" => "value"},
+        incoming_allow: true,
+        push_credential_sid: "push_credential_sid",
+        endpoint_id: "endpoint_id"
+      )
+
   """
 
   defstruct outgoing_application_sid: nil,

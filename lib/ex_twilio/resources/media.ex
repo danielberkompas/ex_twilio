@@ -10,6 +10,7 @@ defmodule ExTwilio.Media do
   to each function in this module.
 
       ExTwilio.Media.all(message: "message_sid")
+
   """
 
   defstruct sid: nil,

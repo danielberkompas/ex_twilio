@@ -1,10 +1,12 @@
 defmodule ExTwilio.Resource do
   @moduledoc """
   Mixin to include `ExTwilio.Api` module functionality in a module with slightly
-  prettier syntax. Under the hood, it delegates all the work to other `ExTwilio`
-  modules, primarily `ExTwilio.Api`.
+  prettier syntax.
 
-  ## Example
+  Under the hood, it delegates all the work to other `ExTwilio` modules,
+  primarily `ExTwilio.Api`.
+
+  ## Examples
 
   Define a module, and `use ExTwilio.Resource`.
 
@@ -77,7 +79,7 @@ defmodule ExTwilio.Resource do
 
       @doc """
       Underscored and lowercased collection name for a given resource.
-      Delegates the real work to `ExTwilio.Api.resource_collection_name/1` by
+      Delegates the real work to `ExTwilio.UrlGenerator.resource_collection_name/1` by
       default.
 
       Override in your module after `use ExTwilio.Resource` if you need
@@ -87,7 +89,7 @@ defmodule ExTwilio.Resource do
 
       @doc """
       CamelCase resource name as it would be used in Twilio's API. Delegates
-      the real work to `ExTwilio.Api.resource_name/1` by default.
+      the real work to `ExTwilio.UrlGenerator.resource_name/1` by default.
 
       Override in your module after `use ExTwilio.Resource` if you need
       something different.

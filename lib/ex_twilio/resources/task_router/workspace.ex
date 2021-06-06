@@ -1,6 +1,7 @@
 defmodule ExTwilio.TaskRouter.Workspace do
   @moduledoc """
   A Workspace is a container for your Tasks, Workers, TaskQueues, Workflows and Activities.
+
   Each of these items exists within a single Workspace and will not be shared across Workspaces.
 
   - [Twilio docs](https://www.twilio.com/docs/api/taskrouter/workspaces)

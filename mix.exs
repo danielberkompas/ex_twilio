@@ -1,14 +1,15 @@
 defmodule ExTwilio.Mixfile do
   use Mix.Project
 
+  @source_url "https://github.com/danielberkompas/ex_twilio"
+  @version "0.9.1"
+
   def project do
     [
       app: :ex_twilio,
-      version: "0.9.1",
+      version: @version,
       elixir: "~> 1.2",
       name: "ExTwilio",
-      description: "Twilio API library for Elixir",
-      source_url: "https://github.com/danielberkompas/ex_twilio",
       package: package(),
       docs: docs(),
       deps: deps()
@@ -32,19 +33,31 @@ defmodule ExTwilio.Mixfile do
     ]
   end
 
-  def docs do
+  defp docs do
     [
-      readme: "README.md",
-      main: ExTwilio
+      extras: [
+        "CHANGELOG.md": [title: "Changelog"],
+        "CONTRIBUTING.md": [title: "Contributing"],
+        "LICENSE.md": [title: "License"],
+        "README.md": [title: "Overview"],
+        "CALLING_TUTORIAL.md": [title: "Calling Tutorial"]
+      ],
+      main: "readme",
+      source_url: @source_url,
+      source_ref: "v#{@version}",
+      skip_undefined_reference_warnings_on: ["CHANGELOG.md"],
+      formatters: ["html"]
     ]
   end
 
   defp package do
     [
+      description: "Twilio API library for Elixir",
       maintainers: ["Daniel Berkompas"],
       licenses: ["MIT"],
       links: %{
-        "Github" => "https://github.com/danielberkompas/ex_twilio"
+        "Changelog" => "https://hexdocs.pm/ex_twilio/changelog.html",
+        "Github" => @source_url
       }
     ]
   end

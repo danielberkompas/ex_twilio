@@ -1,10 +1,10 @@
-Copyright Daniel Berkompas, 2015.
+Copyright (c) Daniel Berkompas, 2015.
 
 This product depends on the following third-party components:
 
      * elixir (https://github.com/elixir-lang/elixir)
 
-       Copyright 2013-2014 Plataformatec. Elixir is open source under the 
+       Copyright (c) 2012 Plataformatec. Elixir is open source under the
        Apache 2.0 license, available here:
 
        http://www.apache.org/licenses/LICENSE-2.0

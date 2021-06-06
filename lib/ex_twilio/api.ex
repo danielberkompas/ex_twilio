@@ -42,6 +42,7 @@ defmodule ExTwilio.Api do
 
       ExTwilio.Api.find(ExTwilio.Call, "nonexistent sid")
       {:error, %{"message" => The requested resource couldn't be found..."}, 404}
+
   """
   @spec find(atom, String.t() | nil, list) :: Parser.success() | Parser.error()
   def find(module, sid, options \\ []) do
@@ -61,6 +62,7 @@ defmodule ExTwilio.Api do
 
       ExTwilio.Api.create(ExTwilio.Call, [])
       {:error, %{"message" => "No 'To' number is specified"}, 400}
+
   """
   @spec create(atom, data, list) :: Parser.success() | Parser.error()
   def create(module, data, options \\ []) do
@@ -82,6 +84,7 @@ defmodule ExTwilio.Api do
 
       ExTwilio.Api.update(ExTwilio.Call, "nonexistent", [status: "complete"])
       {:error, %{"message" => "The requested resource ... was not found"}, 404}
+
   """
   @spec update(atom, String.t(), data, list) :: Parser.success() | Parser.error()
   def update(module, sid, data, options \\ [])
@@ -110,6 +113,7 @@ defmodule ExTwilio.Api do
 
       ExTwilio.Api.destroy(ExTwilio.Call, "nonexistent")
       {:error, %{"message" => The requested resource ... was not found"}, 404}
+
   """
   @spec destroy(atom, String.t()) :: Parser.success_delete() | Parser.error()
   def destroy(module, sid, options \\ [])
@@ -124,7 +128,7 @@ defmodule ExTwilio.Api do
   end
 
   @doc """
-  Builds custom auth header for subaccounts
+  Builds custom auth header for subaccounts.
 
   ## Examples
     iex> ExTwilio.Api.auth_header([account: 123, token: 123])
@@ -140,9 +144,9 @@ defmodule ExTwilio.Api do
   end
 
   @doc """
-  Builds custom auth header for subaccounts
-  handles master account case if :"Authorization"
-  custom header isn't present
+  Builds custom auth header for subaccounts.
+
+  Handles master account case if :"Authorization" custom header isn't present
 
   ## Examples
 

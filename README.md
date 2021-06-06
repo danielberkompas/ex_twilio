@@ -1,9 +1,16 @@
 ExTwilio
 ========
+
 [![Hex.pm](https://img.shields.io/hexpm/v/ex_twilio.svg)](https://hex.pm/packages/ex_twilio)
 [![Build Status](https://danielberkompas.semaphoreci.com/badges/ex_twilio/branches/master.svg?style=shields)](https://danielberkompas.semaphoreci.com/projects/ex_twilio)
 [![Inline docs](http://inch-ci.org/github/danielberkompas/ex_twilio.svg?branch=master)](http://inch-ci.org/github/danielberkompas/ex_twilio)
-[![Deps Status](https://beta.hexfaktor.org/badge/all/github/danielberkompas/ex_twilio.svg)](https://beta.hexfaktor.org/github/danielberkompas/ex_twilio)
+[![Module Version](https://img.shields.io/hexpm/v/ex_twilio.svg)](https://hex.pm/packages/xxx)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/ex_twilio/)
+[![Total Download](https://img.shields.io/hexpm/dt/ex_twilio.svg)](https://hex.pm/packages/xxx)
+[![License](https://img.shields.io/hexpm/l/ex_twilio.svg)](https://github.com/danielberkompas/xxx/blob/master/LICENSE)
+[![Last Updated](https://img.shields.io/github/last-commit/danielberkompas/ex_twilio.svg)](https://github.com/danielberkompas/xxx/commits/master)
+
+ExTwilio is a relatively full-featured API client for the Twilio API.
 
 ## Installation
 
@@ -11,7 +18,9 @@ ExTwilio is currently beta software. You can install it from Hex:
 
 ```elixir
 def deps do
-  [{:ex_twilio, "~> 0.9.1"}]
+  [
+    {:ex_twilio, "~> 0.9.1"}
+  ]
 end
 ```
 
@@ -19,18 +28,22 @@ Or from Github:
 
 ```elixir
 def deps do
-  [{:ex_twilio, github: "danielberkompas/ex_twilio"}]
+  [
+    {:ex_twilio, github: "danielberkompas/ex_twilio"}
+  ]
 end
 ```
 
-and run `mix deps.get`. 
+and run `mix deps.get`.
 
 
-If using elixir 1.3 or lower add `:ex_twilio` as a application dependency:
+If using Elixir 1.3 or lower add `:ex_twilio` as a application dependency:
 
 ```elixir
 def application do
-  [applications: [:ex_twilio]]
+  [
+    applications: [:ex_twilio]
+  ]
 end
 ```
 
@@ -241,11 +254,12 @@ Please look at `ExTwilio.Message`
 
 See the [CONTRIBUTING.md](CONTRIBUTING.md) file for contribution guidelines.
 
-## License
+## Copyright and License
+
+Copyright (c) 2015 Daniel Berkompas
+
 ExTwilio is licensed under the MIT license. For more details, see the `LICENSE`
 file at the root of the repository. It depends on Elixir, which is under the
 Apache 2 license.
 
-Twilio<sup>TM</sup> is trademark of Twilio, Inc.
-
-[hex]: http://hex.pm
+Twilio™ is trademark of Twilio, Inc.

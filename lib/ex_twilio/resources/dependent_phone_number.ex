@@ -10,6 +10,7 @@ defmodule ExTwilio.DependentPhoneNumber do
   pass in a parent Address SID to all functions in this module.
 
       ExTwilio.DependentPhoneNumber.all(address: "address_sid")
+
   """
 
   defstruct sid: nil,
