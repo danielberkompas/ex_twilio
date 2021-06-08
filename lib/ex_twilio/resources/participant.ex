@@ -10,6 +10,7 @@ defmodule ExTwilio.Participant do
   conference to each function in this module. For example:
 
       ExTwilio.Participant.all(conference: "conference_sid")
+
   """
 
   defstruct call_sid: nil,

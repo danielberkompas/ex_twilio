@@ -6,20 +6,22 @@ defprotocol ExTwilio.JWT.Grant do
   @doc """
   The type of claim this grant is.
 
-  ## Example
+  ## Examples
 
       def type(_grant), do: "chat"
+
   """
   def type(grant)
 
   @doc """
   The attributes of the claim.
 
-  ## Example
+  ## Examples
 
       def attrs(grant) do
         %{"name" => grant.name}
       end
+
   """
   def attrs(grant)
 end

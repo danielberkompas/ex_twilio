@@ -8,7 +8,12 @@ defmodule ExTwilio.Fax do
 
   Here is an example of sending an SMS message:
 
-    ExTwilio.Fax.create(to: "+15558675310", from: "+15017122661", media_url: "https://www.twilio.com/docs/documents/25/justthefaxmaam.pdf")
+      ExTwilio.Fax.create(
+        to: "+15558675310",
+        from: "+15017122661",
+        media_url: "https://www.twilio.com/docs/documents/25/justthefaxmaam.pdf"
+      )
+
   """
 
   defstruct sid: nil,

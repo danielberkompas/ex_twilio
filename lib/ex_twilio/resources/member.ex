@@ -10,6 +10,7 @@ defmodule ExTwilio.Member do
   SID into each function in this module.
 
       ExTwilio.Member.all(queue: "queue_sid")
+
   """
 
   defstruct call_sid: nil,

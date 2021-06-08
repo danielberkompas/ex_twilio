@@ -1,19 +1,20 @@
 defmodule ExTwilio.WorkerCapability do
   @moduledoc """
-  Capability tokens are used to sign communications from devices
-  to Twilio. You create a token on your server, specify what
-  capabilities you would like your device to have, then pass
-  the token to your client to use. The tokens generated are
-  JSON Web Tokens (JWT).
+  Capability tokens are used to sign communications from devices to Twilio.
+
+  You create a token on your server, specify what capabilities you would like
+  your device to have, then pass the token to your client to use. The tokens
+  generated are JSON Web Tokens (JWT).
 
   - [Capability docs](https://www.twilio.com/docs/api/client/capability-tokens)
   - [JWT docs](https://jwt.io/introduction/)
 
-  ## Example
+  ## Examples
 
       ExTwilio.WorkerCapability.new("worker_sid", "workspace_sid")
       |> ExTwilio.WorkerCapability.token
       "xxxxx.yyyyy.zzzzz"
+
   """
 
   alias ExTwilio.Config
@@ -41,9 +42,10 @@ defmodule ExTwilio.WorkerCapability do
   Initialises a new capability specification with a TTL of one hour,
   and the accound sid and auth token taken from the configuration.
 
-  ## Example
+  ## Examples
 
       ExTwilio.WorkerCapability.new
+
   """
   @spec new(String.t(), String.t()) :: t
   def new(worker_sid, workspace_sid) do
@@ -59,11 +61,12 @@ defmodule ExTwilio.WorkerCapability do
   @doc """
   Sets the time at which the TTL begins in seconds since epoch.
 
-  ## Example
+  ## Examples
 
-  Sets the TTL to begin on 24th May, 2016
+  Sets the TTL to begin on 24th May, 2016:
 
       ExTwilio.WorkerCapability.starting_at(1464096368)
+
   """
   @spec starting_at(t, non_neg_integer) :: t
   def starting_at(capability_struct = %__MODULE__{}, start_time) do
@@ -73,11 +76,12 @@ defmodule ExTwilio.WorkerCapability do
   @doc """
   Sets the Twilio account sid used to issue the token.
 
-  ## Example
+  ## Examples
 
-  Sets the account sid to be XXX
+  Sets the account sid to be XXX:
 
       ExTwilio.WorkerCapability.with_account_sid('XXX')
+
   """
   @spec with_account_sid(t, String.t()) :: t
   def with_account_sid(capability_struct = %__MODULE__{}, account_sid) do
@@ -87,11 +91,12 @@ defmodule ExTwilio.WorkerCapability do
   @doc """
   Sets the Twilio account auth token used to sign the capability token.
 
-  ## Example
+  ## Examples
 
-  Sets the auth token to be XXX
+  Sets the auth token to be XXX:
 
       ExTwilio.WorkerCapability.with_auth_token('XXX')
+
   """
   @spec with_auth_token(t, String.t()) :: t
   def with_auth_token(capability_struct = %__MODULE__{}, auth_token) do
@@ -101,11 +106,12 @@ defmodule ExTwilio.WorkerCapability do
   @doc """
   Sets the Twilio worker sid used to sign the capability token.
 
-  ## Example
+  ## Examples
 
-  Sets the worker sid to be XXX
+  Sets the worker sid to be XXX:
 
       ExTwilio.WorkerCapability.with_worker_sid('XXX')
+
   """
   @spec with_worker_sid(t, String.t()) :: t
   def with_worker_sid(capability_struct = %__MODULE__{}, worker_sid) do
@@ -115,11 +121,12 @@ defmodule ExTwilio.WorkerCapability do
   @doc """
   Sets the Twilio workspace sid used to sign the capability token.
 
-  ## Example
+  ## Examples
 
-  Sets the workspace sid to be XXX
+  Sets the workspace sid to be XXX:
 
       ExTwilio.WorkerCapability.with_workspace_sid('XXX')
+
   """
   @spec with_workspace_sid(t, String.t()) :: t
   def with_workspace_sid(capability_struct = %__MODULE__{}, workspace_sid) do
@@ -129,14 +136,14 @@ defmodule ExTwilio.WorkerCapability do
   @doc """
   Sets the TTL of the token in seconds.
 
-  - [TTL docs](
-  https://www.twilio.com/docs/api/client/capability-tokens#token-expiration)
+  - [TTL docs](https://www.twilio.com/docs/api/client/capability-tokens#token-expiration)
 
-  ## Example
+  ## Examples
 
-  Sets the TTL to one hour
+  Sets the TTL to one hour:
 
       ExTwilio.WorkerCapability.with_ttl(3600)
+
   """
   @spec with_ttl(t, non_neg_integer) :: t
   def with_ttl(capability_struct = %__MODULE__{}, ttl) do
@@ -171,13 +178,14 @@ defmodule ExTwilio.WorkerCapability do
   end
 
   @doc """
-  Generates a JWT token based on the requested policies
+  Generates a JWT token based on the requested policies.
 
-  ## Example
+  ## Examples
 
-  Generates and signs a token with the provided capabilities
+  Generates and signs a token with the provided capabilities:
 
       ExTwilio.WorkerCapability.token
+
   """
   @spec token(t) :: String.t()
   def token(%__MODULE__{

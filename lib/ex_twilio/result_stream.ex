@@ -3,7 +3,7 @@ defmodule ExTwilio.ResultStream do
   Generate a stream of results for a given Twilio API URL. Pages are lazily
   loaded on demand.
 
-  ## Example
+  ## Examples
 
       ExTwilio.ResultStream.new(ExTwilio.Call)
       |> Stream.map(fn call -> call.sid end)
@@ -26,7 +26,7 @@ defmodule ExTwilio.ResultStream do
 
   - `module`: The name of the module to create a Stream of results for.
 
-  ## Example
+  ## Examples
 
       ExTwilio.ResultStream.new(ExTwilio.Call)
   """

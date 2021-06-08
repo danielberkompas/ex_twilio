@@ -1,5 +1,7 @@
 defmodule ExTwilio.Ext.Map do
-  @moduledoc "Additional helper functions for working with maps"
+  @moduledoc """
+  Additional helper functions for working with maps.
+  """
 
   @type key :: atom | String.t()
 

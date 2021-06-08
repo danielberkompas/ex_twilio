@@ -1,9 +1,11 @@
 defmodule ExTwilio.JWT.AccessToken.VideoGrant do
   @moduledoc """
   A JWT grant to access a given Twilio video service.
-  ExTwilio.JWT.AccessToken.VideoGrant.new(
-  room: "room_id"
-  )
+
+  ## Examples
+
+      ExTwilio.JWT.AccessToken.VideoGrant.new(room: "room_id")
+
   """
 
   @enforce_keys [:room]

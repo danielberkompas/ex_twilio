@@ -101,6 +101,7 @@ defmodule ExTwilio.UrlGenerator do
 
       iex> ExTwilio.UrlGenerator.to_query_string([hello: "world", how_are: "you"])
       "Hello=world&HowAre=you"
+
   """
   @spec to_query_string(list) :: String.t()
   def to_query_string(list) do
@@ -123,6 +124,7 @@ defmodule ExTwilio.UrlGenerator do
       # Uses only the last segment of the module name
       iex> ExTwilio.UrlGenerator.resource_name(:"ExTwilio.Resources.Call")
       "Calls"
+
   """
   @spec resource_name(atom | String.t()) :: String.t()
   def resource_name(module) do
@@ -138,6 +140,7 @@ defmodule ExTwilio.UrlGenerator do
 
       iex> ExTwilio.UrlGenerator.resource_collection_name(Resource)
       "resources"
+
   """
   @spec resource_collection_name(atom) :: String.t()
   def resource_collection_name(module) do

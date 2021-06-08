@@ -1,6 +1,6 @@
 defmodule ExTwilio.JWT.AccessToken do
   @moduledoc """
-  A Twilio JWT access token, as described in the Twilio docs:
+  A Twilio JWT access token, as described in the Twilio docs.
 
   https://www.twilio.com/docs/iam/access-tokens
   """
@@ -31,7 +31,7 @@ defmodule ExTwilio.JWT.AccessToken do
   @doc """
   Creates a new JWT access token.
 
-  ## Example
+  ## Examples
 
       AccessToken.new(
         account_sid: "account_sid",
@@ -41,6 +41,7 @@ defmodule ExTwilio.JWT.AccessToken do
         expires_in: 86_400,
         grants: [AccessToken.ChatGrant.new(service_sid: "sid")]
       )
+
   """
   @spec new(attrs :: Keyword.t()) :: t
   def new(attrs \\ []) do
@@ -52,7 +53,7 @@ defmodule ExTwilio.JWT.AccessToken do
 
   Will raise errors if the `token` does not have all the required fields.
 
-  ## Example
+  ## Examples
 
       token =
         AccessToken.new(
@@ -66,6 +67,7 @@ defmodule ExTwilio.JWT.AccessToken do
 
       AccessToken.to_jwt!(token)
       # => "eyJhbGciOiJIUzI1NiIsImN0eSI6InR3aWxpby1mcGE7dj0xIiwidHlwIjoiSldUIn0.eyJleHAiOjE1MjM5MTIxODgsImdyYW50cyI6eyJjaGF0Ijp7ImVuZHBvaW50X2lkIjpudWxsLCJzZXJ2aWNlX3NpZCI6InNpZCJ9LCJpZGVudGl0eSI6InVzZXJAZW1haWwuY29tIn0sImlhdCI6MTUyMzkwNDk4OCwibmJmIjoxNTIzOTA0OTg3fQ.M_5dsj1VWBrIZKvcIdygSpmiMsrZdkplYYNjxEhBHk0"
+
   """
   @spec to_jwt!(t) :: String.t() | no_return
   def to_jwt!(token) do
