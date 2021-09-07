@@ -11,14 +11,14 @@ defmodule ExTwilio.Config do
 
       config :ex_twilio, account_sid: "YOUR_ACCOUNT_SID"
   """
-  def account_sid, do: from_env(:ex_twilio, :account_sid)
+  def account_sid, do: from_env(:account_sid)
 
   @doc """
   Returns the Twilio Auth Token for your account. Set it in `mix.exs`:
 
       config :ex_twilio, auth_token: "YOUR_AUTH_TOKEN"
   """
-  def auth_token, do: from_env(:ex_twilio, :auth_token)
+  def auth_token, do: from_env(:auth_token)
 
   @doc """
   Returns the domain of the Twilio API. This will default to "api.twilio.com",
@@ -26,7 +26,7 @@ defmodule ExTwilio.Config do
 
       config :ex_twilio, api_domain: "other.twilio.com"
   """
-  def api_domain, do: from_env(:ex_twilio, :api_domain, "api.twilio.com")
+  def api_domain, do: from_env(:api_domain, "api.twilio.com")
 
   @doc """
   Returns the protocol used for the Twilio API. The default is `"https"` for
@@ -38,7 +38,7 @@ defmodule ExTwilio.Config do
   @doc """
   Options added to HTTPoison requests
   """
-  def request_options, do: from_env(:ex_twilio, :request_options, [])
+  def request_options, do: from_env(:request_options, [])
 
   @doc """
   Returns the version of the API that ExTwilio is going to talk to. Set it in
@@ -69,14 +69,10 @@ defmodule ExTwilio.Config do
 
   def video_url, do: "https://video.twilio.com/v1"
 
-  @doc """
-  A light wrapper around `Application.get_env/2`, providing automatic support for
-  `{:system, "VAR"}` tuples.
-  """
-  def from_env(otp_app, key, default \\ nil)
+  defp from_env(key, default \\ nil)
 
-  def from_env(otp_app, key, default) do
-    otp_app
+  defp from_env(key, default) do
+    :ex_twilio
     |> Application.get_env(key, default)
     |> read_from_system(default)
   end
