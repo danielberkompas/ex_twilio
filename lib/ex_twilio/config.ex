@@ -55,19 +55,27 @@ defmodule ExTwilio.Config do
   """
   def base_url, do: "#{protocol()}://#{api_domain()}/#{api_version()}"
 
-  def fax_url, do: "https://fax.twilio.com/v1"
+  def fax_url, do: from_env(:fax_url, "#{protocol()}://fax.#{domain()}/v1")
 
-  def task_router_url, do: "https://taskrouter.twilio.com/v1"
+  def task_router_url, do: from_env(:task_router_url, "#{protocol()}://taskrouter.#{domain()}/v1")
 
-  def task_router_websocket_base_url, do: "https://event-bridge.twilio.com/v1/wschannels"
+  def task_router_websocket_base_url,
+    do:
+      from_env(
+        :task_router_websocket_base_url,
+        "#{protocol()}://event-bridge.#{domain()}/v1/wschannels"
+      )
 
-  def programmable_chat_url, do: "https://chat.twilio.com/v2"
+  def programmable_chat_url,
+    do: from_env(:programmable_chat_url, "#{protocol()}://chat.#{domain()}/v2")
 
-  def notify_url, do: "https://notify.twilio.com/v1"
+  def notify_url, do: from_env(:notify_url, "#{protocol()}://notify.#{domain()}/v1")
 
-  def studio_url, do: "https://studio.twilio.com/v1"
+  def studio_url, do: from_env(:studio_url, "#{protocol()}://studio.#{domain()}/v1")
 
-  def video_url, do: "https://video.twilio.com/v1"
+  def video_url, do: from_env(:video_url, "#{protocol()}://video.#{domain()}/v1")
+
+  defp domain, do: from_env(:domain, "twilio.com")
 
   defp from_env(key, default \\ nil)
 
