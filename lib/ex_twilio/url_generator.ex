@@ -40,38 +40,44 @@ defmodule ExTwilio.UrlGenerator do
   """
   @spec build_url(atom, String.t() | nil, list) :: String.t()
   def build_url(module, id \\ nil, options \\ []) do
+    config = options[:config] || Config.new()
+
     {url, options} =
       case Module.split(module) do
         ["ExTwilio", "TaskRouter" | _] ->
           options = add_workspace_to_options(module, options)
-          url = add_segments(Config.task_router_url(), module, id, options)
+          url = add_segments(config.urls.task_router, module, id, options)
           {url, options}
 
         ["ExTwilio", "ProgrammableChat" | _] ->
-          url = add_segments(Config.programmable_chat_url(), module, id, options)
+          url = add_segments(config.urls.programmable_chat, module, id, options)
           {url, options}
 
         ["ExTwilio", "Notify" | _] ->
-          url = add_segments(Config.notify_url(), module, id, options)
+          url = add_segments(config.urls.notify, module, id, options)
           {url, options}
 
         ["ExTwilio", "Fax" | _] ->
-          url = add_segments(Config.fax_url(), module, id, options)
+          url = add_segments(config.urls.fax, module, id, options)
           {url, options}
 
         ["ExTwilio", "Studio" | _] ->
           options = add_flow_to_options(module, options)
-          url = add_segments(Config.studio_url(), module, id, options)
+          url = add_segments(config.urls.studio, module, id, options)
           {url, options}
 
         ["ExTwilio", "Video" | _] ->
-          url = add_segments(Config.video_url(), module, id, options)
+          url = add_segments(config.urls.video, module, id, options)
           {url, options}
 
         _ ->
           # Add Account SID segment if not already present
           options = add_account_to_options(module, options)
-          url = add_segments(Config.base_url(), module, id, options) <> ".json"
+
+          url =
+            add_segments("#{config.urls.api}/#{config.api_version}", module, id, options) <>
+              ".json"
+
           {url, options}
       end
 
