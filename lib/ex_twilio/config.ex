@@ -1,90 +1,144 @@
 defmodule ExTwilio.Config do
   @moduledoc """
-  Stores configuration variables used to communicate with Twilio's API.
+  Abstracts all configuration for interactions with Twilio API.
+  This enables ExTwilio to work with multiple accounts, since the auth token, account sid,
+  workspace sid and api version are all specified in the config struct.
+  Now you can do requests with different auth token, account sid and manage multiple account
+  interactions with Twilio.
 
-  All settings also accept `{:system, "ENV_VAR_NAME"}` to read their
-  values from environment variables at runtime.
+  The config can be used to allow ExTwilio to be used in tests too.
+  You're able to provide an specific url for any Twilio API subdomain.
+  You're also able to provide a different domain to build the proper subdomains urls.
   """
+  defstruct account: nil, api_version: nil, token: nil, workspace: nil, urls: %{}
 
+  alias ExTwilio.Config.Env
+
+  @typedoc """
+  Config struct with all credentials and urls required to interact with Twilio.
+  - urls: the urls that gonna be used to interact with Twilio.
+  - account: Account SID used for your interactions.
+  - api_version: The API version set for interactions with `api.twilio.com`
+  - token: The Auth Token to be used on requests.
+  - workspace The Worspace SID used for interactions that requires a Workspace SID.
+  """
+  @type t :: %__MODULE__{
+          urls: %{
+            api: String.t() | nil,
+            fax: String.t() | nil,
+            task_router: String.t() | nil,
+            task_router_websocket: String.t() | nil,
+            programmable_chat: String.t() | nil,
+            notify: String.t() | nil,
+            studio: String.t() | nil,
+            video: String.t() | nil
+          },
+          account: String.t() | nil,
+          api_version: String.t() | nil,
+          token: String.t() | nil,
+          workspace: String.t() | nil
+        }
+
+  @typedoc """
+  Options to configure identity and api version and urls for Twilio.
+  - urls: optional configuration for Twilio urls.
+  - account: Account SID to use when iteracting with Twilio API.
+  - api_version: set the specific version of the API to interact, fallbacks to `2010-04-01`.
+  - token: Twilio Auth Token for your account.
+  - workspace: Workspace SID to use when interacting with Twilio API that requires Workspace SID.
+  """
+  @type config_opts :: [
+          urls: url_opts(),
+          account: String.t() | nil,
+          api_version: String.t() | nil,
+          token: String.t() | nil,
+          workspace: String.t() | nil
+        ]
+
+  @typedoc """
+  Options to configure the url used to do request for the specific Twilio subdomains.
+  If no options are provided it gonna fallback for the default urls.
+  - domain: for the use case of only changing the `twilio.com` domain for all subdomains.
+  - api: set the specific url to be used for `api.twilio.com`.
+  - fax: set the specific url to be used for `fax.twilio.com`.
+  - task_router: set the specific url to be used for `taskrouter.twilio.com`.
+  - task_router_websocket: set the specific url to be used for `event-bridge.twilio.com/v1/wschannels`.
+  - programmable_chat: set the specific url to be used for `chat.twilio.com`.
+  - notify: set the specific url to be used for `notify.twilio.com`.
+  - studio: set the specific url to be used for `studio.twilio.com`.
+  - video: set the specific url to be used for `video.twilio.com`.
+  """
+  @type url_opts :: [
+          domain: String.t() | nil,
+          api: String.t() | nil,
+          fax: String.t() | nil,
+          task_router: String.t() | nil,
+          task_router_websocket: String.t() | nil,
+          programmable_chat: String.t() | nil,
+          notify: String.t() | nil,
+          studio: String.t() | nil,
+          video: String.t() | nil
+        ]
   @doc """
-  Returns the Twilio Account SID. Set it in `mix.exs`:
-
-      config :ex_twilio, account_sid: "YOUR_ACCOUNT_SID"
+  It generates a new config struct to be used with ExTwilio functions.
+  If no options are provided it gonna fallback to the Application env configuration behavior
+  present in `ExTwilio.Config.Env`.
+  Available options are `t:ExTwilio.Config.config_opts/0`.
   """
-  def account_sid, do: from_env(:account_sid)
-
-  @doc """
-  Returns the Twilio Auth Token for your account. Set it in `mix.exs`:
-
-      config :ex_twilio, auth_token: "YOUR_AUTH_TOKEN"
-  """
-  def auth_token, do: from_env(:auth_token)
-
-  @doc """
-  Returns the domain of the Twilio API. This will default to "api.twilio.com",
-  but can be overridden using the following setting in `mix.exs`:
-
-      config :ex_twilio, api_domain: "other.twilio.com"
-  """
-  def api_domain, do: from_env(:api_domain, "api.twilio.com")
-
-  @doc """
-  Returns the protocol used for the Twilio API. The default is `"https"` for
-  interacting with the Twilio API, but when testing with Bypass, you may want
-  this to be `"http"`.
-  """
-  def protocol, do: Application.get_env(:ex_twilio, :protocol) || "https"
-
-  @doc """
-  Options added to HTTPoison requests
-  """
-  def request_options, do: from_env(:request_options, [])
-
-  @doc """
-  Returns the version of the API that ExTwilio is going to talk to. Set it in
-  `mix.exs`:
-      config :ex_twilio, api_version: "2015-05-06"
-  """
-  def api_version, do: Application.get_env(:ex_twilio, :api_version) || "2010-04-01"
-
-  def workspace_sid, do: from_env(:workspace_sid, "12345")
-
-  @doc """
-  Return the combined base URL of the Twilio API, using the configuration
-  settings given.
-  """
-  def base_url, do: "#{protocol()}://#{api_domain()}/#{api_version()}"
-
-  def fax_url, do: from_env(:fax_url, "#{protocol()}://fax.#{domain()}/v1")
-
-  def task_router_url, do: from_env(:task_router_url, "#{protocol()}://taskrouter.#{domain()}/v1")
-
-  def task_router_websocket_base_url,
-    do:
-      from_env(
-        :task_router_websocket_base_url,
-        "#{protocol()}://event-bridge.#{domain()}/v1/wschannels"
-      )
-
-  def programmable_chat_url,
-    do: from_env(:programmable_chat_url, "#{protocol()}://chat.#{domain()}/v2")
-
-  def notify_url, do: from_env(:notify_url, "#{protocol()}://notify.#{domain()}/v1")
-
-  def studio_url, do: from_env(:studio_url, "#{protocol()}://studio.#{domain()}/v1")
-
-  def video_url, do: from_env(:video_url, "#{protocol()}://video.#{domain()}/v1")
-
-  defp domain, do: from_env(:domain, "twilio.com")
-
-  defp from_env(key, default \\ nil)
-
-  defp from_env(key, default) do
-    :ex_twilio
-    |> Application.get_env(key, default)
-    |> read_from_system(default)
+  @spec new(config_opts()) :: t()
+  def new(opts \\ []) do
+    %__MODULE__{
+      urls: build_urls(opts[:urls] || []),
+      api_version: opts[:api_version] || Env.api_version(),
+      account: opts[:account] || Env.account_sid(),
+      token: opts[:token] || Env.auth_token(),
+      workspace: opts[:workspace] || Env.workspace_sid()
+    }
   end
 
-  defp read_from_system({:system, env}, default), do: System.get_env(env) || default
-  defp read_from_system(value, _default), do: value
+  defp build_urls(opts) do
+    %{
+      api: api_url(opts),
+      fax: fax_url(opts),
+      task_router: task_router_url(opts),
+      task_router_websocket: task_router_websocket_url(opts),
+      programmable_chat: programmable_chat_url(opts),
+      notify: notify_url(opts),
+      studio: studio_url(opts),
+      video: video_url(opts)
+    }
+  end
+
+  defp api_url(opts),
+    do:
+      opts[:api] || build_url(opts[:domain], "api", opts[:api_version]) ||
+        "https://#{Env.api_domain()}"
+
+  defp fax_url(opts), do: opts[:fax] || build_url(opts[:domain], "fax", "v1") || Env.fax_url()
+
+  defp task_router_url(opts),
+    do:
+      opts[:task_router] || build_url(opts[:domain], "taskrouter", "v1") || Env.task_router_url()
+
+  defp task_router_websocket_url(opts),
+    do:
+      opts[:task_router_websocket] || build_url(opts[:domain], "event-bridge", "v1/wschannels") ||
+        Env.task_router_websocket_base_url()
+
+  defp programmable_chat_url(opts),
+    do:
+      opts[:programmable_chat] || build_url(opts[:domain], "chat", "v2") ||
+        Env.programmable_chat_url()
+
+  defp notify_url(opts),
+    do: opts[:notify] || build_url(opts[:domain], "notify", "v1") || Env.notify_url()
+
+  defp studio_url(opts),
+    do: opts[:studio] || build_url(opts[:domain], "studio", "v1") || Env.studio_url()
+
+  defp video_url(opts),
+    do: opts[:video] || build_url(opts[:domain], "video", "v1") || Env.video_url()
+
+  defp build_url(nil, _subdomain, _version), do: nil
+  defp build_url(domain, subdomain, version), do: "htpps://#{subdomain}.#{domain}/#{version}"
 end
