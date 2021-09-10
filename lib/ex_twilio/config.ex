@@ -16,7 +16,7 @@ defmodule ExTwilio.Config do
 
   @typedoc """
   Config struct with all credentials and urls required to interact with Twilio.
-  - urls: the urls that gonna be used to interact with Twilio.
+  - urls: urls for the various Twilio services.
   - account: Account SID used for your interactions.
   - api_version: The API version set for interactions with `api.twilio.com`
   - token: The Auth Token to be used on requests.
