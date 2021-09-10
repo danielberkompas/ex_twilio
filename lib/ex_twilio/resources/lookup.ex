@@ -29,7 +29,8 @@ defmodule ExTwilio.Lookup do
 
   """
   def retrieve(phone_number, query \\ []) do
-    auth = [basic_auth: {Config.account_sid(), Config.auth_token()}]
+    config = Config.new()
+    auth = [basic_auth: {config.account, config.token}]
     query_string = "?" <> Url.to_query_string(query)
 
     "#{@base_url}#{phone_number}#{query_string}"

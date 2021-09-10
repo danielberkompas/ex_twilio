@@ -17,25 +17,25 @@ defmodule ExTwilio.UrlGenerator do
   # Examples
 
       iex> build_url(Resource)
-      "#{Config.base_url()}/Accounts/#{Config.account_sid()}/Resources.json"
+      "#{Config.new().urls.api}/#{Config.new().api_version}/Accounts/#{Config.new().account}/Resources.json"
 
       iex> build_url(Resource, nil, account: 2)
-      "#{Config.base_url()}/Accounts/2/Resources.json"
+      "#{Config.new().urls.api}/#{Config.new().api_version}/Accounts/2/Resources.json"
 
       iex> build_url(Resource, 1, account: 2)
-      "#{Config.base_url()}/Accounts/2/Resources/1.json"
+      "#{Config.new().urls.api}/#{Config.new().api_version}/Accounts/2/Resources/1.json"
 
       iex> build_url(Resource, 1)
-      "#{Config.base_url()}/Accounts/#{Config.account_sid()}/Resources/1.json"
+      "#{Config.new().urls.api}/#{Config.new().api_version}/Accounts/#{Config.new().account}/Resources/1.json"
 
       iex> build_url(Resource, nil, page: 20)
-      "#{Config.base_url()}/Accounts/#{Config.account_sid()}/Resources.json?Page=20"
+      "#{Config.new().urls.api}/#{Config.new().api_version}/Accounts/#{Config.new().account}/Resources.json?Page=20"
 
       iex> build_url(Resource, nil, iso_country_code: "US", type: "Mobile", page: 20)
-      "#{Config.base_url()}/Accounts/#{Config.account_sid()}/Resources/US/Mobile.json?Page=20"
+      "#{Config.new().urls.api}/#{Config.new().api_version}/Accounts/#{Config.new().account}/Resources/US/Mobile.json?Page=20"
 
       iex> build_url(Resource, 1, sip_ip_access_control_list: "list", account: "account_sid")
-      "#{Config.base_url()}/Accounts/account_sid/SIP/IpAccessControlLists/list/Resources/1.json"
+      "#{Config.new().urls.api}/#{Config.new().api_version}/Accounts/account_sid/SIP/IpAccessControlLists/list/Resources/1.json"
 
   """
   @spec build_url(atom, String.t() | nil, list) :: String.t()
@@ -45,7 +45,6 @@ defmodule ExTwilio.UrlGenerator do
     {url, options} =
       case Module.split(module) do
         ["ExTwilio", "TaskRouter" | _] ->
-          options = add_workspace_to_options(module, options)
           url = add_segments(config.urls.task_router, module, id, options)
           {url, options}
 
@@ -71,9 +70,6 @@ defmodule ExTwilio.UrlGenerator do
           {url, options}
 
         _ ->
-          # Add Account SID segment if not already present
-          options = add_account_to_options(module, options)
-
           url =
             add_segments("#{config.urls.api}/#{config.api_version}", module, id, options) <>
               ".json"
@@ -155,24 +151,8 @@ defmodule ExTwilio.UrlGenerator do
     |> Macro.underscore()
   end
 
-  @spec add_account_to_options(atom, list) :: list
-  defp add_account_to_options(module, options)
-
-  defp add_account_to_options(module, options) do
-    if module == ExTwilio.Account and options[:account] == nil do
-      options
-    else
-      Keyword.put_new(options, :account, Config.account_sid())
-    end
-  end
-
   defp add_flow_to_options(_module, options) do
     Keyword.put_new(options, :flow, Keyword.get(options, :flow_sid))
-  end
-
-  @spec add_workspace_to_options(atom, list) :: list
-  defp add_workspace_to_options(_module, options) do
-    Keyword.put_new(options, :workspace, Config.workspace_sid())
   end
 
   @spec normalize_parents(list) :: list
@@ -194,7 +174,7 @@ defmodule ExTwilio.UrlGenerator do
       |> normalize_parents()
       |> Enum.map(fn parent -> parent.key end)
       |> Enum.concat(module.children)
-      |> Enum.concat([:token])
+      |> Enum.concat([:token, :config])
 
     query =
       options

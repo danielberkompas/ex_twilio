@@ -49,11 +49,13 @@ defmodule ExTwilio.WorkerCapability do
   """
   @spec new(String.t(), String.t()) :: t
   def new(worker_sid, workspace_sid) do
+    config = Config.new()
+
     %__MODULE__{}
     |> starting_at(:erlang.system_time(:seconds))
     |> with_ttl(3600)
-    |> with_account_sid(Config.account_sid())
-    |> with_auth_token(Config.auth_token())
+    |> with_account_sid(config.account)
+    |> with_auth_token(config.token)
     |> with_worker_sid(worker_sid)
     |> with_workspace_sid(workspace_sid)
   end
@@ -214,7 +216,7 @@ defmodule ExTwilio.WorkerCapability do
   end
 
   defp websocket_requests_url(worker_sid, account_sid) do
-    "#{Config.task_router_websocket_base_url()}/#{account_sid}/#{worker_sid}"
+    "#{Config.new().urls.task_router_websocket}/#{account_sid}/#{worker_sid}"
   end
 
   defp expiration_time(start_time, ttl) do
@@ -255,7 +257,7 @@ defmodule ExTwilio.WorkerCapability do
   end
 
   defp workspaces_base_url(workspace_sid) do
-    "#{Config.task_router_url()}/Workspaces/#{workspace_sid}"
+    "#{Config.new().urls.task_router}/Workspaces/#{workspace_sid}"
   end
 
   defp task_url(workspace_sid) do

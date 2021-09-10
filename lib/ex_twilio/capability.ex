@@ -52,11 +52,26 @@ defmodule ExTwilio.Capability do
   """
   @spec new :: t
   def new do
+    Config.new()
+    |> new()
+  end
+
+  @doc """
+  Initialises a new capability specification with a TTL of one hour,
+  using a config to get the account sid and auth token.
+
+  ## Examples
+      ExTwilio.Config.new()
+      |> ExTwilio.Capability.new()
+
+  """
+  @spec new(Config.t()) :: t
+  def new(config) do
     %__MODULE__{}
     |> starting_at(:erlang.system_time(:seconds))
     |> with_ttl(3600)
-    |> with_account_sid(Config.account_sid())
-    |> with_auth_token(Config.auth_token())
+    |> with_account_sid(config.account)
+    |> with_auth_token(config.token)
   end
 
   @doc """

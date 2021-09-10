@@ -46,6 +46,8 @@ defmodule ExTwilio.Api do
   """
   @spec find(atom, String.t() | nil, list) :: Parser.success() | Parser.error()
   def find(module, sid, options \\ []) do
+    options = Keyword.update(options, :config, Config.new(), & &1)
+
     module
     |> Url.build_url(sid, options)
     |> Api.get!(auth_header(options))
@@ -66,6 +68,7 @@ defmodule ExTwilio.Api do
   """
   @spec create(atom, data, list) :: Parser.success() | Parser.error()
   def create(module, data, options \\ []) do
+    options = Keyword.update(options, :config, Config.new(), & &1)
     data = format_data(data)
 
     module
@@ -95,6 +98,7 @@ defmodule ExTwilio.Api do
   def update(module, %{sid: sid}, data, options), do: do_update(module, sid, data, options)
 
   defp do_update(module, sid, data, options) do
+    options = Keyword.update(options, :config, Config.new(), & &1)
     data = format_data(data)
 
     module
@@ -121,6 +125,8 @@ defmodule ExTwilio.Api do
   def destroy(module, %{sid: sid}, options), do: do_destroy(module, sid, options)
 
   defp do_destroy(module, sid, options) do
+    options = Keyword.update(options, :config, Config.new(), & &1)
+
     module
     |> Url.build_url(sid, options)
     |> Api.delete!(auth_header(options))
@@ -140,7 +146,11 @@ defmodule ExTwilio.Api do
   """
   @spec auth_header(options :: list) :: list
   def auth_header(options \\ []) do
-    auth_header([], {options[:account], options[:token]})
+    config = options[:config] || Config.new()
+    account = options[:account] || config.account
+    token = options[:token] || config.token
+
+    auth_header([], {account, token})
   end
 
   @doc """
@@ -193,12 +203,14 @@ defmodule ExTwilio.Api do
   ###
 
   def process_request_headers(headers \\ []) do
+    config = Config.new()
+
     headers
     |> Keyword.put(:"Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
-    |> auth_header({Config.account_sid(), Config.auth_token()})
+    |> auth_header({config.account, config.token})
   end
 
   def process_request_options(options) do
-    Keyword.merge(options, Config.request_options())
+    Keyword.merge(options, Config.Env.request_options())
   end
 end

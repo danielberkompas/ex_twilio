@@ -31,6 +31,8 @@ defmodule ExTwilio.ResultStream do
       ExTwilio.ResultStream.new(ExTwilio.Call)
   """
   def new(module, options \\ []) do
+    options = Keyword.update(options, :config, Config.new(), & &1)
+
     url = UrlGenerator.build_url(module, nil, options)
 
     Stream.resource(fn -> {url, module, options} end, &process_page/1, fn _ -> nil end)
@@ -53,5 +55,5 @@ defmodule ExTwilio.ResultStream do
   end
 
   defp next_page_url(nil), do: nil
-  defp next_page_url(uri), do: "https://#{Config.api_domain()}" <> uri
+  defp next_page_url(uri), do: Config.new().urls.api <> uri
 end
