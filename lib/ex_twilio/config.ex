@@ -158,5 +158,5 @@ defmodule ExTwilio.Config do
     do: opts[:video] || build_url(opts[:domain], "video", "v1") || Env.video_url()
 
   defp build_url(nil, _subdomain, _version), do: nil
-  defp build_url(domain, subdomain, version), do: "htpps://#{subdomain}.#{domain}/#{version}"
+  defp build_url(domain, subdomain, version), do: "https://#{subdomain}.#{domain}/#{version}"
 end
