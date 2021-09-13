@@ -45,6 +45,7 @@ defmodule ExTwilio.UrlGenerator do
     {url, options} =
       case Module.split(module) do
         ["ExTwilio", "TaskRouter" | _] ->
+          options = add_workspace_to_options(module, options)
           url = add_segments(config.urls.task_router, module, id, options)
           {url, options}
 
@@ -70,6 +71,8 @@ defmodule ExTwilio.UrlGenerator do
           {url, options}
 
         _ ->
+          # Add Account SID segment if not already present
+          options = add_account_to_options(module, options)
           url =
             add_segments("#{config.urls.api}/#{config.api_version}", module, id, options) <>
               ".json"
@@ -151,8 +154,24 @@ defmodule ExTwilio.UrlGenerator do
     |> Macro.underscore()
   end
 
+  @spec add_account_to_options(atom, list) :: list
+  defp add_account_to_options(module, options)
+
+  defp add_account_to_options(module, options) do
+    if module == ExTwilio.Account and options[:account] == nil do
+      options
+    else
+      Keyword.put_new(options, :account, Config.new().account)
+    end
+  end
+
   defp add_flow_to_options(_module, options) do
     Keyword.put_new(options, :flow, Keyword.get(options, :flow_sid))
+  end
+
+  @spec add_workspace_to_options(atom, list) :: list
+  defp add_workspace_to_options(_module, options) do
+    Keyword.put_new(options, :workspace, Config.new().workspace)
   end
 
   @spec normalize_parents(list) :: list
