@@ -9,6 +9,8 @@ defmodule ExTwilio.Config do
   The config can be used to allow ExTwilio to be used in tests too.
   You're able to provide an specific url for any Twilio API subdomain.
   You're also able to provide a different domain to build the proper subdomains urls.
+
+  The Confi
   """
   defstruct account: nil, api_version: nil, token: nil, workspace: nil, urls: %{}
 
@@ -81,9 +83,25 @@ defmodule ExTwilio.Config do
         ]
   @doc """
   It generates a new config struct to be used with ExTwilio functions.
-  If no options are provided it gonna fallback to the Application env configuration behavior
-  present in `ExTwilio.Config.Env`.
   Available options are `t:ExTwilio.Config.config_opts/0`.
+
+  If no options are provided it gonna fallback to the Application config.
+  Available Application env are:
+  - account_sid
+  - workspace_sid
+  - auth_token
+  - api_domain
+  - protocol
+  - request_options
+  - api_version
+  - fax_url
+  - task_router_url
+  - task_router_websocket_base_url
+  - programmable_chat_url
+  - notify_url
+  - studio_url
+  - video_url
+  - domain
   """
   @spec new(config_opts()) :: t()
   def new(opts \\ []) do

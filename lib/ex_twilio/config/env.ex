@@ -1,11 +1,5 @@
 defmodule ExTwilio.Config.Env do
-  @moduledoc """
-  This module is to use the configuration based on Application Env, kept as it is for backward compatibility if you're not using Config struct.
-  Stores configuration variables used to communicate with Twilio's API.
-
-  All settings also accept `{:system, "ENV_VAR_NAME"}` to read their
-  values from environment variables at runtime.
-  """
+  @moduledoc false
 
   @doc """
   Returns the Twilio Account SID. Set it in `mix.exs`:
