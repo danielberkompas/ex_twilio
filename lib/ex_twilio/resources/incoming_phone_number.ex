@@ -35,7 +35,8 @@ defmodule ExTwilio.IncomingPhoneNumber do
             voice_method: nil,
             voice_url: nil,
             emergency_status: nil,
-            emergency_address_sid: nil
+            emergency_address_sid: nil,
+            emergency_address_status: nil
 
   use ExTwilio.Resource,
     import: [
