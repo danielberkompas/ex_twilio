@@ -57,7 +57,7 @@ defmodule ExTwilio.Mixfile do
       licenses: ["MIT"],
       links: %{
         "Changelog" => "https://hexdocs.pm/ex_twilio/changelog.html",
-        "Github" => @source_url
+        "GitHub" => @source_url
       }
     ]
   end

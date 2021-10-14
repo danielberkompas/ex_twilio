@@ -151,7 +151,7 @@ Twilio's Lookup Rest API:
 Twilio's TaskRouter API:
 
 - [Overview](https://www.twilio.com/docs/api/taskrouter/rest-api)
-- [Activites](https://www.twilio.com/docs/api/taskrouter/activities)
+- [Activities](https://www.twilio.com/docs/api/taskrouter/activities)
 - [Events](https://www.twilio.com/docs/api/taskrouter/events)
 - [Task Channels](https://www.twilio.com/docs/api/taskrouter/rest-api-task-channel)
 - [Tasks](https://www.twilio.com/docs/api/taskrouter/tasks)
