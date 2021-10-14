@@ -184,7 +184,7 @@ defmodule ExTwilio.Capability do
   @doc """
   Generates a JWT token based on the requested capabilities
   that can be provided to the Twilio client. Supports clients
-  with multiple capabilties.
+  with multiple capabilities.
 
   - [Multiple capability docs](https://www.twilio.com/docs/api/client/capability-tokens#multiple-capabilities)
 

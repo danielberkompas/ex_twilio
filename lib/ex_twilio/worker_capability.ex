@@ -40,7 +40,7 @@ defmodule ExTwilio.WorkerCapability do
 
   @doc """
   Initialises a new capability specification with a TTL of one hour,
-  and the accound sid and auth token taken from the configuration.
+  and the account sid and auth token taken from the configuration.
 
   ## Examples
 

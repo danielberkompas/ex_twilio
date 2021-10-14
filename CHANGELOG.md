@@ -100,7 +100,7 @@
 **Merged pull requests:**
 
 - Upgrade to Joken 2.0 [\#114](https://github.com/danielberkompas/ex_twilio/pull/114) ([lewisf](https://github.com/lewisf))
-- fixing wrong resource\_collection\_name in ExTwilio.Memeber resource [\#112](https://github.com/danielberkompas/ex_twilio/pull/112) ([mjaric](https://github.com/mjaric))
+- fixing wrong resource\_collection\_name in ExTwilio.Member resource [\#112](https://github.com/danielberkompas/ex_twilio/pull/112) ([mjaric](https://github.com/mjaric))
 - add protocol option for testing [\#110](https://github.com/danielberkompas/ex_twilio/pull/110) ([BenMorganIO](https://github.com/BenMorganIO))
 - Create Notify resource [\#105](https://github.com/danielberkompas/ex_twilio/pull/105) ([MortadaAK](https://github.com/MortadaAK))
 - Add docs around sending an SMS message. [\#104](https://github.com/danielberkompas/ex_twilio/pull/104) ([pdgonzalez872](https://github.com/pdgonzalez872))
@@ -188,7 +188,7 @@
 
 **Closed issues:**
 
-- Configure accound\_sid and auth\_token in run time [\#65](https://github.com/danielberkompas/ex_twilio/issues/65)
+- Configure account\_sid and auth\_token in run time [\#65](https://github.com/danielberkompas/ex_twilio/issues/65)
 - protocol String.Chars not implemented for %{"mms" =\> false, "sms" =\> false, "voice" =\> true} [\#57](https://github.com/danielberkompas/ex_twilio/issues/57)
 - problem with lib [\#52](https://github.com/danielberkompas/ex_twilio/issues/52)
 - Notifications API url broken [\#46](https://github.com/danielberkompas/ex_twilio/issues/46)

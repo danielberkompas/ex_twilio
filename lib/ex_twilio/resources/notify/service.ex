@@ -16,14 +16,14 @@ defmodule ExTwilio.Notify.Service do
   Messenger Bindings. It has to match the Page ID you configured when you
   [enabled Facebook Messaging](https://www.twilio.com/console/sms/settings) on your account.
   - default_apn_notification_protocol_version The version of the protocol to be
-  used for sending APNS notifications. Can be overriden on a Binding by Binding basis when creating a `ExTwilio.Notify.Bindings` resource.
+  used for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a `ExTwilio.Notify.Bindings` resource.
   - default_gcm_notification_protocol_version The version of the protocol to be
-  used for sending GCM notifications. Can be overriden on a Binding by Binding
+  used for sending GCM notifications. Can be overridden on a Binding by Binding
   basis when creating a `ExTwilio.Notify.Bindings` resource.
   - fcm_credential_sid The SID of the `ExTwilio.Notify.Credential` to be used
   for FCM Bindings.
   - default_fcm_notification_protocol_version The version of the protocol to be
-  used for sending FCM notifications. Can be overriden on a Binding by Binding
+  used for sending FCM notifications. Can be overridden on a Binding by Binding
   basis when creating a `ExTwilio.Notify.Credential` resource.
   - log_enabled The log_enabled
   - alexa_skill_id The alexa_skill_id
