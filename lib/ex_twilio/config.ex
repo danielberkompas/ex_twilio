@@ -67,6 +67,8 @@ defmodule ExTwilio.Config do
 
   def studio_url, do: "https://studio.twilio.com/v1"
 
+  def verify_url, do: "https://verify.twilio.com/v2"
+
   def video_url, do: "https://video.twilio.com/v1"
 
   @doc """
