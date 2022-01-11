@@ -186,6 +186,11 @@ Twilio Access Token Grants:
 - [Voice](https://www.twilio.com/docs/iam/access-tokens)
 - [Video](https://www.twilio.com/docs/video/tutorials/user-identity-access-tokens#about-access-tokens)
 
+Twilio Verify API:
+- [Services](https://www.twilio.com/docs/verify/api/service)
+- [Verifications](https://www.twilio.com/docs/verify/api/verification)
+- [Verification Check](https://www.twilio.com/docs/verify/api/verification-check)
+
 ### Example
 
 ```elixir
