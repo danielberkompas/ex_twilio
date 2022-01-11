@@ -72,6 +72,11 @@ defmodule ExTwilio.UrlGenerator do
           url = add_segments(Config.video_url(), module, id, options)
           {url, options}
 
+        ["ExTwilio", "Proxy" | _] ->
+          options = add_proxy_service_to_options(module, options)
+          url = add_segments(Config.proxy_url(), module, id, options)
+          {url, options}
+
         _ ->
           # Add Account SID segment if not already present
           options = add_account_to_options(module, options)
@@ -171,6 +176,11 @@ defmodule ExTwilio.UrlGenerator do
   @spec add_workspace_to_options(atom, list) :: list
   defp add_workspace_to_options(_module, options) do
     Keyword.put_new(options, :workspace, Config.workspace_sid())
+  end
+
+  @spec add_proxy_service_to_options(atom, list) :: list
+  defp add_proxy_service_to_options(_module, options) do
+    Keyword.put_new(options, :service, Config.proxy_service_sid())
   end
 
   @spec normalize_parents(list) :: list
