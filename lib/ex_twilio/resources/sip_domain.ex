@@ -17,6 +17,7 @@ defmodule ExTwilio.SipDomain do
             voice_fallback_method: nil,
             voice_status_callback_url: nil,
             voice_status_callback_method: nil,
+            emergency_caller_sid: nil,
             date_created: nil,
             date_updated: nil,
             uri: nil
