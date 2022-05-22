@@ -128,11 +128,14 @@ defmodule ExTwilio.Api do
   end
 
   @doc """
-  Builds custom auth header for subaccounts.
+  Builds custom auth header for subaccounts or API key-based auth.
 
   ## Examples
     iex> ExTwilio.Api.auth_header([account: 123, token: 123])
     ["Authorization": "Basic MTIzOjEyMw=="]
+
+    iex> ExTwilio.Api.auth_header([api_key: SK1, api_secret: 456])
+    ["Authorization": "Basic RWxpeGlyLlNLMTo0NTY="]
 
     iex> ExTwilio.Api.auth_header([], {nil, 2})
     []
@@ -140,7 +143,13 @@ defmodule ExTwilio.Api do
   """
   @spec auth_header(options :: list) :: list
   def auth_header(options \\ []) do
-    auth_header([], {options[:account], options[:token]})
+    case Keyword.has_key?(options, :api_key) and Keyword.has_key?(options, :api_secret) do
+      true ->
+        auth_header([], {options[:api_key], options[:api_secret]})
+
+      false ->
+        auth_header([], {options[:account], options[:token]})
+    end
   end
 
   @doc """
