@@ -87,6 +87,30 @@ defmodule ExTwilio.ApiTest do
     end)
   end
 
+  test ".auth_header returns no headers by default" do
+    assert [] == Api.auth_header([])
+  end
+
+  test ".auth_header with account and token options generates an account-level HTTP BASIC Authorization header" do
+    account = "AC-testsid"
+    token = "test-account-token"
+    encoded = Base.encode64("#{account}:#{token}")
+    basic_header = "Basic #{encoded}"
+    assert [Authorization: basic_header] == Api.auth_header([account: account, token: token])
+  end
+
+  test ".auth_header with api_key and api_secret options generates an API key-level HTTP BASIC Authorization header" do
+    api_key = "SK-testkey"
+    api_secret = "test-api-secret"
+    encoded = Base.encode64("#{api_key}:#{api_secret}")
+    basic_header = "Basic #{encoded}"
+    assert [Authorization: basic_header] == Api.auth_header([api_key: api_key, api_secret: api_secret])
+  end
+
+  test ".auth_header with an existing Authorization header retains the existing header" do
+    assert [Authorization: "BASIC existing"] == Api.auth_header([Authorization: "BASIC existing"], {"sid", "token"})
+  end
+
   ###
   # HTTPoison API
   ###
