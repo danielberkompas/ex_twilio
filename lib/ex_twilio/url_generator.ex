@@ -64,6 +64,11 @@ defmodule ExTwilio.UrlGenerator do
           url = add_segments(Config.studio_url(), module, id, options)
           {url, options}
 
+        ["ExTwilio", "Verify" | _] ->
+          url = add_segments(Config.verify_url(), module, id, options)
+          {url, options}
+
+
         ["ExTwilio", "Video" | _] ->
           url = add_segments(Config.video_url(), module, id, options)
           {url, options}

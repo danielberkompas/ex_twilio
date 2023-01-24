@@ -1,5 +1,4 @@
-ExTwilio
-========
+# ExTwilio
 
 [![Hex.pm](https://img.shields.io/hexpm/v/ex_twilio.svg)](https://hex.pm/packages/ex_twilio)
 [![Build Status](https://danielberkompas.semaphoreci.com/badges/ex_twilio/branches/master.svg?style=shields)](https://danielberkompas.semaphoreci.com/projects/ex_twilio)
@@ -35,7 +34,6 @@ end
 ```
 
 and run `mix deps.get`.
-
 
 If using Elixir 1.3 or lower add `:ex_twilio` as a application dependency:
 
@@ -75,6 +73,7 @@ Then, just be sure to run `source .env` in your shell before compiling your
 project.
 
 ### Multiple Environments
+
 If you want to use different Twilio credentials for different environments, then
 create separate Mix configuration files for each environment. To do this, change
 `config/config.exs` to look like this:
@@ -100,7 +99,7 @@ on what the underlying API supports, a resource module may have the following
 methods:
 
 | Method      | Description                                                       |
-|-------------|-------------------------------------------------------------------|
+| ----------- | ----------------------------------------------------------------- |
 | **all**     | Eager load all of the resource items on all pages. Use with care! |
 | **stream**  | Create a Stream of all the items. Use like any Stream.            |
 | **find**    | Find a resource given its SID.                                    |
@@ -118,31 +117,31 @@ ExTwilio currently supports the following Twilio endpoints:
 
 - [Account](https://www.twilio.com/docs/api/2010-04-01/rest/account). Including SubAccounts.
 - [Address](https://www.twilio.com/docs/api/2010-04-01/rest/addresses)
-    - [DependentPhoneNumber](https://www.twilio.com/docs/api/2010-04-01/rest/addresses#instance-subresources)
+  - [DependentPhoneNumber](https://www.twilio.com/docs/api/2010-04-01/rest/addresses#instance-subresources)
 - [Application](https://www.twilio.com/docs/api/2010-04-01/rest/applications)
 - [AuthorizedConnectApp](https://www.twilio.com/docs/api/2010-04-01/rest/authorized-connect-apps)
 - [AvailablePhoneNumber](https://www.twilio.com/docs/api/2010-04-01/rest/available-phone-numbers)
 - [Call](https://www.twilio.com/docs/api/2010-04-01/rest/call)
-    - [Feedback](https://www.twilio.com/docs/api/2010-04-01/rest/call-feedback)
+  - [Feedback](https://www.twilio.com/docs/api/2010-04-01/rest/call-feedback)
 - [Conference](https://www.twilio.com/docs/api/2010-04-01/rest/conference)
-    - [Participant](https://www.twilio.com/docs/api/2010-04-01/rest/participant)
+  - [Participant](https://www.twilio.com/docs/api/2010-04-01/rest/participant)
 - [ConnectApp](https://www.twilio.com/docs/api/2010-04-01/rest/connect-apps)
 - [IncomingPhoneNumber](https://www.twilio.com/docs/api/2010-04-01/rest/incoming-phone-numbers)
 - [Message](https://www.twilio.com/docs/api/2010-04-01/rest/message)
-    - [Media](https://www.twilio.com/docs/api/2010-04-01/rest/media)
+  - [Media](https://www.twilio.com/docs/api/2010-04-01/rest/media)
 - [Notification](https://www.twilio.com/docs/api/notifications/rest)
 - [OutgoingCallerId](https://www.twilio.com/docs/api/2010-04-01/rest/outgoing-caller-ids)
 - [Queue](https://www.twilio.com/docs/api/2010-04-01/rest/queue)
-    - [Member](https://www.twilio.com/docs/api/2010-04-01/rest/member)
+  - [Member](https://www.twilio.com/docs/api/2010-04-01/rest/member)
 - [Recording](https://www.twilio.com/docs/api/2010-04-01/rest/recording)
 - [ShortCode](https://www.twilio.com/docs/api/2010-04-01/rest/short-codes)
 - [Token](https://www.twilio.com/docs/api/2010-04-01/rest/token)
 - [Transcription](https://www.twilio.com/docs/api/2010-04-01/rest/transcription)
 - [SipCredentialList](https://www.twilio.com/docs/api/2010-04-01/rest/credential-list)
-    - [SipCredential](https://www.twilio.com/docs/api/rest/credential-list#subresources)
+  - [SipCredential](https://www.twilio.com/docs/api/rest/credential-list#subresources)
 - [SipDomain](https://www.twilio.com/docs/api/2010-04-01/rest/domain)
 - [SipIPAccessControlList](https://www.twilio.com/docs/api/2010-04-01/rest/ip-access-control-list)
-    - [SipIpAddress](https://www.twilio.com/docs/api/rest/ip-access-control-list#subresources)
+  - [SipIpAddress](https://www.twilio.com/docs/api/rest/ip-access-control-list#subresources)
 
 Twilio's Lookup Rest API:
 
@@ -155,16 +154,16 @@ Twilio's TaskRouter API:
 - [Events](https://www.twilio.com/docs/api/taskrouter/events)
 - [Task Channels](https://www.twilio.com/docs/api/taskrouter/rest-api-task-channel)
 - [Tasks](https://www.twilio.com/docs/api/taskrouter/tasks)
-    - [Reservations](https://www.twilio.com/docs/api/taskrouter/reservations)
+  - [Reservations](https://www.twilio.com/docs/api/taskrouter/reservations)
 - [TaskQueues](https://www.twilio.com/docs/api/taskrouter/taskqueues)
-    - [Statistics](https://www.twilio.com/docs/api/taskrouter/taskqueue-statistics)
+  - [Statistics](https://www.twilio.com/docs/api/taskrouter/taskqueue-statistics)
 - [Workers](https://www.twilio.com/docs/api/taskrouter/workers)
-    - [Channels](https://www.twilio.com/docs/api/taskrouter/rest-api-workerchannel)
-    - [Statistics](https://www.twilio.com/docs/api/taskrouter/worker-statistics)
+  - [Channels](https://www.twilio.com/docs/api/taskrouter/rest-api-workerchannel)
+  - [Statistics](https://www.twilio.com/docs/api/taskrouter/worker-statistics)
 - [Workflows](https://www.twilio.com/docs/api/taskrouter/workflows)
-    - [Statistics](https://www.twilio.com/docs/api/taskrouter/workflow-statistics)
+  - [Statistics](https://www.twilio.com/docs/api/taskrouter/workflow-statistics)
 - [Workspaces](https://www.twilio.com/docs/api/taskrouter/workspaces)
-    - [Statistics](https://www.twilio.com/docs/api/taskrouter/workspace-statistics)
+  - [Statistics](https://www.twilio.com/docs/api/taskrouter/workspace-statistics)
 
 Twilio's ProgrammableChat API:
 
@@ -178,13 +177,21 @@ Twilio's ProgrammableChat API:
 - [Credentials](https://www.twilio.com/docs/api/chat/rest/credentials)
 
 Twilio Capability Tokens:
+
 - [Worker](https://www.twilio.com/docs/api/taskrouter/worker-js)
 - [Calling](https://www.twilio.com/docs/api/client/capability-tokens) (Deprecated, use Access Token instead)
 
 Twilio Access Token Grants:
+
 - [Chat](https://www.twilio.com/docs/chat/identity)
 - [Voice](https://www.twilio.com/docs/iam/access-tokens)
 - [Video](https://www.twilio.com/docs/video/tutorials/user-identity-access-tokens#about-access-tokens)
+
+Twilio Verify API:
+
+- [Services](https://www.twilio.com/docs/verify/api/service)
+- [Verifications](https://www.twilio.com/docs/verify/api/verification)
+- [Verification Check](https://www.twilio.com/docs/verify/api/verification-check)
 
 ### Example
 
@@ -244,7 +251,6 @@ For more in-depth documentation, see the generated docs for each module.
 
 See the [CALLING_TUTORIAL.md](CALLING_TUTORIAL.md) file for instructions on
 making and receiving calls from the browser with ExTwilio.
-
 
 ### Sending SMS messages
 
