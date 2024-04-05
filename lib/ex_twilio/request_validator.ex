@@ -7,7 +7,7 @@ defmodule ExTwilio.RequestValidator do
 
   alias ExTwilio.Config
 
-  use Bitwise
+  import Bitwise
 
   def valid?(url, params, signature) do
     valid?(url, params, signature, Config.auth_token())

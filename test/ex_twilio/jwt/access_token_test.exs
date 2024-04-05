@@ -71,7 +71,7 @@ defmodule ExTwilio.JWT.AccessTokenTest do
     end
 
     test "validates binary keys" do
-      for invalid <- [123, 'sid', nil, false],
+      for invalid <- [123, ~c"sid", nil, false],
           field <- [:account_sid, :api_key, :api_secret, :identity] do
         assert_raise ArgumentError, fn ->
           [{field, invalid}]

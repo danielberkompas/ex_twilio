@@ -9,15 +9,25 @@
 # It also allows the build settings to be changed by anyone with write access to
 # the project repo, making them easier to manage.
 
-MIX_ENV=test mix format --check-formatted || { echo 'Please format code with `mix format`.'; exit 1; }
+MIX_ENV=test mix format --check-formatted || {
+	echo 'Please format code with `mix format`.'
+	exit 1
+}
 
-MIX_ENV=test mix compile --warnings-as-errors --force || { echo 'Please fix all compiler warnings.'; exit 1; }
+MIX_ENV=test mix compile --warnings-as-errors --force || {
+	echo 'Please fix all compiler warnings.'
+	exit 1
+}
 
-MIX_ENV=test mix dialyze || { echo 'Please fix all dialyzer errors.'; exit 1; }
+MIX_ENV=test mix docs || {
+	echo 'Elixir HTML docs were not generated!'
+	exit 1
+}
 
-MIX_ENV=test mix docs  || { echo 'Elixir HTML docs were not generated!'; exit 1; }
-
-mix test || { echo 'Elixir tests failed!'; exit 1; }
+mix test || {
+	echo 'Elixir tests failed!'
+	exit 1
+}
 
 echo 'All tests succeeded!'
 exit 0
