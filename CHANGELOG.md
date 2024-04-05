@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.10.0](https://github.com/danielberkompas/ex_twilio/tree/0.10.0) (2024-04-05)
+
+[Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.9.1...0.10.0)
+
+**Closed issues:**
+
+- Add support for Proxy API [\#162](https://github.com/danielberkompas/ex_twilio/issues/162)
+- http client adapter/behavior [\#161](https://github.com/danielberkompas/ex_twilio/issues/161)
+- Allow configurable urls. [\#160](https://github.com/danielberkompas/ex_twilio/issues/160)
+
+**Merged pull requests:**
+
+- Fix deprecation warnings on modern Elixir [\#181](https://github.com/danielberkompas/ex_twilio/pull/181) ([danielberkompas](https://github.com/danielberkompas))
+- Misc doc changes [\#145](https://github.com/danielberkompas/ex_twilio/pull/145) ([kianmeng](https://github.com/kianmeng))
+
 ## [v0.9.1](https://github.com/danielberkompas/ex_twilio/tree/v0.9.1) (2021-06-05)
 
 [Full Changelog](https://github.com/danielberkompas/ex_twilio/compare/v0.9.0...v0.9.1)
@@ -40,7 +55,7 @@
 - Add :enabled option to config [\#138](https://github.com/danielberkompas/ex_twilio/issues/138)
 - Where is the documentation for making the webhook receive incoming SMS messages? [\#135](https://github.com/danielberkompas/ex_twilio/issues/135)
 - RequestValidator returns false, even when the strings both match [\#133](https://github.com/danielberkompas/ex_twilio/issues/133)
-- leaking `{ssl\_closed, \_}` messages from httpoison/hackney [\#132](https://github.com/danielberkompas/ex_twilio/issues/132)
+- leaking `{ssl_closed, _}` messages from httpoison/hackney [\#132](https://github.com/danielberkompas/ex_twilio/issues/132)
 - Thank you for building this! [\#130](https://github.com/danielberkompas/ex_twilio/issues/130)
 - Support for multiple accounts [\#126](https://github.com/danielberkompas/ex_twilio/issues/126)
 - Config question with 1.9 coming - this is not an issue, just a question. [\#118](https://github.com/danielberkompas/ex_twilio/issues/118)
@@ -89,7 +104,7 @@
 **Closed issues:**
 
 - Upgrade to Joken 2.0.0 [\#113](https://github.com/danielberkompas/ex_twilio/issues/113)
-- `ExTwilio.Member.all queue: queue\_sid` fails to parse correct response [\#111](https://github.com/danielberkompas/ex_twilio/issues/111)
+- `ExTwilio.Member.all queue: queue_sid` fails to parse correct response [\#111](https://github.com/danielberkompas/ex_twilio/issues/111)
 - Bypass with ExTwilio [\#109](https://github.com/danielberkompas/ex_twilio/issues/109)
 - Message.create\(\) works in v0.6.0 and broken in v0.6.1 [\#107](https://github.com/danielberkompas/ex_twilio/issues/107)
 - Requesting a release [\#106](https://github.com/danielberkompas/ex_twilio/issues/106)

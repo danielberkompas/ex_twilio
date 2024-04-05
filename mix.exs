@@ -2,7 +2,7 @@ defmodule ExTwilio.Mixfile do
   use Mix.Project
 
   @source_url "https://github.com/danielberkompas/ex_twilio"
-  @version "0.9.1"
+  @version "0.10.0"
 
   def project do
     [
