@@ -53,7 +53,7 @@ You will need to set the following configuration variables in your
 `config/config.exs` file:
 
 ```elixir
-use Mix.Config
+import Config
 
 config :ex_twilio, account_sid:   {:system, "TWILIO_ACCOUNT_SID"},
                    auth_token:    {:system, "TWILIO_AUTH_TOKEN"},
@@ -82,7 +82,7 @@ create separate Mix configuration files for each environment. To do this, change
 ```elixir
 # config/config.exs
 
-use Mix.Config
+import Config
 
 # shared configuration for all environments here ...
 
