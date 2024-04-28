@@ -32,6 +32,7 @@ defmodule ExTwilio.Message do
             price_unit: nil,
             api_version: nil,
             uri: nil,
+            media_url: nil,
             subresource_uri: nil,
             messaging_service_sid: nil
 
