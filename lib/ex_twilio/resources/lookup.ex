@@ -21,7 +21,7 @@ defmodule ExTwilio.Lookup do
   end
 
   @doc """
-  Retrieves information based on the inputed phone number. Supports Twilio's add-ons.
+  Retrieves information based on the inputted phone number. Supports Twilio's add-ons.
 
   ## Examples
 
