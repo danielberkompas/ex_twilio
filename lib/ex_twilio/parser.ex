@@ -40,7 +40,7 @@ defmodule ExTwilio.Parser do
       ...> ExTwilio.Parser.parse(response, %{})
       {:ok, %{"sid" => "AD34123"}}
   """
-  @spec parse(HTTPoison.Response.t(), module) :: success | error
+  @spec parse(HTTPoison.Response.t(), module) :: success | success_delete | error
   def parse(response, map) when is_map(map) and not :erlang.is_map_key(:__struct__, map) do
     handle_errors(response, fn body -> Jason.decode!(body) end)
   end
