@@ -6,12 +6,22 @@ defmodule ExTwilio.Recording do
   """
 
   defstruct sid: nil,
+            account_sid: nil,
+            api_version: nil,
+            call_sid: nil,
+            conference_sid: nil,
+            channels: nil,
             date_created: nil,
             date_updated: nil,
-            account_sid: nil,
-            call_sid: nil,
             duration: nil,
-            api_version: nil,
+            start_time: nil,
+            price: nil,
+            price_unit: nil,
+            source: nil,
+            status: nil,
+            error_code: nil,
+            encryption_details: nil,
+            track: nil,
             uri: nil
 
   use ExTwilio.Resource, import: [:stream, :all, :find, :destroy]
