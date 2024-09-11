@@ -39,7 +39,7 @@ defmodule ExTwilio.ResultStream do
   @spec fetch_page(url, module, options :: list) :: {list, {url, module, options :: list}}
   defp fetch_page(url, module, options) do
     results = Api.get!(url, Api.auth_header(options))
-    {:ok, items, meta} = Parser.parse_list(results, module, module.resource_collection_name)
+    {:ok, items, meta} = Parser.parse_list(results, module, module.resource_collection_name())
     {items, {next_page_url(meta["next_page_uri"]), module, options}}
   end
 

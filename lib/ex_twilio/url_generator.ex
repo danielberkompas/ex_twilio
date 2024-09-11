@@ -85,13 +85,13 @@ defmodule ExTwilio.UrlGenerator do
 
   defp add_segments(url, module, id, options) do
     # Append parents
-    url = url <> build_segments(:parent, normalize_parents(module.parents), options)
+    url = url <> build_segments(:parent, normalize_parents(module.parents()), options)
 
     # Append module segment
-    url = url <> segment(:main, {module.resource_name, id})
+    url = url <> segment(:main, {module.resource_name(), id})
 
     # Append any child segments
-    url <> build_segments(:child, module.children, options)
+    url <> build_segments(:child, module.children(), options)
   end
 
   @doc """
@@ -145,7 +145,7 @@ defmodule ExTwilio.UrlGenerator do
   @spec resource_collection_name(atom) :: String.t()
   def resource_collection_name(module) do
     module
-    |> resource_name
+    |> resource_name()
     |> Macro.underscore()
   end
 
@@ -184,10 +184,10 @@ defmodule ExTwilio.UrlGenerator do
   @spec build_query(atom, list) :: String.t()
   defp build_query(module, options) do
     special =
-      module.parents
+      module.parents()
       |> normalize_parents()
       |> Enum.map(fn parent -> parent.key end)
-      |> Enum.concat(module.children)
+      |> Enum.concat(module.children())
       |> Enum.concat([:token])
 
     query =
@@ -217,7 +217,7 @@ defmodule ExTwilio.UrlGenerator do
   defp segment(:main, {key, value}), do: "/#{inflect(key)}/#{value}"
 
   defp segment(:parent, {%ExTwilio.Parent{module: module, key: _key}, value}) do
-    "/#{module.resource_name}/#{value}"
+    "/#{module.resource_name()}/#{value}"
   end
 
   @spec inflect(String.t() | atom) :: String.t()
