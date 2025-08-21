@@ -15,11 +15,16 @@ defmodule ExTwilio.RequestValidator do
 
   def valid?(url, params, signature, auth_token) do
     url
+    |> generate_signature(params, auth_token)
+    |> secure_compare(signature)
+  end
+
+  def generate_signature(url, params, auth_token) do 
+    url
     |> data_for(params)
     |> compute_hmac(auth_token)
     |> Base.encode64()
     |> String.trim()
-    |> secure_compare(signature)
   end
 
   defp data_for(url, params), do: url <> combine(params)
