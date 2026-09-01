@@ -35,6 +35,8 @@ defmodule ExTwilio.Message do
             subresource_uri: nil,
             messaging_service_sid: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource,
     import: [
       :stream,

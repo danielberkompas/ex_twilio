@@ -11,6 +11,8 @@ defmodule ExTwilio.Queue do
             max_size: nil,
             average_wait_time: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource,
     import: [
       :stream,

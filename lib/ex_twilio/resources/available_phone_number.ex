@@ -17,6 +17,8 @@ defmodule ExTwilio.AvailablePhoneNumber do
             capabilities: nil,
             address_requirements: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all]
 
   def parents, do: [:account]

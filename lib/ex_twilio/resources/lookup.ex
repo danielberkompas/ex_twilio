@@ -18,6 +18,8 @@ defmodule ExTwilio.Lookup do
               phone_number: nil,
               country_code: nil,
               add_ons: nil
+
+    @type t() :: %__MODULE__{}
   end
 
   @doc """

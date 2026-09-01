@@ -13,6 +13,8 @@ defmodule ExTwilio.Token do
             date_created: nil,
             date_updated: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all, :create]
 
   def parents, do: [:account]

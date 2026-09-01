@@ -19,6 +19,8 @@ defmodule ExTwilio.ProgrammableChat.User do
             joined_channels_count: nil,
             url: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource,
     import: [
       :stream,

@@ -17,6 +17,8 @@ defmodule ExTwilio.TaskRouter.Reservation do
             url: nil,
             links: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all, :find, :update]
 
   def parents,

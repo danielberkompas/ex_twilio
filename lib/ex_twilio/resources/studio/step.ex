@@ -19,6 +19,8 @@ defmodule ExTwilio.Studio.Step do
     :url
   ]
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all, :find]
 
   def parents do

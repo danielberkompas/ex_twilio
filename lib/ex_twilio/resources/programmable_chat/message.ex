@@ -18,6 +18,8 @@ defmodule ExTwilio.ProgrammableChat.Message do
             index: nil,
             url: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource,
     import: [
       :stream,

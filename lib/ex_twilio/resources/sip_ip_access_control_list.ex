@@ -12,6 +12,8 @@ defmodule ExTwilio.SipIpAccessControlList do
             date_updated: nil,
             uri: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource,
     import: [
       :stream,

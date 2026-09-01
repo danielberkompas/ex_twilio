@@ -23,6 +23,8 @@ defmodule ExTwilio.DependentPhoneNumber do
             postal_code: nil,
             iso_country: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all]
 
   def parents, do: [:account, :address]

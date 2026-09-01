@@ -49,6 +49,8 @@ defmodule ExTwilio.Notify.Service do
             alexa_skill_id: nil,
             default_alexa_notification_protocol_version: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource,
     import: [
       :stream,

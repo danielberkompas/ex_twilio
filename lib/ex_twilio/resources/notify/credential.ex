@@ -29,6 +29,8 @@ defmodule ExTwilio.Notify.Credential do
             date_updated: nil,
             url: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource,
     import: [
       :stream,

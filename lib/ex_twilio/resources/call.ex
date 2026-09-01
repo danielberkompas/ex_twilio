@@ -24,6 +24,8 @@ defmodule ExTwilio.Call do
             caller_name: nil,
             uri: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource,
     import: [
       :stream,

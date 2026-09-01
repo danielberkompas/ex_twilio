@@ -28,6 +28,8 @@ defmodule ExTwilio.Participant do
             hold: nil,
             status: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all, :find, :update, :create, :destroy]
 
   def parents, do: [:account, :conference]

@@ -37,6 +37,8 @@ defmodule ExTwilio.IncomingPhoneNumber do
             emergency_status: nil,
             emergency_address_sid: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource,
     import: [
       :stream,

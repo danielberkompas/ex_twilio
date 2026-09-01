@@ -25,6 +25,8 @@ defmodule ExTwilio.ProgrammableChat.Service do
             url: nil,
             links: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource,
     import: [
       :stream,

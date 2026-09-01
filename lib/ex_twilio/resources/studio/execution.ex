@@ -18,6 +18,8 @@ defmodule ExTwilio.Studio.Execution do
     :url
   ]
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all, :find, :create, :delete]
 
   def parents,

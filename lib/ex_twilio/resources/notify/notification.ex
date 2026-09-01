@@ -126,6 +126,8 @@ defmodule ExTwilio.Notify.Notification do
             to_binding: nil,
             identity: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource,
     import: [
       :create

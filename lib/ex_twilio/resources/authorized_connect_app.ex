@@ -16,6 +16,8 @@ defmodule ExTwilio.AuthorizedConnectApp do
             connect_app_homepage_url: nil,
             uri: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all, :find]
 
   def parents, do: [:account]

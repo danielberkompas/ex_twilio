@@ -21,6 +21,8 @@ defmodule ExTwilio.TaskRouter.TaskQueue do
             url: nil,
             links: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all, :find, :create, :update, :delete]
 
   def parents, do: [%ExTwilio.Parent{module: ExTwilio.TaskRouter.Workspace, key: :workspace}]

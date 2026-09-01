@@ -9,4 +9,6 @@ defmodule ExTwilio.Parent do
   """
   defstruct module: nil,
             key: nil
+
+  @type t() :: %__MODULE__{}
 end

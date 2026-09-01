@@ -19,6 +19,8 @@ defmodule ExTwilio.ConnectApp do
             deauthorize_callback_method: nil,
             uri: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all, :find, :create, :update]
 
   def parents, do: [:account]

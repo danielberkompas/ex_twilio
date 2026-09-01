@@ -15,6 +15,8 @@ defmodule ExTwilio.Address do
             postal_code: nil,
             iso_country: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all, :create, :find, :update]
 
   def parents, do: [:account]

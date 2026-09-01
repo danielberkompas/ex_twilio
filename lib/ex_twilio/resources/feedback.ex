@@ -17,6 +17,8 @@ defmodule ExTwilio.Feedback do
   defstruct quality_score: nil,
             issues: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:create]
 
   @doc """

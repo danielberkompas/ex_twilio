@@ -17,6 +17,8 @@ defmodule ExTwilio.ProgrammableChat.Member do
             last_consumption_timestamp: nil,
             url: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource,
     import: [
       :stream,

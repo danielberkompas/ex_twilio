@@ -37,5 +37,7 @@ defmodule ExTwilio.Fax do
             quality: nil,
             duration: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :find, :create]
 end

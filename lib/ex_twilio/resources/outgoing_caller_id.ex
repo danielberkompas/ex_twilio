@@ -15,6 +15,8 @@ defmodule ExTwilio.OutgoingCallerId do
             call_sid: nil,
             uri: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource,
     import: [
       :stream,

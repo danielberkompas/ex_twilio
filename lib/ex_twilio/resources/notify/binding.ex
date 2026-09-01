@@ -39,6 +39,8 @@ defmodule ExTwilio.Notify.Binding do
             url: nil,
             links: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource,
     import: [
       :stream,

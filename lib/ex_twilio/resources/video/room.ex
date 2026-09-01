@@ -25,6 +25,8 @@ defmodule ExTwilio.Video.Room do
     :links
   ]
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource,
     import: [
       :stream,

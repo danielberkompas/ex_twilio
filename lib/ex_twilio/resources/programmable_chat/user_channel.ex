@@ -13,6 +13,8 @@ defmodule ExTwilio.ProgrammableChat.UserChannel do
             channel: nil,
             member: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource,
     import: [
       :stream,

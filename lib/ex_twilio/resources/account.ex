@@ -34,6 +34,8 @@ defmodule ExTwilio.Account do
             uri: nil,
             subresource_uris: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all, :find, :create, :update]
 
   @doc """

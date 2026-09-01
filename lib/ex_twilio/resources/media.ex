@@ -21,6 +21,8 @@ defmodule ExTwilio.Media do
             content_type: nil,
             uri: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all, :find, :destroy]
 
   def resource_name, do: "Media"

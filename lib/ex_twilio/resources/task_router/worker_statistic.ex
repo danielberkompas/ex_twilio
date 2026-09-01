@@ -11,6 +11,8 @@ defmodule ExTwilio.TaskRouter.WorkerStatistic do
             workspace_sid: nil,
             worker_sid: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all, :find]
 
   def parents,

@@ -18,6 +18,8 @@ defmodule ExTwilio.Member do
             wait_time: nil,
             position: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all, :find, :update]
 
   def parents, do: [:account, :queue]

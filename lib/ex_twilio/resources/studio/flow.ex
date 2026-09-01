@@ -17,6 +17,8 @@ defmodule ExTwilio.Studio.Flow do
     :url
   ]
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all, :find, :delete]
 
   def children, do: [:engagements, :executions]

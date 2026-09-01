@@ -21,6 +21,8 @@ defmodule ExTwilio.TaskRouter.Event do
             event_data: nil,
             url: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all, :find]
 
   def parents, do: [%ExTwilio.Parent{module: ExTwilio.TaskRouter.Workspace, key: :workspace}]

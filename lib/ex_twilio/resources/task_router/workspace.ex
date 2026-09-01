@@ -20,6 +20,8 @@ defmodule ExTwilio.TaskRouter.Workspace do
             url: nil,
             links: nil
 
+  @type t() :: %__MODULE__{}
+
   use ExTwilio.Resource, import: [:stream, :all, :find, :create, :update, :delete]
 
   def children, do: [:friendly_name]
